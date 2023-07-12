@@ -110,8 +110,10 @@ const Blogs = ({ darkmode }) => {
                         <div className={blogs.searchBar}>
                             <span className={blogs.bargerRes}> <i onClick={flipDrawer === 0 ? () => setFlipDrawer(50) : () => setFlipDrawer(0)} className=" uil uil-bars ml-2"></i></span>
                             <div className={blogs.searchBarContainer}>
-                                <i className="uil uil-search text-xl "></i>
-                                <input className={blogs.blogs_input} placeholder='search' type="text" />
+                                <div>
+                                    <i className="uil uil-search text-xl "></i>
+                                    <input className={blogs.blogs_input} placeholder='search' type="text" />
+                                </div>
                                 <i class="uil uil-times text-xl cursor-pointer"></i>
                             </div>
 

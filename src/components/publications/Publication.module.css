@@ -85,14 +85,18 @@ font-size: 12px;
 .gallery_input{
   outline: none;
   margin-left: 5px;
+  width: 85%;
 }
 
 .searchBarContainer{
-    width: auto;
+    width: 40%;
     background-color: white;
     padding: 0 5px;
     border-radius: 5px;
     margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
   .events_Main_Title{
@@ -156,6 +160,10 @@ font-size: 12px;
    .pagination{
     width: 100%;
   }
+
+  .gallery_input{
+    width: 60%;
+  }
   }
   
   @media (max-width: 480px) {
@@ -192,4 +200,8 @@ font-size: 12px;
    .pagination{
     width: 100%;
    }
+
+   .gallery_input{
+    width: 60%;
+  }
   }

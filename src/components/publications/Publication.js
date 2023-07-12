@@ -96,8 +96,10 @@ const Publication = () => {
                         <div className={events.searchBar}>
                             <span className={events.bargerRes}> <i onClick={flipDrawer === 0 ? () => setFlipDrawer(50) : () => setFlipDrawer(0)} className=" uil uil-bars ml-2"></i></span>
                             <div className={events.searchBarContainer}>
-                                <i className="uil uil-search text-xl "></i>
-                                <input className={events.gallery_input} placeholder='search' type="text" />
+                                <div>
+                                    <i className="uil uil-search text-xl "></i>
+                                    <input className={events.gallery_input} placeholder='search' type="text" />
+                                </div>
                                 <i class="uil uil-times text-xl cursor-pointer"></i>
                             </div>
 

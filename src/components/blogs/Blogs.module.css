@@ -82,18 +82,24 @@ font-size: 12px;
 
 }
 
-.blogs_input{
-  outline: none;
-  margin-left: 5px;
-}
 
 .searchBarContainer{
-    width: auto;
+    width: 40%;
     background-color: white;
     padding: 0 5px;
     border-radius: 5px;
     margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.blogs_input{
+  outline: none;
+  margin-left: 5px;
+  width: 85%;
+}
+
 
   .blogs_Main_Title{
     width: 100%;
@@ -358,6 +364,12 @@ font-size: 12px;
     display: flex;
     flex-wrap: wrap;
   }
+  
+  .blogs_input{
+    width: 60%;
+  }
+
+ 
   }
   
   @media (max-width: 480px) {
@@ -402,5 +414,9 @@ font-size: 12px;
   .eventInputDateAndDeadline{
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .blogs_input{
+    width: 60%;
   }
   }
