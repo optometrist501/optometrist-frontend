@@ -1,0 +1,168 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    border: 3px solid rgb(0, 195, 255);
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .image {
+    flex: 0 0 33.33%;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 3px solid rgb(0, 195, 255);
+  }
+  
+  .image img {
+    display: block;
+    /* width: 100%; */
+    height: auto;
+    object-fit: cover;
+    transition: .5s ease-in-out;
+    cursor: pointer;
+
+  }
+  
+ .image img:hover{
+    transform: scale(1.3);
+  }
+
+
+
+  .img-title{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    display: none;
+    transition: .5s ease-in-out;
+    transition-delay: 3s;
+    color: white;
+    font-weight: bold;
+  }
+
+
+  .image:hover .img-title{
+    display: block;
+  }
+
+  .gallery-modal-part{
+    position: fixed;
+    z-index: 40;
+    top: 0;
+  }
+
+  .gallery-modal-section{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: relative;
+  }
+
+ .gallery-modal-main{
+    width: 100%;
+   
+ }
+  .gallery-modal{
+    width: 80%;
+    overflow-x: hidden;
+    margin: auto;
+  }
+
+  .gallery-modal-container {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-modal {
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px;
+  }
+  
+
+
+  .gallerySlideController{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 70px ;
+    color: white;
+    position: absolute;
+    top: 50%;
+    bottom: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallerySlideControllerMain{
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.gallerySlideControllerMain span{
+    cursor: pointer;
+}
+
+.uil-times-circle{
+    font-size: 50px;
+    color: white;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    right: 50%;
+    z-index: 50;
+    color: red;
+    cursor: pointer;
+}
+
+  
+
+  
+  
+  @media (max-width: 768px) {
+    .image {
+      flex: 0 0 50%;
+    }
+
+    .gallerySlideController{
+      font-size: 50px 
+    }
+
+    .uil-times-circle{
+      font-size: 40px;
+    }
+
+    .gallery-modal{
+      width: 85%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .image {
+      flex: 0 0 100%;
+    }
+
+    .gallerySlideController{
+      font-size: 40px 
+    }
+
+    .uil-times-circle{
+      font-size: 35px;
+    }
+
+    .gallery-modal{
+      width: 100%;
+    }
+  }
+  

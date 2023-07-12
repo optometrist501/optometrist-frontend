@@ -1,0 +1,80 @@
+.typeWriter{
+    display: flex;
+    align-items: center;
+    height: 20vh;
+    width: 100%;
+}
+
+.typeWriterMain{
+    font-size: 40px;
+    height: 50%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    color: gray;
+    width: 50%;
+    border-right: 3px solid gray;
+}
+
+
+.increasingNumber{
+    width: 50%;
+    border-left: 3px solid gray;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    color: gray;
+}
+
+
+
+.increasingNumberTwo{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    width: 50%;
+}
+.increasingNumberOne{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    width: 50%;
+}
+
+
+@media screen and (max-width: 480px) {
+
+    .typeWriter{
+        flex-wrap: wrap;
+    }
+
+    .typeWriterMain{
+        font-size: 18px;
+        width: 100%;
+        margin-left:25%;
+    }
+
+    .typeWriterMain p {
+        text-align: center;
+    }
+
+
+    .increasingNumberOne{
+        font-size: 14px;
+    }
+    .increasingNumberTwo{
+        font-size: 14px;
+    }
+
+    .typeWriterMain{
+        border-right: none;
+    }
+
+    .increasingNumber{
+        border-left: none;
+        width: 100%;
+    }
+    
+}

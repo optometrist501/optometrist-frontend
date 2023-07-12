@@ -1,0 +1,39 @@
+.navbarTheMain{
+    position: relative;
+    width: 100%;
+    z-index: 10;
+   
+ }
+ 
+ .navbarTheContainer{
+     position: fixed;
+     width: 100%;
+     top: 25px;
+ }
+
+
+ .module_border_wrap{ 
+    padding: 1rem;
+    position: relative;
+    background: linear-gradient(to right, rgb(253, 147, 60), rgb(67, 20, 238),  rgb(127, 213, 253));
+    padding: 5px;
+  }
+  
+  
+
+
+  .module{
+    background: black;
+    width: 100%;
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+  }
+
+ @media screen and (max-width: 480px)  { 
+
+    .navbarTheContainer{
+        top: 41px;
+    }
+   
+ }

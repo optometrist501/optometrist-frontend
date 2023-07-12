@@ -1,0 +1,7 @@
+.backgroundImageSet{
+    background-image: url("../../images/gradiant.png");
+    background-size: cover; 
+    background-position: center;
+    border-top: 1px solid lightgray;
+    opacity: 0.7;
+}

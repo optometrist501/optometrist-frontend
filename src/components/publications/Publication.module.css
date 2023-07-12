@@ -1,0 +1,195 @@
+.eventsMain{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.eventsMainContainer{
+    width: 100%;
+    height: 100%;
+    padding-top: 90px;
+    display: flex;
+    align-items: center;
+    top: 47px;
+    transition: 1s ease-in-out;
+}
+
+.eventsFirstPart{
+    width: 20%;
+    height: 100vh;
+    transition: 1s ease-in-out;
+}
+
+.eventsFirstPartContainer{
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    top: 90px;
+    transition: 1s ease-in-out;
+}
+
+.gallery_title_container{
+    width: 100%;
+
+}
+
+.eventsFirstPartDetail{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(44, 44, 44);
+    font-size: 13px;
+}
+
+.title{
+  color: white;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+
+.eventsSecondPart{
+    width: 80%;
+    height: 100vh;
+}
+
+.bargerRes{
+  display: none;
+}
+
+.eventsSecondPartContainer{
+    width: 100%;
+  position: relative;
+}
+
+
+.searchBar{
+    width: 80%;
+    height: 60px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+    position: fixed;
+    top: 92px;
+    
+}
+
+.totalImg{
+margin-right: 10px;
+font-weight: bold;
+font-size: 12px;
+
+}
+
+.gallery_input{
+  outline: none;
+  margin-left: 5px;
+}
+
+.searchBarContainer{
+    width: auto;
+    background-color: white;
+    padding: 0 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+  .events_Main_Title{
+    width: 100%;
+    color: aqua;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    padding: 14px 0;
+    background-color: rgb(44, 44, 44);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+ 
+
+  .pagination{
+    width: 100%;
+    height: 50px;
+  
+    background-color: lightgray;
+    position: fixed;
+    bottom: 0;
+  }
+
+.pagination{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+  @media (max-width: 768px) {
+   
+    .bargerRes{
+      display: block;
+    }
+    .eventsFirstPart{
+      position: absolute;
+      width: 50%;
+      height: 100vh;
+      z-index: 20;
+      transition: 1s ease-in-out;
+  }
+  .searchBar{
+    margin-top: -4px;
+    width: 100%;
+  }
+
+  .eventsFirstPartContainer{
+    width: 50%;
+    transition: 1s ease-in-out;
+  }
+
+    .eventsSecondPart{
+    width: 100%;
+    height: 100vh;
+   }
+
+   .pagination{
+    width: 100%;
+  }
+  }
+  
+  @media (max-width: 480px) {
+
+
+    .eventsFirstPart{
+      position: absolute;
+      width: 50%;
+      height: 100vh;
+      transition: 1s ease-in-out;
+  }
+  .eventsFirstPartContainer{
+    width:50%;
+    transition: 1s ease-in-out;
+  }
+  .searchBar{
+    margin-top: 10px;
+    width: 100%;
+  }
+  .eventsFirstPartDetail{
+    font-size: 12px;
+  }
+
+    .eventsSecondPart{
+    width: 100%;
+    height: 100vh;
+   }
+
+   .totalImg{
+    font-size: 8px;
+    
+    }
+
+   .pagination{
+    width: 100%;
+   }
+  }

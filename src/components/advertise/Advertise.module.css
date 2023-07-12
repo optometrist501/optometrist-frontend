@@ -1,0 +1,144 @@
+.advertiseMain{
+    width: 100%;
+}
+
+.avertivseContainer{
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.advertiseImg{
+    width: 50%;
+    margin: 20px;
+    position: relative;
+    border-radius: 14px;
+}
+
+.advertiseImg img{
+    border-radius: 10px;
+}
+
+.editButton{
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    display: none;
+}
+
+.advertiseImg:hover .editButton{
+    display: block;
+}
+
+.updateModal{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    
+    overflow-y: scroll;
+    padding: 10px;
+  }
+  
+  .updateModalContainer{
+    margin-top: 110px;
+  }
+  .aboutUsUpdatePart{
+    display: none;
+  }
+
+
+  .aboutMain:hover .aboutUsUpdatePart{
+    display: block;
+  }
+
+
+  .aboutImgSectionMain{
+    width: 90%;
+    height: 300px;
+    border: 2px dashed gray;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .aboutTextEditor{
+    width: 100%;
+  }
+
+  .chooseFileDesign{
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 174, 255);
+    position: relative;
+  }
+
+  .chooseFile{
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 86px;
+    opacity: 0;
+    transform: scale(1.6);
+   
+  }
+
+
+  .updateButton{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  /* for gradiant */
+
+  
+
+  .module_border_wrap{
+    /* max-width: 250px; */
+    padding: 1rem;
+    position: relative;
+    background: linear-gradient(to right, rgb(253, 147, 60), rgb(67, 20, 238),  rgb(127, 213, 253));
+    padding: 5px;
+    border-radius: 14px;
+  }
+
+
+  .module{
+    background: black;
+    color: white;
+    border-radius: 10px;
+  }
+
+  
+
+
+@media screen and (max-width: 768px) {
+    .avertivseContainer{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .advertiseImg{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 480px) {
+    .avertivseContainer{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .advertiseImg{
+        width: 100%;
+    }
+}

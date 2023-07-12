@@ -1,0 +1,443 @@
+.galleryMain{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.galleryMainContainer{
+    width: 100%;
+    height: 100%;
+    padding-top: 90px;
+    display: flex;
+    align-items: center;
+    top: 47px;
+    transition: 1s ease-in-out;
+}
+
+.galleryFirstPart{
+    width: 20%;
+    height: 100vh;
+    background-color: rgb(44, 44, 44);
+    transition: 1s ease-in-out;
+    
+}
+
+.galleryFirstPartContainer{
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    top: 90px;
+}
+
+.gallery_title_container{
+    width: 100%;
+
+}
+
+.galleryFirstPartDetail{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(44, 44, 44);
+    font-size: 13px;
+}
+
+.title{
+  color: white;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+
+.gallerySecondPart{
+    width: 80%;
+    height: 100vh;
+}
+
+.bargerRes{
+  display: none;
+}
+
+.gallerySecondPartContainer{
+    width: 100%;
+  position: relative;
+}
+
+
+.searchBar{
+    width: 80%;
+    height: 60px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 5;
+    position: fixed;
+    top: 92px;
+    
+}
+
+.totalImg{
+margin-right: 10px;
+font-weight: bold;
+font-size: 12px;
+
+}
+
+.gallery_input{
+  outline: none;
+  margin-left: 5px;
+}
+
+.searchBarContainer{
+    width: auto;
+    background-color: white;
+    padding: 0 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+
+
+.gallery {
+    display: flex;
+    padding-top: 60px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: auto;
+    /* border: 3px solid rgb(0, 195, 255); */
+    position: relative;
+    padding-bottom: 50px;
+  }
+
+  .gallery_Main_Title{
+    width: 100%;
+    color: aqua;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    padding: 14px 0;
+    /* background-color: rgb(44, 44, 44); */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .image {
+    flex: 0 0 33.33%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .clickArea{
+    width: 100%;
+    height: 178px;
+    background-color: white;
+    position: absolute;
+    top: 25px;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .image img {
+    display: block;
+    height: auto;
+    object-fit: cover;
+    transition: .5s ease-in-out;
+    cursor: pointer;
+  }
+  
+ .image img:hover{
+    transform: scale(1.3);
+  }
+
+  .editAndDelete{
+    width: 100%;
+    position: absolute;
+    color: white;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 208, 0, 0.3);
+    display: none;
+    margin: auto;
+    cursor: pointer;
+  }
+
+  .image:hover .editAndDelete{
+    display: block;
+  }
+
+
+  .imgTitle{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    left: 50%;
+    right: 50%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    display: none;
+    transition: .5s ease-in-out;
+    transition-delay: 3s;
+    color: white;
+    font-weight: bold;
+  }
+
+
+  .image:hover .imgTitle{
+    display: block;
+  }
+
+  .pagination{
+    width: 100%;
+    height: 50px;
+  
+    background-color: lightgray;
+    position: fixed;
+    bottom: 0;
+  }
+
+.pagination{
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.updateModal{
+  width: 80%;
+  height: 100vh;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  overflow-y: scroll;
+}
+
+.updateModalContainer{
+  margin-top: 110px;
+}
+
+
+/* update and add blogs section */
+
+.eventModalSectionButtons{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.eventUpdatebutton, .addEventsNewButton{
+  width: 150px;
+  height: 30px;
+  background-color: rgb(18, 36, 95);
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ModalSectionContainer{
+  width: 100%;
+  padding: 10px;
+}
+
+
+.eventUpdateLine, .addEventsNewLine{
+  margin-top: 5px;
+  margin-bottom: 15px;
+  width: 150px;
+  height: 4px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.brownColor{
+  background-color: rgb(95, 18, 18);
+}
+
+.eventUpdateModalSection{
+  width: 100%;
+  min-height: 400px ;
+  max-width: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.eventInputTitle{
+  /* margin: auto; */
+  width: 60%;
+}
+.eventInputTitle input{
+  margin-top: 5px;
+  width: 100%;
+  border: 1px solid gray;
+  background: none;
+  outline: none;
+}
+
+.eventInputTitle label, .eventInputDateAndDeadline label, .eventsTextEditorSection label{
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.eventInputDateAndDeadline{
+  width: 60%;
+  /* margin: auto; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eventInputDateAndDeadline input {
+  margin-top: 5px;
+  background: none;
+  outline: none;
+  border: 1px solid gray;
+}
+
+.eventsTextEditorSection{
+  width: 100%;
+  height: auto;
+}
+
+
+.updateEventButton{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.eventsImgSectionMain{
+  width: 100%;
+  height: 300px;
+  border: 2px dashed gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+.chooseFileDesign{
+  width: 150px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(0, 174, 255);
+  position: relative;
+}
+
+.chooseFile{
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 86px;
+  opacity: 0;
+  transform: scale(1.6);
+ 
+}
+
+.eventAddNewModalSection{
+  width: 100%;
+  min-height: 400px ;
+  max-width: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+ 
+  @media (max-width: 768px) {
+    .image {
+      flex: 0 0 50%;
+    }
+    .bargerRes{
+      display: block;
+    }
+    .galleryFirstPart{
+      position: absolute;
+      width: 50%;
+      height: 100vh;
+      z-index: 20;
+      transition: 1s ease-in-out;
+  }
+  .searchBar{
+    margin-top: -4px;
+    width: 100%;
+  }
+
+  .galleryFirstPartContainer{
+    width: 50%;
+    transition: 1s ease-in-out;
+  }
+
+    .gallerySecondPart{
+    width: 100%;
+    height: 100vh;
+   }
+
+   .pagination{
+    width: 100%;
+  }
+
+  .updateModal{
+    width: 100%;
+  }
+  }
+  
+  @media (max-width: 480px) {
+    .image {
+      flex: 0 0 100%;
+    }
+
+    .galleryFirstPart{
+      position: absolute;
+      width: 50%;
+      height: 100vh;
+      transition: 1s ease-in-out;
+  }
+
+  .galleryFirstPartContainer{
+    width:50%;
+    transition: 1s ease-in-out;
+  }
+
+  .searchBar{
+    margin-top: 10px;
+    width: 100%;
+  }
+
+
+  .galleryFirstPartDetail{
+    font-size: 12px;
+  }
+
+    .gallerySecondPart{
+    width: 100%;
+    height: 100vh;
+   }
+
+   .totalImg{
+    font-size: 8px;
+    
+    }
+
+   .pagination{
+    width: 100%;
+   }
+
+   .updateModal{
+    width: 100%;
+  }
+  }

@@ -1,0 +1,45 @@
+[
+    {
+      "title": "why we should watch movie",
+      "name": "John Smith",
+      "release_date": "2023-06-26",
+      "imgLink": "https://source.unsplash.com/1600x900/?office",
+      "description": "This is an example movie with a captivating storyline. Follow the journey of the protagonist as they overcome various challenges and discover the true meaning of friendship and love. With stunning visuals and an exceptional cast, this movie promises to leave you on the edge of your seat.This is an example movie with a captivating storyline. Follow the journey of the protagonist as they overcome various challenges and discover the true meaning of friendship and love. With stunning visuals and an exceptional cast, this movie promises to leave you on the edge of your seatThis is an example movie with a captivating storyline. Follow the journey of the protagonist as they overcome various challenges and discover the true meaning of friendship and love. With stunning visuals and an exceptional cast, this movie promises to leave you on the edge of your seat"
+    },
+    {
+      "title": "The bad impact of watching movie",
+      "name": "Emily Johnson",
+      "release_date": "2023-07-12",
+      "imgLink": "https://source.unsplash.com/1600x900/?medicine",
+      "description": "Embark on an epic adventure with this thrilling movie. Join the fearless heroes as they battle against powerful forces to save their world from impending doom. Packed with breathtaking action sequences, groundbreaking visual effects, and a gripping plot, this movie is a must-watch for all fans of the genre."
+    },
+    {
+      "title": "Book or Movie? What we should choose?",
+      "name": "Michael Anderson",
+      "release_date": "2022-09-18",
+      "imgLink": "https://source.unsplash.com/1600x900/?teeth",
+      "description": "Dive into the pages of this enthralling book and get lost in a world of mystery and suspense. Unravel the secrets hidden within as the protagonist delves deeper into a web of lies and deception. With richly developed characters and intricate plot twists, this book will keep you guessing until the very last page."
+    },
+    {
+      "title": "Positive side of reading book",
+      "name": "Sophia Davis",
+      "release_date": "2023-03-05",
+      "imgLink": "https://source.unsplash.com/1600x900/?surgery",
+      "description": "Immerse yourself in the thought-provoking pages of this literary masterpiece. Explore profound themes of identity, humanity, and existentialism as the author takes you on a philosophical journey. With eloquent prose and profound insights, this book is a must-read for those seeking intellectual stimulation."
+    },
+    {
+      "title": "Why we should avoid musterbation",
+      "name": "David Thompson",
+      "release_date": "2023-01-20",
+      "imgLink": "https://source.unsplash.com/1600x900/?doctor",
+      "description": "Experience a musical extravaganza with this breathtaking album. From soulful ballads to energetic anthems, this collection of songs will take you on an emotional rollercoaster. With mesmerizing vocals and exceptional production, each track is a work of art that showcases the artist's creativity and versatility."
+    },
+    {
+      "title": "Dark side of pornography",
+      "name": "Olivia Roberts",
+      "release_date": "2023-08-08",
+      "imgLink": "https://source.unsplash.com/1600x900/?nurse",
+      "description": "Indulge your senses in the harmonious melodies and captivating rhythms of this groundbreaking album. Blending genres and pushing musical boundaries, the artist delivers a mesmerizing auditory experience that transcends expectations. Each track is meticulously crafted, leaving a lasting impression on listeners."
+    }
+  ]
+  
