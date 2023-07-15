@@ -1,4 +1,3 @@
-
 import Banner from '../banner/Banner';
 import About from '../about/About';
 import TypeWritterEffect from '../typeWritter/TypeWritterEffect';

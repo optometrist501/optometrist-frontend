@@ -69,6 +69,25 @@ const Banner = ({ darkmode }) => {
             clearInterval(interval);
         };
     }, [count, data, copiedData, findFirstImage, pause]);
+
+    const handlePageButton = (value) => {
+        if (value === 'decrease') {
+            if (count === 1) {
+                setCount(data?.result?.length)
+            } else {
+                setCount(count - 1)
+            }
+        }
+
+        if (value === 'increase') {
+            if (count === data?.result?.length) {
+                setCount(0);
+            } else {
+                setCount(count + 1);
+            }
+        }
+    }
+
     return (
         <div className={banner.banner}>
             <div className={banner.bannerMain}>
@@ -104,8 +123,8 @@ const Banner = ({ darkmode }) => {
             </div>
             <div className={banner.bannerSlideController}>
                 <div className={banner.bannerSlideControllerMain}>
-                    <span onClick={() => setCount(count === 1 ? () => setCount(data?.result?.length) : count - 1)}><i class="uil uil-angle-left-b"></i></span>
-                    <span onClick={() => setCount(count === data?.result?.length ? () => setCount(0) : count + 1)}><i class="uil uil-angle-right-b"></i></span>
+                    <span onClick={() => handlePageButton('decrease')}><i class="uil uil-angle-left-b"></i></span>
+                    <span onClick={() => handlePageButton('increase')}><i class="uil uil-angle-right-b"></i></span>
                 </div>
             </div>
             <div style={{ transform: `translateX(${updateModal}%)`, transition: 'transform 2s' }} className={`${banner.updateModal} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
