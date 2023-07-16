@@ -17,6 +17,8 @@ const About = ({ darkmode }) => {
     const editor = useRef(null);
     const [content, setContent] = useState('');
     const [description, setDescription] = useState('');
+    const [img, setImg] = useState('');
+    const [imgHolder, setImgHolder] = useState('');
     const [updateContent, setupdateContent] = useState({});
     const [switchUpdate, setSwitchUpdate] = useState(false);
     const [id, setId] = useState('')
@@ -31,12 +33,38 @@ const About = ({ darkmode }) => {
 
     useEffect(() => {
         setDescription(findAboutData?.description);
+        setImgHolder(findAboutData?.img);
+
     }, [findAboutData]);
+
+
+    useEffect(() => {
+        if (imgHolder) {
+            const imgStorageKey = 'e3704b6a71bec7a4a7627a03cdb1e16c';
+            const formData = new FormData();
+            formData.append('image', imgHolder);
+            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(res => res.json())
+                .then(result => {
+                    console.log(result?.data?.url);
+                    setImgHolder(result?.data?.url);
+                })
+        }
+    }, [imgHolder]);
+
+
+    console.log(imgHolder);
+
+
 
     const updateAboutSection = (theId) => {
         setupdateContent({
             description: description,
-            img: findAboutData?.img
+            img: imgHolder
         })
         setId(theId);
         setSwitchUpdate(true);
@@ -115,8 +143,14 @@ const About = ({ darkmode }) => {
 
                                     <div type="file" className={about.aboutImgSection}>
                                         <div className={about.chooseFileDesign}>
-                                            <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
-                                            <input className={about.chooseFile} type="file" name="" id="" />
+                                            <p className='text-white font-bold'>
+                                                <i class="uil uil-upload"></i>
+                                                <span>Choose File</span>
+                                            </p>
+                                            <input className={about.chooseFile} type="file" n onChange={(e) => {
+                                                const imgFile = e.target.files[0];
+                                                setImgHolder(imgFile)
+                                            }} />
                                         </div>
                                     </div>
                                 </div>
