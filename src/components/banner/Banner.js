@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import banner from './Banner.module.css';
 import Lottie from 'react-lottie';
 import loadingData from '../lottieFiles/97930-loading.json';
+import useBannerData from '../../customHooks/useBannerSectionHook';
 
 const Banner = ({ darkmode }) => {
     const [updateModal, setUpdateModal] = useState(100);
     const [sectionController, setSectionController] = useState(1);
+
+    const [bannerData, refetch] = useBannerData();
+    const data = bannerData?.data?.data?.data
 
     const handleModalSection = (value) => {
         if (value === 1) {
@@ -21,29 +25,30 @@ const Banner = ({ darkmode }) => {
         autoplay: true,
         animationData: loadingData,
     };
-    const [data, setData] = useState([]);
-
 
     const [copiedData, setCopiedData] = useState([]);
 
 
     const [count, setCount] = useState(0);
     const [pause, setPause] = useState(false);
-
-    useEffect(() => {
-        const url = 'banner.json';
-        fetch(url).then(res => res.json()).then(res => setData(res))
-    }, [])
+    const [idContainer, setIdContainer] = useState('');
 
     const findImageIdMapped = data?.map(m => {
         return m._id
     })
 
-    const findImageId = findImageIdMapped?.slice(0, 1)
+    const findImageId = findImageIdMapped?.slice(0, 1);
+
+    const findSingleImageId = data?.find(f => {
+        return f._id === idContainer;
+    });
+
+    console.log(findSingleImageId);
 
     const findFirstImage = data?.find(f => {
         return f._id === findImageId[0]
-    })
+    });
+
 
     useEffect(() => {
         const handleTransition = () => {
@@ -88,6 +93,12 @@ const Banner = ({ darkmode }) => {
         }
     }
 
+    const handleUpdateBanner = (value) => {
+        setUpdateModal(0);
+        setIdContainer(value);
+        console.log(idContainer);
+    }
+
     return (
         <div className={banner.banner}>
             <div className={banner.bannerMain}>
@@ -106,9 +117,9 @@ const Banner = ({ darkmode }) => {
                                 onMouseEnter={() => setPause(true)}
                                 onMouseLeave={() => setPause(false)}
                             >
-                                <img className={banner.bannerImage} style={{ height: '56vh', width: '92vw' }} src={d?.imageLink} alt="" />
+                                <img className={banner.bannerImage} style={{ height: '56vh', width: '92vw' }} src={d?.img} alt="" />
                                 <div className={banner.editAndDelete}>
-                                    <span onClick={() => setUpdateModal(0)} ><i className="uil uil-edit cursor-pointer"></i></span>
+                                    <span onClick={() => handleUpdateBanner(d?._id)} ><i className="uil uil-edit cursor-pointer"></i></span>
                                     <span><i className="uil uil-trash-alt ml-3 cursor-pointer"></i></span>
                                 </div>
                             </div>
@@ -136,10 +147,15 @@ const Banner = ({ darkmode }) => {
                     <hr />
                     <div className={banner.bannerImgPreview}>
                         {
-                            data && copiedData?.map(banners => {
+                            data && data?.map(banners => {
                                 return (
                                     <div className={banner.bannerImgPreviewContainer}>
-                                        <img src={banners?.imageLink} alt="" />
+                                        <img src={banners?.img} alt="" />
+                                        <div className={banners?._id === idContainer ? `${banner.block}` : `${banner.none}`}>
+                                            <div className={banner.selectedIconContainer}>
+                                                <i className="uil uil-check-circle text-8xl text-white"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                 )
                             })

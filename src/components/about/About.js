@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import optometrists from '../../images/optometrists.jpg';
 import about from './About.module.css';
 import JoditEditor from 'jodit-react';
-import { useQuery } from 'react-query';
-import fetchUpdateAboutData from '../../fetchedData/fetchUpdateAboutData';
+
 import useAboutData from '../../customHooks/useAboutSectionHook';
 import axios from 'axios';
 
@@ -15,9 +13,8 @@ const About = ({ darkmode }) => {
 
     const [updateModal, setUpdateModal] = useState(100);
     const editor = useRef(null);
-    const [content, setContent] = useState('');
+    const [setContent] = useState('');
     const [description, setDescription] = useState('');
-    const [img, setImg] = useState('');
     const [imgHolder, setImgHolder] = useState('');
     const [updateContent, setupdateContent] = useState({});
     const [switchUpdate, setSwitchUpdate] = useState(false);
@@ -39,8 +36,8 @@ const About = ({ darkmode }) => {
 
 
     useEffect(() => {
-        if (imgHolder) {
-            const imgStorageKey = 'e3704b6a71bec7a4a7627a03cdb1e16c';
+        if (imgHolder !== findAboutData?.img) {
+            const imgStorageKey = '2d95ac403ff9b34ecca1e56081b7017c';
             const formData = new FormData();
             formData.append('image', imgHolder);
             const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
@@ -55,6 +52,7 @@ const About = ({ darkmode }) => {
                 })
         }
     }, [imgHolder]);
+
 
 
     console.log(imgHolder);
@@ -147,8 +145,9 @@ const About = ({ darkmode }) => {
                                                 <i class="uil uil-upload"></i>
                                                 <span>Choose File</span>
                                             </p>
-                                            <input className={about.chooseFile} type="file" n onChange={(e) => {
+                                            <input className={about.chooseFile} type="file" onChange={(e) => {
                                                 const imgFile = e.target.files[0];
+                                                console.log(imgFile);
                                                 setImgHolder(imgFile)
                                             }} />
                                         </div>

@@ -1,28 +1,98 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import advertisement from './Advertise.module.css';
+import useAdvertiseData from '../../customHooks/useAdvertiseSectionHook';
+import axios from 'axios';
 
 const Advertise = ({ darkmode }) => {
     const [updateModal, setUpdateModal] = useState(100);
-    const [advertise, setAdvertise] = useState([]);
-    console.log(advertise);
+    const [idContainer, setIdContainer] = useState('');
+    const [imgHolder, setImgHolder] = useState('');
+    const [updateContent, setupdateContent] = useState({});
+    const [switchUpdate, setSwitchUpdate] = useState(false);
+
+    const [advertiseData, refetch] = useAdvertiseData();
+    const advertise = advertiseData?.data?.data?.data;
+
+    const handleUpdateModal = (value) => {
+        setUpdateModal(0);
+        setIdContainer(value)
+    }
+
+    const findAdvertiseData = advertise?.find(f => {
+        return f._id === idContainer
+    });
+    console.log(findAdvertiseData);
+
     useEffect(() => {
-        const url = 'advertise.json';
-        fetch(url).then(res => res.json()).then(res => setAdvertise(res));
-    }, [])
+        setImgHolder(findAdvertiseData?.img);
+
+    }, [findAdvertiseData]);
+
+    console.log(imgHolder);
+
+    useEffect(() => {
+        if (imgHolder !== findAdvertiseData?.img) {
+            const imgStorageKey = '2d95ac403ff9b34ecca1e56081b7017c';
+            const formData = new FormData();
+            formData.append('image', imgHolder);
+            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(res => res.json())
+                .then(result => {
+                    console.log(result?.data?.url);
+                    setImgHolder(result?.data?.url);
+                })
+        }
+    }, [imgHolder]);
+
+    console.log(imgHolder);
+
+
+    const updateAdvertiseData = () => {
+        setupdateContent({
+            img: imgHolder
+        })
+        setSwitchUpdate(true)
+    };
+
+    useEffect(() => {
+        if (switchUpdate === true) {
+            setTimeout(() => {
+                const finalUpdate = async () => {
+                    try {
+                        await axios.patch(`http://localhost:5000/api/v1/advertise/${idContainer}`, updateContent).then(res => console.log(res))
+                        refetch();
+                        toast.dark("successfully updated");
+                    } catch (error) {
+                        console.log(error);
+                        toast.error("failed to update");
+                    }
+                }
+                finalUpdate()
+                setSwitchUpdate(false);
+            }, 1000)
+        }
+    }, [idContainer, switchUpdate, refetch, updateContent])
+
     return (
         <div className={advertisement.advertiseMain}>
-            <div key={advertise?._id} className={advertisement.avertivseContainer}>
+            <div className={advertisement.avertivseContainer}>
                 {
                     advertise?.map(add => {
                         return (
                             <div className={advertisement.advertiseImg}>
                                 <div className={advertisement.module_border_wrap}>
                                     <div className={advertisement.module}>
-                                        <img data-aos='zoom-in' duration='500' src={add.advertiseImg} alt="" />
+                                        <img className='h-80 w-full' data-aos='zoom-in' duration='500' src={add.img} alt="" />
                                     </div>
                                 </div>
 
-                                <span onClick={() => setUpdateModal(0)} className={advertisement.editButton}><i className="uil uil-edit text-white cursor-pointer"></i></span>
+                                <span onClick={() => handleUpdateModal(add?._id)} className={advertisement.editButton}><i className="uil uil-edit text-white cursor-pointer"></i></span>
                             </div>
                         )
                     })
@@ -50,14 +120,19 @@ const Advertise = ({ darkmode }) => {
                                 <div type="file" className={advertisement.aboutImgSection}>
                                     <div className={advertisement.chooseFileDesign}>
                                         <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
-                                        <input className={advertisement.chooseFile} type="file" name="" id="" />
+                                        <input className={advertisement.chooseFile} type="file" name="" id=""
+                                            onChange={(e) => {
+                                                const imgFile = e.target.files[0];
+                                                setImgHolder(imgFile)
+                                            }} />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <br />
-                        <div className={advertisement.updateButton}>
-                            <button className='btn btn-primary'>update</button>
+                        <div style={{ position: 'relative' }} className={advertisement.updateButton}>
+                            <button onClick={updateAdvertiseData} className='btn btn-primary'>update</button>
+                            < ToastContainer style={{ position: 'absolute', top: '0' }} />
                         </div>
                         <br />
                     </div>
