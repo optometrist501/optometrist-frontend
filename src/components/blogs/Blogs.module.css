@@ -324,6 +324,29 @@ font-size: 12px;
   padding: 10px;
 }
 
+.modalImg{
+  width: 90%;
+  margin: auto;
+}
+
+.modaDescription{
+  margin: auto;
+  width: 90%;
+}
+
+.modalOthers{
+  margin: auto;
+  width: 90%;
+  margin-bottom: 30px;
+}
+
+.modalCover{
+  width: 90%;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 30px 0;
+}
+
  
   @media (max-width: 768px) {
    

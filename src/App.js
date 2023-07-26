@@ -14,6 +14,16 @@ import MemberCart from './components/memberCart/MemberCart';
 import MyProfile from './components/myProfile/MyProfile';
 import Login from './components/logingRegistration/login/Login';
 import Dashboard from './components/dashboard/Dashboard';
+import { ToastContainer } from 'react-toastify';
+import DashBlog from './components/dashboard/blog/DashBlog';
+import DashEvents from './components/dashboard/events/DashEvents';
+import DashGallery from './components/dashboard/gallery/DashGallery';
+import DashPublications from './components/dashboard/publications/DashPublications';
+import PanelBoard from './components/controllPanel/panelboard/PanelBoard';
+import PanelBlog from './components/controllPanel/panelBlog/PanelBlog';
+import PanelEvent from './components/controllPanel/PanelEvent/PanelEvent';
+import PanelGallery from './components/controllPanel/PanelGallery/PanelGallery';
+import PanelPublication from './components/controllPanel/PanelPublication/PanelPublication';
 
 
 
@@ -27,6 +37,7 @@ function App() {
   return (
     <div className="App">
       <Navbar darkmode={darkmode} setDarkmode={setDarkmode} ></Navbar>
+      <ToastContainer style={{ marginTop: '100px' }} />
       <Routes>
         <Route path='/' element={<Home darkmode={darkmode}></Home>} />
         <Route path='/blogs' element={<Blogs darkmode={darkmode} ></Blogs>} />
@@ -39,7 +50,19 @@ function App() {
         <Route path='/members' element={<MemberCart darkmode={darkmode}></MemberCart>} />
         <Route path='/myProfile' element={<MyProfile darkmode={darkmode}></MyProfile>} />
         <Route path='/login' element={<Login darkmode={darkmode}></Login>} />
-        <Route path='/dashboard' element={<Dashboard></Dashboard>} />
+        <Route path='/dashboard' element={<Dashboard></Dashboard>} >
+          <Route index to='' element={<DashBlog></DashBlog>}></Route>
+          <Route path='event' element={<DashEvents></DashEvents>}></Route>
+          <Route path='gallery' element={<DashGallery></DashGallery>}></Route>
+          <Route path='publication' element={<DashPublications></DashPublications>}></Route>
+        </Route>
+
+        <Route path='/panelBoard' element={<PanelBoard></PanelBoard>} >
+          <Route index to='' element={<PanelBlog></PanelBlog>}></Route>
+          <Route path='event' element={<PanelEvent></PanelEvent>}></Route>
+          <Route path='gallery' element={<PanelGallery></PanelGallery>}></Route>
+          <Route path='publication' element={<PanelPublication></PanelPublication>}></Route>
+        </Route>
       </Routes>
 
     </div>

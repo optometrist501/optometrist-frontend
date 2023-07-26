@@ -34,7 +34,7 @@ const Advertise = ({ darkmode }) => {
 
     useEffect(() => {
         if (imgHolder !== findAdvertiseData?.img) {
-            const imgStorageKey = '2d95ac403ff9b34ecca1e56081b7017c';
+            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
             const formData = new FormData();
             formData.append('image', imgHolder);
             const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
@@ -48,7 +48,7 @@ const Advertise = ({ darkmode }) => {
                     setImgHolder(result?.data?.url);
                 })
         }
-    }, [imgHolder]);
+    }, [imgHolder, findAdvertiseData]);
 
     console.log(imgHolder);
 
@@ -116,8 +116,16 @@ const Advertise = ({ darkmode }) => {
 
                             <br />
                             <div className={advertisement.aboutImgSectionMain}>
-
                                 <div type="file" className={advertisement.aboutImgSection}>
+                                    <div style={{ width: '150px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                                        {
+                                            imgHolder
+                                                ?
+                                                <img style={{ height: '100px', width: '150px' }} src={imgHolder} alt="" />
+                                                :
+                                                <span><i class="uil uil-image-v text-8xl"></i></span>
+                                        }
+                                    </div>
                                     <div className={advertisement.chooseFileDesign}>
                                         <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
                                         <input className={advertisement.chooseFile} type="file" name="" id=""

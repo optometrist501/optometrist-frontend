@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './Gallery.css'
 import { Link } from 'react-router-dom';
+import useGalleryData from '../../customHooks/useGallerySectionHook';
 
 const Gallery = ({ darkmode }) => {
-    const [imgData, setImgData] = useState([]);
+
+    const [galleryData] = useGalleryData();
+    const findApprovedGalleryImg = galleryData?.data?.data?.data?.filter(f => {
+        return f.approval === true;
+    });
+
+    console.log(findApprovedGalleryImg);
+
+    const imgData = findApprovedGalleryImg;
+    console.log(galleryData);
+
+
     const [count, setCount] = useState(0);
-    const imgModalData = imgData.slice(imgData.length - 6, imgData.length)
+    const imgModalData = imgData?.slice(imgData?.length - 6, imgData?.length)
 
     const [visible, setVisible] = useState(false)
-    useEffect(() => {
-        const url = 'gallery.json';
-        fetch(url).then(res => res.json()).then(res => setImgData(res))
-    })
+
 
     const handleModalImage = (value) => {
         setVisible(true);
@@ -45,7 +54,7 @@ const Gallery = ({ darkmode }) => {
                     imgModalData?.map((allImg, index) => {
                         return (
                             <div onClick={() => handleModalImage(index)} data-aos="zoom-in" duration="1200" className="image">
-                                <img src={allImg.url} alt="" />
+                                <img src={allImg.imgLink} alt="" />
                                 <p title={allImg.title} className='img-title'>{allImg.title.length > 22 ? allImg.title.slice(0, 22) + '...' : allImg.title}</p>
                             </div>
                         )
@@ -67,7 +76,7 @@ const Gallery = ({ darkmode }) => {
                                         return (
                                             <div style={{ transform: `translateX(${count * -100}%)`, transition: 'transform 1s' }} className="image-modal">
                                                 <div>
-                                                    <img style={{ width: '100%', height: 'auto' }} className='maine-img' src={imgModal.url} alt="" />
+                                                    <img style={{ width: '100%', height: 'auto' }} className='maine-img' src={imgModal?.imgLink} alt="" />
                                                 </div>
 
                                             </div>

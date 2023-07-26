@@ -4,20 +4,43 @@
 
 .dashboard {
     display: flex;
-   
+    position: relative;  
   }
   
   .sidebar {
-    width: 200px;
+    width: 15%;
     padding-top: 92px;
     background-color: #f2f2f2;
-    padding: 20px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    transition: .1s ease;
+  }
+
+  .sidebar-panel {
+    width: 15%;
+    padding-top: 92px;
+    background-color: rgb(1, 7, 97);
+    color: white;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    transition: .1s ease;
+  }
+
+  .hiddenSidebar{
+    padding: 10px 0px;
+    background-color: #f2f2f2;
     min-height: 100vh;
   }
 
-  .sidebarContainer{
-    margin-top: 92px;
+  .hiddenSidebar-panel{
+    padding: 10px 0px;
+    background-color: rgb(1, 7, 97);
+    color: white;
+    min-height: 100vh;
   }
+
   
   .sidebar h2 {
     margin-bottom: 20px;
@@ -33,18 +56,186 @@
     margin-bottom: 10px;
     cursor: pointer;
   }
+
+  .sidebar-panel h2 {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-panel ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-panel li {
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .sidebarDetailpart{
+    width: 100%;
+    margin-left: 20px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .sidebarDetailPartHidden{
+    width: 100%;
+    margin-left: 20px;
+    font-size: 13px;
+  }
+  
+  .sidebarDetailPartHidden ul li{
+      margin-bottom: 10px;
+      font-weight: bold;
+      cursor: pointer;
+  }
   
   .main-content {
-    margin-top: 92px;
-    flex: 1;
-    padding: 20px;
+    width: 85vw;
+    position: absolute;
+    right: 0;
+    min-height: 100vh;
+    /* transition: 1.3s ease-in-out; */
+  }
+
+  .main-content-detailpart{
+    padding: 5px 15px;
+    min-height: 700px;
+  }
+
+  .firstBar{
+    width: 100%;
+    background-color: lightgray;
+    height: 44px;
+    display: none;
+  }
+
+  .main-content-detailpart h1{
+      text-align: center;
+      font-weight: bold;
+      padding-bottom: 3px;
   }
   
   .main-content h1 {
     margin-bottom: 10px;
   }
   
-  .main-content p {
-    color: #888;
+ 
+  
+  .main-content-container{
+    margin-top: 92px;
+  }
+
+  .dashboardBargerIcon{
+    display: none;
+  }
+
+  .dashboard-title-container{
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 2px 2px #e7e4e4;
+    background-color: white;
+    position: sticky;
+    top: 100px;
+  }
+
+
+  
+  
+  @media screen and (max-width:768px) {
+
+    .firstBar{
+      width: 100%;
+      background-color: lightgray;
+      height: 44px;
+      display: block;
+    }
+
+    .sidebar{
+     left: -50%;
+    }
+    .sidebar-panel{
+     left: -50%;
+    }
+    .hiddenSidebar{
+      width: 35%;
+    }
+    .hiddenSidebar-panel{
+      width: 35%;
+    }
+
+    .sidebarContainerHidden{
+      margin-top: 92px;
+    }
+
+    .sidebarDetailpartHidden{
+      width: 100%;
+      margin-left: 10px;
+      font-size: 18px;
+  }
+  
+
+    .sidebarDetailpartHidden{
+  
+        width: 100%;
+        margin-left: 20px;
+        font-size: 14px;
+   
+    }
+
+   
+    
+    .main-content{
+      width: 100%;
+    }
+
+    .firstBar{
+      margin-top: 92px;
+    }
+
+    .dashboardBargerIcon{
+      display: block;
+      padding-top: 10px;
+      padding-left: 7px;
+    }
+   
+  }
+  
+  @media screen and (max-width:480px) {
+    .sidebar{
+     left: -50%;
+    }
+    .hiddenSidebar{
+      margin-top: 15px;
+      width: 45%;
+    }
+
+    .sidebarContainerHidden{
+      margin-top: 92px;
+    }
+
+    .firstBar{
+      width: 100%;
+      background-color: lightgray;
+      height: 44px;
+      display: block;
+    }
+    
+    
+    .main-content{
+      width: 100%;
+    }
+
+    .firstBar{
+      margin-top: 108px;
+    }
+
+    .dashboardBargerIcon{
+      display: block;
+      padding-top: 10px;
+      padding-left: 7px;
+    }
+   
   }
   

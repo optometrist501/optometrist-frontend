@@ -13,7 +13,7 @@ const About = ({ darkmode }) => {
 
     const [updateModal, setUpdateModal] = useState(100);
     const editor = useRef(null);
-    const [setContent] = useState('');
+    const [content, setContent] = useState('');
     const [description, setDescription] = useState('');
     const [imgHolder, setImgHolder] = useState('');
     const [updateContent, setupdateContent] = useState({});
@@ -37,7 +37,7 @@ const About = ({ darkmode }) => {
 
     useEffect(() => {
         if (imgHolder !== findAboutData?.img) {
-            const imgStorageKey = '2d95ac403ff9b34ecca1e56081b7017c';
+            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
             const formData = new FormData();
             formData.append('image', imgHolder);
             const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
@@ -51,11 +51,12 @@ const About = ({ darkmode }) => {
                     setImgHolder(result?.data?.url);
                 })
         }
-    }, [imgHolder]);
+    }, [imgHolder, findAboutData]);
 
 
 
     console.log(imgHolder);
+    console.log(findAboutData?.img)
 
 
 
@@ -96,7 +97,7 @@ const About = ({ darkmode }) => {
                             <div data-aos='fade-left' duration='300' className="hero-content flex-col lg:flex-row-reverse">
                                 < img style={{ maxHeight: '450px' }} src={data?.img} className="lg:w-2/6 sm:6/6 rounded-lg shadow-2xl" alt='' />
                                 <div data-aos='zoom-in'>
-                                    <h1 className={`text-5xl font-bold ${about.gradient_text} `}>OPTEMETRISTS</h1>
+                                    <h1 className={`text-5xl font-bold ${about.gradient_text} `}>OPTOMETRIST</h1>
                                     <p className="py-6" dangerouslySetInnerHTML={{ __html: data?.description }}>
                                     </p>
                                     <button className="btn btn-primary">Get Started</button>
@@ -138,9 +139,19 @@ const About = ({ darkmode }) => {
                                 </div>
                                 <br />
                                 <div className={about.aboutImgSectionMain}>
-
                                     <div type="file" className={about.aboutImgSection}>
+
+                                        <div style={{ width: '150px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                                            {
+                                                imgHolder
+                                                    ?
+                                                    <img style={{ height: '100px', width: '150px' }} src={imgHolder} alt="" />
+                                                    :
+                                                    <span><i class="uil uil-image-v text-8xl"></i></span>
+                                            }
+                                        </div>
                                         <div className={about.chooseFileDesign}>
+
                                             <p className='text-white font-bold'>
                                                 <i class="uil uil-upload"></i>
                                                 <span>Choose File</span>
@@ -157,7 +168,6 @@ const About = ({ darkmode }) => {
                             <br />
                             <div style={{ position: 'relative' }} className={about.updateButton}>
                                 <button onClick={() => updateAboutSection(findAboutData?._id)} className='btn btn-primary'>update</button>
-                                < ToastContainer style={{ position: 'absolute', top: '0' }} />
                             </div>
                             <br />
                         </div>

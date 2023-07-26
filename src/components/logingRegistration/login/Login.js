@@ -6,6 +6,7 @@ import auth from '../../../firebase/firebase.init';
 const Login = ({ darkmode }) => {
 
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    console.log(user);
     const [
         createUserWithEmailAndPassword,
         userCreateWithEmail,

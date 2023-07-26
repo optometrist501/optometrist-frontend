@@ -1,13 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import blogs from './Blogs.module.css'
 import JoditEditor from 'jodit-react';
+import useBlogData from '../../customHooks/useBlogSectionHook';
 
 const Blogs = ({ darkmode }) => {
     const editor = useRef(null);
     const [content, setContent] = useState('');
     const [description, setDescription] = useState('');
     const [sectionController, setSectionController] = useState(1);
-    const [blogData, setBlogData] = useState([]);
+    const [blogData] = useBlogData();
+    const allBlogs = blogData?.data?.data?.data;
+    console.log(allBlogs);
     const [updateModal, setUpdateModal] = useState(100)
 
     const [flipDrawer, setFlipDrawer] = useState(-50);
@@ -15,19 +18,25 @@ const Blogs = ({ darkmode }) => {
     const [number, setNumber] = useState(10);
     const [buttonNumber, setButtonNumber] = useState(10);
     const [modifiedButtonNumber, setModifiedButtonNumber] = useState();
+    const [idContainer, setIdContainer] = useState('');
+    const findApprovedBlogs = allBlogs?.filter(f => {
+        return f.approval === true;
+    });
+    console.log(findApprovedBlogs);
+
+    const findDetailBlogInfo = findApprovedBlogs?.find(f => {
+        return f._id === idContainer
+    })
+
 
     const handleModalSection = (value) => {
-        if (value === 1) {
-            setSectionController(1)
-        }
-        if (value === 2) {
-            setSectionController(2)
-        }
+        setUpdateModal(0);
+        setIdContainer(value)
     }
 
 
     // pagination
-    const roundedDataLength = Math.ceil(blogData?.length / 10);
+    const roundedDataLength = Math.ceil(findApprovedBlogs?.length / 10);
     const totalDataLength = roundedDataLength * 10
 
     const arrayOfObjects = [];
@@ -70,10 +79,7 @@ const Blogs = ({ darkmode }) => {
         }
     }
 
-    useEffect(() => {
-        const url = 'blog.json';
-        fetch(url).then(res => res.json()).then(res => setBlogData(res))
-    })
+
 
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogsMain} ${darkmode && 'bg-black'}`}>
@@ -94,9 +100,14 @@ const Blogs = ({ darkmode }) => {
                         </div>
                         <div className={blogs.blogsFirstPartDetail}>
                             {
-                                blogData?.slice((number - 10), number).map(blogData => {
+                                findApprovedBlogs?.slice((number - 10), number)?.reverse()?.map(blogData => {
                                     return (
-                                        <p title={blogData?.title} className={blogs.title}>{blogData?.title?.length > 30 ? blogData?.title?.slice(0, 29) + '...' : blogData?.title}</p>
+                                        <p>
+                                            {
+
+                                                <p title={blogData?.title} className={blogs.title}>{blogData?.title?.length > 30 ? blogData?.title?.slice(0, 29) + '...' : blogData?.title}</p>
+                                            }
+                                        </p>
                                     )
                                 })
                             }
@@ -118,41 +129,45 @@ const Blogs = ({ darkmode }) => {
                             </div>
 
                             <div className={blogs.totalBlogs}>
-                                <span>TOTAL BLOGS: {blogData?.length}</span>
+                                <span>TOTAL BLOGS: {findApprovedBlogs?.length}</span>
                                 <span>  |  </span>
                                 <span>PAGE: {number.toString().slice(0, (number.toString().length - 1))}</span>
                             </div>
                         </div>
                         <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogs} ${darkmode && 'bg-black text-white'}`}>
                             {
-                                blogData?.slice(number - 10, number)?.map(allBlogs => {
+                                findApprovedBlogs?.slice(number - 10, number)?.reverse()?.map(allBlogs => {
                                     return (
-                                        <div className={blogs.blogsContainer}>
-                                            <br />
-                                            <p className='text-sm text-gray-500 italic'> <i class="uil uil-user-square"></i> {allBlogs.name}</p>
-                                            <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i> {allBlogs.release_date}</p>
-                                            <br />
-                                            <hr />
-                                            <br />
-                                            <div className={blogs.blogsImgContainer}>
-                                                <img src={allBlogs.imgLink} alt="" />
-                                            </div>
-                                            <br />
-                                            <p className='text-3xl font-bold'>{allBlogs.title}</p>
-                                            <br />
-                                            <p>{allBlogs.description}</p>
-                                            <br />
-                                            <div className={blogs.blogLastPart}>
-                                                <div className={blogs.blogLastPartOne}>
-                                                    <span><i class="uil uil-heart"></i></span>
-                                                    <span> 0</span>
+                                        <div>
+                                            {
+                                                <div className={blogs.blogsContainer}>
+                                                    <br />
+                                                    <p className='text-sm text-gray-500 italic'> <i class="uil uil-user-square"></i> {allBlogs.name}</p>
+                                                    <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i> {allBlogs.release_date}</p>
+                                                    <br />
+                                                    <hr />
+                                                    <br />
+                                                    <div className={blogs.blogsImgContainer}>
+                                                        <img src={allBlogs.imgLink} alt="" />
+                                                    </div>
+                                                    <br />
+                                                    <p className='text-3xl font-bold'>{allBlogs.title}</p>
+                                                    <br />
+                                                    <p>{allBlogs.description}</p>
+                                                    <br />
+                                                    <div className={blogs.blogLastPart}>
+                                                        <div className={blogs.blogLastPartOne}>
+                                                            <span><i class="uil uil-heart"></i></span>
+                                                            <span> 0</span>
+                                                        </div>
+                                                        <div className={blogs.blogLastPartTwo}>
+                                                            <span onClick={() => handleModalSection(allBlogs?._id)} ><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
+
+                                                        </div>
+                                                    </div>
+                                                    <br />
                                                 </div>
-                                                <div className={blogs.blogLastPartTwo}>
-                                                    <span onClick={() => setUpdateModal(0)} ><i className="uil uil-edit mr-2 cursor-pointer"></i></span>
-                                                    <span><i className="uil uil-trash-alt mr-5 cursor-pointer"></i></span>
-                                                </div>
-                                            </div>
-                                            <br />
+                                            }
                                         </div>
                                     )
                                 })
@@ -182,109 +197,19 @@ const Blogs = ({ darkmode }) => {
                                 <br />
                                 <hr />
                                 <br />
-                                <div className={blogs.eventModalSectionButtons}>
-                                    <p onClick={() => handleModalSection(1)} className={blogs.eventUpdatebutton}><i class="uil uil-edit mr-2"></i> UPDATE</p>
-                                    <p onClick={() => handleModalSection(2)} className={blogs.addEventsNewButton}><i class="uil uil-plus-circle mr-2"></i> ADD NEW</p>
-                                </div>
-                                <div className={blogs.eventModalSectionButtons}>
-                                    <p className={`${blogs.eventUpdateLine} ${sectionController === 1 && blogs.brownColor} `}></p>
-                                    <p className={`${blogs.addEventsNewLine} ${sectionController === 2 && blogs.brownColor} `}></p>
-                                </div>
-                                <div className={blogs.ModalSectionContainer}>
-                                    <div className={`${sectionController === 1 ? 'block' : 'none'} ${blogs.eventUpdateModalSection}`}>
-                                        <br />
-                                        <div className={blogs.eventInputTitle}>
-                                            <label htmlFor="">Blog Title</label>
-                                            <input type="text" />
-                                        </div>
-                                        <br />
-                                        <div className={blogs.eventInputDateAndDeadline}>
-                                            <div>
-                                                <label htmlFor="">Publisher Name</label>
-                                                <br />
-                                                <input type="text" />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="">Blog Date</label>
-                                                <br />
-                                                <input type="date" />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div className={blogs.eventsTextEditorSection}>
-                                            <label htmlFor="">Blog Description</label>
-                                            <div className='mt-2'>
-                                                <JoditEditor
-                                                    ref={editor}
-                                                    value={description}
-                                                    onBlur={newContent => setContent(newContent)}
-                                                    onChange={newContent => { setDescription(newContent) }}
-                                                />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div className={blogs.eventsImgSectionMain}>
-
-                                            <div type="file" className={blogs.eventsImgSection}>
-                                                <div className={blogs.chooseFileDesign}>
-                                                    <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
-                                                    <input className={blogs.chooseFile} type="file" name="" id="" />
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                        <div className={blogs.updateEventButton}>
-                                            <button className='btn btn-primary mr-10'><i class="uil uil-edit mr-1"></i>update Blog</button>
-                                        </div>
+                                <div className={blogs.modalCover}>
+                                    <div className={blogs.modalImg}>
+                                        <img src={findDetailBlogInfo?.imgLink} alt="" />
                                     </div>
-
-                                    <div className={`${sectionController === 2 ? 'block' : 'none'} ${blogs.eventAddNewModalSection}`}>
-                                        <br />
-                                        <div className={blogs.eventInputTitle}>
-                                            <label htmlFor="">Blog Title</label>
-                                            <input type="text" />
-                                        </div>
-                                        <br />
-                                        <div className={blogs.eventInputDateAndDeadline}>
-                                            <div>
-                                                <label htmlFor="">Publisher Name</label>
-                                                <br />
-                                                <input type="text" />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="">Blog Date</label>
-                                                <br />
-                                                <input type="date" />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div className={blogs.eventsTextEditorSection}>
-                                            <label htmlFor="">Blog Description</label>
-                                            <div className='mt-2'>
-                                                <JoditEditor
-                                                    ref={editor}
-                                                    value={description}
-                                                    onBlur={newContent => setContent(newContent)}
-                                                    onChange={newContent => { setDescription(newContent) }}
-                                                />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div className={blogs.eventsImgSectionMain}>
-
-                                            <div type="file" className={blogs.eventsImgSection}>
-                                                <div className={blogs.chooseFileDesign}>
-                                                    <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
-                                                    <input className={blogs.chooseFile} type="file" name="" id="" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={blogs.updateEventButton}>
-                                            <button className='btn btn-primary mr-10'><i class="uil uil-plus-circle mr-2"></i>Add Blog</button>
-                                        </div>
-
+                                    <br />
+                                    <div className={blogs.modalTitle}>
+                                        <p className='text-center text-2xl'>{findDetailBlogInfo?.title}</p>
                                     </div>
+                                    <br />
+                                    <div className={blogs.modaDescription}>
+                                        <p dangerouslySetInnerHTML={{ __html: findDetailBlogInfo?.description }} className=''></p>
+                                    </div>
+                                    <br />
 
                                 </div>
                             </div>

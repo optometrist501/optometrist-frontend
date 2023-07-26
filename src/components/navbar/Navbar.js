@@ -3,13 +3,13 @@ import userIcone from '../../images/User_icon_2.svg.png';
 import navbar from './Navbar.module.css'
 import Infobar from '../infoBar/Infobar';
 import { Link } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { useSignOut } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
 
 const Navbar = ({ setDarkmode, darkmode }) => {
 
     const [signOut] = useSignOut(auth);
+    const [user] = useAuthState(auth)
 
     const handleDarkMode = () => {
         console.log('hello')
@@ -40,8 +40,17 @@ const Navbar = ({ setDarkmode, darkmode }) => {
                                 <li>
                                     <a href='##'>view more</a>
                                     <ul className="p-2">
+                                        {
+                                            user?.email &&
+                                            <li>
+                                                <span className='text-green-500' title={user?.email}><Link to='/' className={`${darkmode && 'hover:text-orange-500'} `} >{user?.email.length > 17 ? user?.email?.slice(0, 17) + '...' : user?.email}</Link></span>
+                                            </li>
+                                        }
                                         <li>
                                             <span> <i class="uil uil-user-plus"></i> <Link to='/myProfile' className={`${darkmode && 'hover:text-orange-500'} `} >profile</Link></span>
+                                        </li>
+                                        <li>
+                                            <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-sliders-v"></i><Link to='./panelBoard'>Controll Panel</Link></span>
                                         </li>
                                         <li>
                                             <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-setting"></i><Link to='./dashboard'>Dashboard</Link></span>
@@ -71,7 +80,7 @@ const Navbar = ({ setDarkmode, darkmode }) => {
                         <Link to='/' className="btn btn-ghost normal-case text-xl">Logo</Link>
                     </div>
                     <div className="navbar-end hidden lg:flex">
-                        <ul className={`menu menu-horizontal px-2 font-medium  ${darkmode && 'text-white '}`}>
+                        <ul className={`menu menu-horizontal px-2 font-medium text-white  ${darkmode && 'text-white '}`}>
 
                             <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/'>Home</Link></li>
                             <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/blogs'>Blogs</Link></li>
@@ -87,9 +96,18 @@ const Navbar = ({ setDarkmode, darkmode }) => {
                                     <img src={userIcone} alt=''></img>
                                 </div>
                             </label>
-                            <ul style={{ transition: '1s ease-in-out' }} tabindex="0" className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 ${darkmode ? 'bg-blue-950 text-white border-white border-2' : 'bg-base-100'} `}>
+                            <ul style={{ transition: '.3s ease-in-out' }} tabindex="0" className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 ${darkmode ? 'bg-blue-950 text-white border-white border-2' : 'bg-base-100'} `}>
+                                {
+                                    user?.email &&
+                                    <li>
+                                        <span className='text-green-500' title={user?.email}><Link to='/' className={`${darkmode && 'hover:text-orange-500'} `} >{user?.email.length > 23 ? user?.email?.slice(0, 23) + '...' : user?.email}</Link></span>
+                                    </li>
+                                }
                                 <li>
                                     <span className={`${darkmode && 'hover:text-orange-500'} `}> <i class="uil uil-user-plus"></i> <Link to='/myProfile'  >profile</Link></span>
+                                </li>
+                                <li>
+                                    <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-sliders-v"></i><Link to='./panelBoard'>Controll Panel</Link></span>
                                 </li>
                                 <li>
                                     <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-setting"></i><Link to='./dashboard'>Dashboard</Link></span>

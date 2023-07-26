@@ -1,44 +1,44 @@
 import React, { useEffect, useRef, useState } from 'react';
 import events from './Events.module.css';
 import JoditEditor from 'jodit-react';
+import useEventData from '../../customHooks/useEventSectionHook';
 
 const Events = ({ darkmode }) => {
-    const editor = useRef(null);
-    const [content, setContent] = useState('');
-    const [description, setDescription] = useState('');
 
-    const [eventData, seteventData] = useState([]);
+    const [eventData] = useEventData();
+    const allEvents = eventData?.data?.data?.data;
+    console.log(allEvents);
     const [updateModal, setUpdateModal] = useState(100);
-    const [sectionController, setSectionController] = useState(1);
+
 
     const [flipDrawer, setFlipDrawer] = useState(-50);
 
     const [number, setNumber] = useState(10);
     const [buttonNumber, setButtonNumber] = useState(10);
     const [modifiedButtonNumber, setModifiedButtonNumber] = useState();
+    const [idContainer, setIdContainer] = useState('');
+    console.log(idContainer);
 
-    const handleDelete = () => {
-        const result = window.confirm('are you sure to delete this event?');
 
-        if (result) {
-            // will be deleted the event
-        } else {
-            // will be cancelled deletion
-        }
-    }
+    const findApprovedEventData = allEvents?.filter(f => {
+        return f.approval === true;
+    })
+    console.log(findApprovedEventData);
+
+
+    const findDetailEvents = findApprovedEventData?.find(f => {
+        return f._id === idContainer;
+    })
+    console.log(findDetailEvents);
 
     const handleModalSection = (value) => {
-        if (value === 1) {
-            setSectionController(1)
-        }
-        if (value === 2) {
-            setSectionController(2)
-        }
+        setUpdateModal(0);
+        setIdContainer(value);
     }
 
 
     // pagination
-    const roundedDataLength = Math.ceil(eventData?.length / 10);
+    const roundedDataLength = Math.ceil(findApprovedEventData?.length / 10);
     const totalDataLength = roundedDataLength * 10
 
     const arrayOfObjects = [];
@@ -82,10 +82,7 @@ const Events = ({ darkmode }) => {
     }
 
 
-    useEffect(() => {
-        const url = 'events.json';
-        fetch(url).then(res => res.json()).then(res => seteventData(res))
-    })
+
 
 
 
@@ -108,7 +105,7 @@ const Events = ({ darkmode }) => {
 
                         <div className={events.eventsFirstPartDetail}>
                             {
-                                eventData?.slice((number - 10), number).map(eventData => {
+                                findApprovedEventData?.slice((number - 10), number)?.reverse()?.map(eventData => {
                                     return (
                                         <p title={eventData?.title} className={events.title}>{eventData?.title?.length > 30 ? eventData?.title?.slice(0, 29) + '...' : eventData?.title}</p>
                                     )
@@ -132,14 +129,14 @@ const Events = ({ darkmode }) => {
                             </div>
 
                             <div className={events.totalImg}>
-                                <span>TOTAL EVENTS: {eventData?.length}</span>
+                                <span>TOTAL EVENTS: {findApprovedEventData?.length}</span>
                                 <span>  |  </span>
                                 <span>PAGE: {number.toString().slice(0, (number.toString().length - 1))}</span>
                             </div>
                         </div>
                         <div style={{ transition: '1s ease-in-out' }} className={`${events.events} ${darkmode && 'bg-black text-white'}`}>
                             {
-                                eventData?.slice(number - 10, number)?.map(allEvents => {
+                                findApprovedEventData?.slice(number - 10, number)?.reverse()?.map(allEvents => {
                                     return (
                                         <div className={events.eventCart}>
                                             <div className={events.eventImagePart}>
@@ -150,7 +147,7 @@ const Events = ({ darkmode }) => {
                                                 <div className={events.eventDetailPartContainer}>
                                                     <p title={allEvents.title} className='font-bold'>{allEvents.title.length > 70 ? allEvents.title.slice(0, 70) + '...' : allEvents.title}</p>
                                                     <br />
-                                                    <p className={events.eventDetailPartDescription}>{allEvents.description}</p>
+                                                    <p dangerouslySetInnerHTML={{ __html: allEvents?.description }} className={events.eventDetailPartDescription}></p>
 
                                                     <hr />
                                                     <div className={events.eventsLastPart}>
@@ -159,8 +156,7 @@ const Events = ({ darkmode }) => {
                                                             <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : {allEvents.deadline}</p>
                                                         </div>
                                                         <div className={events.eventsLastPartTwo}>
-                                                            <span onClick={() => setUpdateModal(0)}><i className="uil uil-edit mr-2 cursor-pointer"></i></span>
-                                                            <span onClick={handleDelete}><i className="uil uil-trash-alt mr-5 cursor-pointer"></i></span>
+                                                            <span title='view' onClick={() => handleModalSection(allEvents?._id)}><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -194,112 +190,23 @@ const Events = ({ darkmode }) => {
                                 <br />
                                 <hr />
                                 <br />
-                                <div className={events.eventModalSectionButtons}>
-                                    <p onClick={() => handleModalSection(1)} className={events.eventUpdatebutton}><i class="uil uil-edit mr-2"></i> UPDATE</p>
-                                    <p onClick={() => handleModalSection(2)} className={events.addEventsNewButton}><i class="uil uil-plus-circle mr-2"></i> ADD NEW</p>
-                                </div>
-                                <div className={events.eventModalSectionButtons}>
-                                    <p className={`${events.eventUpdateLine} ${sectionController === 1 && events.brownColor} `}></p>
-                                    <p className={`${events.addEventsNewLine} ${sectionController === 2 && events.brownColor} `}></p>
-                                </div>
-                                <div className={events.ModalSectionContainer}>
-                                    <div className={`${sectionController === 1 ? 'block' : 'none'} ${events.eventUpdateModalSection}`}>
-                                        <br />
-                                        <div className={events.eventInputTitle}>
-                                            <label htmlFor="">Event Title</label>
-                                            <input type="text" />
-                                        </div>
-                                        <br />
-                                        <div className={events.eventInputDateAndDeadline}>
-                                            <div>
-                                                <label htmlFor="">Event Date</label>
-                                                <br />
-                                                <input type="date" />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="">Event Deadline</label>
-                                                <br />
-                                                <input type="date" />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div className={events.eventsTextEditorSection}>
-                                            <label htmlFor="">Event Description</label>
-                                            <div className='mt-2'>
-                                                <JoditEditor
-                                                    ref={editor}
-                                                    value={description}
-                                                    onBlur={newContent => setContent(newContent)}
-                                                    onChange={newContent => { setDescription(newContent) }}
-                                                />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div className={events.eventsImgSectionMain}>
-
-                                            <div type="file" className={events.eventsImgSection}>
-                                                <div className={events.chooseFileDesign}>
-                                                    <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
-                                                    <input className={events.chooseFile} type="file" name="" id="" />
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                        <div className={events.updateEventButton}>
-                                            <button className='btn btn-primary mr-10'><i class="uil uil-edit mr-1"></i>update event</button>
-                                        </div>
+                                <div className={events.modalCover}>
+                                    <div className={events.modalImg}>
+                                        <img src={findDetailEvents?.imgLink} alt="" />
                                     </div>
-
-                                    <div className={`${sectionController === 2 ? 'block' : 'none'} ${events.eventAddNewModalSection}`}>
-                                        <br />
-                                        <div className={events.eventInputTitle}>
-                                            <label htmlFor="">Event Title</label>
-                                            <input type="text" />
-                                        </div>
-                                        <br />
-                                        <div className={events.eventInputDateAndDeadline}>
-                                            <div>
-                                                <label htmlFor="">Event Date</label>
-                                                <br />
-                                                <input type="date" />
-                                            </div>
-                                            <div>
-                                                <label htmlFor="">Event Deadline</label>
-                                                <br />
-                                                <input type="date" />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div className={events.eventsTextEditorSection}>
-                                            <label htmlFor="">Event Description</label>
-                                            <div className='mt-2'>
-                                                <JoditEditor
-                                                    ref={editor}
-                                                    value={description}
-                                                    onBlur={newContent => setContent(newContent)}
-                                                    onChange={newContent => { setDescription(newContent) }}
-                                                />
-                                            </div>
-                                        </div>
-                                        <br />
-                                        <div className={events.eventsImgSectionMain}>
-
-                                            <div type="file" className={events.eventsImgSection}>
-                                                <div className={events.chooseFileDesign}>
-                                                    <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
-                                                    <input className={events.chooseFile} type="file" name="" id="" />
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                        <div className={events.updateEventButton}>
-                                            <button className='btn btn-primary mr-10'><i class="uil uil-plus-circle mr-2"></i>Add event</button>
-                                        </div>
-
+                                    <br />
+                                    <div className={events.modalTitle}>
+                                        <p className='text-center text-2xl'>{findDetailEvents?.title}</p>
                                     </div>
-
+                                    <br />
+                                    <div className={events.modaDescription}>
+                                        <p dangerouslySetInnerHTML={{ __html: findDetailEvents?.description }} className=''></p>
+                                    </div>
+                                    <br />
+                                    <div className={events?.modalOthers}>
+                                        <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date : {findDetailEvents?.eventDate}</p>
+                                        <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : {findDetailEvents?.deadline}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

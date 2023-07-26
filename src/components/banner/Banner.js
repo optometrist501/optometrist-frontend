@@ -1,15 +1,77 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import banner from './Banner.module.css';
 import Lottie from 'react-lottie';
 import loadingData from '../lottieFiles/97930-loading.json';
 import useBannerData from '../../customHooks/useBannerSectionHook';
+import { fetchDeleteBannerData, fetchPostBannerData, fetchUpdateBannerData } from '../../fetchedData/fetchBannerData';
 
 const Banner = ({ darkmode }) => {
     const [updateModal, setUpdateModal] = useState(100);
     const [sectionController, setSectionController] = useState(1);
-
+    const [bannerDataContainer, setBannerDataContainer] = useState({});
+    const [updateBannerDataContainer, setUpdateBannerDataContainer] = useState({});
+    const [imgHolder, setImgHolder] = useState('');
+    const [idContainer, setIdContainer] = useState('');
     const [bannerData, refetch] = useBannerData();
-    const data = bannerData?.data?.data?.data
+    const data = bannerData?.data?.data?.data;
+
+
+
+    const findBannerData = data?.find(f => {
+        return f._id === idContainer
+    })
+
+    useEffect(() => {
+        if (imgHolder !== findBannerData?.img) {
+            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
+            const formData = new FormData();
+            formData.append('image', imgHolder);
+            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(res => res.json())
+                .then(result => {
+                    console.log(result?.data?.url);
+                    setImgHolder(result?.data?.url);
+                    setBannerDataContainer({
+                        img: result?.data?.url
+                    })
+                    setUpdateBannerDataContainer({
+                        img: result?.data?.url
+                    })
+                })
+        }
+    }, [imgHolder, findBannerData]);
+
+
+    console.log(imgHolder);
+
+    const postBannerData = async () => {
+        await fetchPostBannerData(bannerDataContainer, refetch);
+        toast.dark('Banner Image added successfully')
+    }
+
+    const updateBannerData = async () => {
+        await fetchUpdateBannerData(idContainer, updateBannerDataContainer, refetch);
+        toast.dark('Banner updated successfully');
+    };
+
+    const deleteBannerData = async (idForDelete) => {
+        if (idForDelete) {
+            const result = window.confirm('are you sure to delete this item?');
+            if (result) {
+                await fetchDeleteBannerData(idForDelete, refetch);
+                toast.dark('successfully deleted');
+            }
+        }
+
+    }
+
+
 
     const handleModalSection = (value) => {
         if (value === 1) {
@@ -31,7 +93,7 @@ const Banner = ({ darkmode }) => {
 
     const [count, setCount] = useState(0);
     const [pause, setPause] = useState(false);
-    const [idContainer, setIdContainer] = useState('');
+
 
     const findImageIdMapped = data?.map(m => {
         return m._id
@@ -69,7 +131,7 @@ const Banner = ({ darkmode }) => {
                 }
             }
         };
-        const interval = setInterval(handleTransition, 6000)
+        const interval = setInterval(handleTransition, 4000)
         return () => {
             clearInterval(interval);
         };
@@ -106,21 +168,26 @@ const Banner = ({ darkmode }) => {
                 {
                     data ? copiedData?.map(d =>
                         <div key={d.id}
+
                             style={{
-                                transition: `transform ${count > 0 ? 2 : 0}s`,
+                                transition: `transform ${count > 0 ? 1 : 0}s`,
                                 transform: `translateX(${count * -100}%)`,
                             }}
 
                         >
                             <div
+
                                 style={{ width: '92vw', marginTop: '92px' }}
                                 onMouseEnter={() => setPause(true)}
                                 onMouseLeave={() => setPause(false)}
                             >
-                                <img className={banner.bannerImage} style={{ height: '56vh', width: '92vw' }} src={d?.img} alt="" />
+                                <img className={banner.bannerImage} src={d?.img} alt="" />
                                 <div className={banner.editAndDelete}>
                                     <span onClick={() => handleUpdateBanner(d?._id)} ><i className="uil uil-edit cursor-pointer"></i></span>
-                                    <span><i className="uil uil-trash-alt ml-3 cursor-pointer"></i></span>
+                                    {
+                                        data?.length > 1 &&
+                                        <span onClick={() => deleteBannerData(d?._id)}><i className="uil uil-trash-alt ml-3 cursor-pointer"></i></span>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -176,16 +243,30 @@ const Banner = ({ darkmode }) => {
                             <div className={banner.eventsImgSectionMain}>
 
                                 <div type="file" className={banner.eventsImgSection}>
+                                    <div style={{ width: '150px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                                        {
+                                            updateBannerDataContainer?.img
+                                                ?
+                                                <img style={{ height: '100px', width: '150px' }} src={updateBannerDataContainer?.img} alt="" />
+                                                :
+                                                <span><i class="uil uil-image-v text-8xl"></i></span>
+                                        }
+                                    </div>
                                     <div className={banner.chooseFileDesign}>
                                         <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
-                                        <input className={banner.chooseFile} type="file" name="" id="" />
+                                        <input className={banner.chooseFile} type="file" name="" id=""
+                                            onChange={(e) => {
+                                                const imgFile = e.target.files[0];
+                                                setImgHolder(imgFile)
+                                            }}
+                                        />
                                     </div>
 
 
                                 </div>
                             </div>
                             <div className={banner.updateEventButton}>
-                                <button className='btn btn-primary mr-10'><i class="uil uil-edit mr-1"></i>update Banner</button>
+                                <button onClick={updateBannerData} className='btn btn-primary mr-10'><i class="uil uil-edit mr-1"></i>update Banner</button>
                             </div>
                         </div>
 
@@ -195,16 +276,29 @@ const Banner = ({ darkmode }) => {
                             <div className={banner.eventsImgSectionMain}>
 
                                 <div type="file" className={banner.eventsImgSection}>
+                                    <div style={{ width: '150px', height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+                                        {
+                                            bannerDataContainer?.img
+                                                ?
+                                                <img style={{ height: '100px', width: '150px' }} src={bannerDataContainer?.img} alt="" />
+                                                :
+                                                <span><i class="uil uil-image-v text-8xl"></i></span>
+                                        }
+                                    </div>
                                     <div className={banner.chooseFileDesign}>
                                         <p className='text-white font-bold'><i class="uil uil-upload"></i> <span>Choose File</span></p>
-                                        <input className={banner.chooseFile} type="file" name="" id="" />
+                                        <input className={banner.chooseFile} type="file" name="" id=""
+                                            onChange={(e) => {
+                                                const imgFile = e.target.files[0];
+                                                setImgHolder(imgFile)
+                                            }} />
                                     </div>
 
 
                                 </div>
                             </div>
                             <div className={banner.updateEventButton}>
-                                <button className='btn btn-primary mr-10'><i class="uil uil-plus-circle mr-2"></i>Add Banner</button>
+                                <button onClick={postBannerData} className='btn btn-primary mr-10'><i class="uil uil-plus-circle mr-2"></i>Add Banner</button>
                             </div>
 
                         </div>
