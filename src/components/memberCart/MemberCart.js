@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './MemberCart.css'
 import { Link } from 'react-router-dom';
+import useMemberData from '../../customHooks/useMemberSectionHook';
 
 const MemberCart = ({ darkmode }) => {
-    const [member, setMember] = useState([]);
-    console.log(member);
-    useEffect(() => {
-        const url = 'memberCart.json';
-        fetch(url).then(res => res.json()).then(res => setMember(res));
-    }, [])
+    const [memberData] = useMemberData();
+    const allmembers = memberData?.data?.data?.data;
+
+    const approvedMembers = allmembers?.filter(f => {
+        return f?.approval === true;
+    })
     return (
 
         <div className={`${darkmode && 'bg-black'} `}>
@@ -16,16 +17,16 @@ const MemberCart = ({ darkmode }) => {
                 <p style={{ transition: '1s ease-in-out' }} className={`text-5xl font-bold text-center mb-7 ${darkmode && 'text-white'}`}>MEMBERS</p>
                 <div className={`cart ${darkmode && 'bg-black text-white'}`}>
                     {
-                        member?.map(member => {
+                        approvedMembers?.map(member => {
                             return (
                                 <div data-aos='fade-up' duration='300' className={`product ${darkmode && 'border-2 border-white'}`}>
                                     <div className="memberImgContainer">
                                         <img className="product-image" src={member.imgLink} alt="" />
                                     </div>
                                     <div className="product-details">
-                                        <h3 className="product-title">{member.name}</h3>
-                                        <p className="product-description">{member.occupation}</p>
-                                        <p className="product-price">{member.short_description}</p>
+                                        <h3 className="product-title">{member?.name}</h3>
+                                        <p className="product-description">{member?.member_id}</p>
+                                        <p className="product-description">{member?.designation}</p>
                                     </div>
 
                                 </div>
@@ -34,9 +35,7 @@ const MemberCart = ({ darkmode }) => {
                     }
                 </div>
 
-                <div style={{ width: '150px', height: '150px' }} className=" flex items-center justify-center mx-auto">
-                    <Link to='/members'><button className='btn btn-primary '>view all</button></Link>
-                </div>
+
             </div>
         </div>
     );

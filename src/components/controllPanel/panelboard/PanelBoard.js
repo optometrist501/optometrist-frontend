@@ -1,13 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './panelBoard.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
 import { Link, Outlet } from 'react-router-dom';
+import useMemberData from '../../../customHooks/useMemberSectionHook';
 
 const PanelBoard = () => {
+
     const [positionSlide, setPositionSlide] = useState(50);
     const [heighlight, setHighlight] = useState(1)
-    const [user] = useAuthState(auth)
+    const [user] = useAuthState(auth);
+    const [second, setSecond] = useState();
+    const [minute, setMinute] = useState();
+    const remaining = 60 - second;
+
+    const [memberData] = useMemberData();
+    const allMembers = memberData?.data?.data?.data;
+    console.log(allMembers);
+
+
+    const findPendings = allMembers?.filter(f => {
+        return f?.approval === false;
+    })
+
+
+    useEffect(() => {
+        setInterval(() => {
+            const todaySecond = new Date().getSeconds();
+            setSecond(todaySecond);
+            const todayMinute = new Date().getMinutes();
+            setMinute(todayMinute);
+        }, 1000)
+    }, [second, minute]);
+
     return (
         <div className='dashboard_main'>
             <div className="dashboard">
@@ -24,12 +49,18 @@ const PanelBoard = () => {
                                 <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY</Link> </li>
                                 <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT</Link></li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
-                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
-                                <li onClick={() => setHighlight(6)} className={heighlight === 6 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-user-exclamation text-xl"></i> REQUESTS</Link></li>
-                                <li onClick={() => setHighlight(7)} className={heighlight === 7 && 'text-orange-500'} > <Link to='publication'>  <i class=" uil uil-analysis text-xl"></i> ANALYSIS</Link></li>
+                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
+                                <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} indicator`} >
+                                    {
+                                        findPendings?.length !== 0 &&
+                                        <span class="indicator-item badge badge-secondary">{findPendings?.length}</span>
+                                    }
+                                    <Link to='panelRequest'>
+                                        <i class="uil uil-user-exclamation text-xl"></i> REQUESTS
+                                    </Link>
+                                </li>
 
                                 <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
-
                             </ul>
                         </div>
                     </div>
@@ -50,9 +81,17 @@ const PanelBoard = () => {
                                 <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY</Link> </li>
                                 <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT</Link></li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
-                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
-                                <li onClick={() => setHighlight(6)} className={heighlight === 6 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-user-exclamation text-xl"></i> REQUESTS</Link></li>
-                                <li onClick={() => setHighlight(7)} className={heighlight === 7 && 'text-orange-500'} > <Link to='publication'>  <i class=" uil uil-analysis text-xl"></i> ANALYSIS</Link></li>
+                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
+                                <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} indicator`} >
+                                    {
+                                        findPendings?.length !== 0 &&
+                                        <span class="indicator-item badge badge-secondary">{findPendings?.length}</span>
+                                    }
+                                    <Link to='panelRequest'>
+                                        <i class="uil uil-user-exclamation text-xl"></i> REQUESTS
+                                    </Link>
+                                </li>
+
 
                                 <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
 

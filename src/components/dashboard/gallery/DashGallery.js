@@ -13,6 +13,9 @@ const DashGallery = () => {
     const [galleryData, refetch] = useGalleryData()
     const [content, setContent] = useState('');
 
+
+
+
     const [open, setOpen] = useState(false);
     const allGallery = galleryData?.data?.data?.data;
     console.log(allGallery);
@@ -57,11 +60,15 @@ const DashGallery = () => {
         }
     }
 
-    const findBlog = allGallery?.find(f => {
+    const findpostsByEmail = allGallery?.filter(f => {
+        return f?.email === user?.email;
+    });
+
+    const findBlog = findpostsByEmail?.find(f => {
         return f._id === findId;
     });
 
-    const findPendings = allGallery?.filter(f => {
+    const findPendings = findpostsByEmail?.filter(f => {
         return f.approval === false;
     });
 
@@ -166,7 +173,7 @@ const DashGallery = () => {
                 </div>
                 <br />
                 {
-                    allGallery?.slice()?.reverse()?.map((blogs, index) => {
+                    findpostsByEmail?.slice()?.reverse()?.map((blogs, index) => {
                         return (
                             <div className={`${open ? 'none' : 'block'}`}>
                                 {

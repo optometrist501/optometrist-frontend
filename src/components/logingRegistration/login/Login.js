@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSendEmailVerification, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import './Login.css';
 import auth from '../../../firebase/firebase.init';
+import Loading from '../../../Loading/Loading';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ darkmode }) => {
+    const navigate = useNavigate();
 
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
+    const [signInWithGoogle,] = useSignInWithGoogle(auth);
+    const [sendEmailVerification] = useSendEmailVerification(auth);
+    const [user] = useAuthState(auth);
     console.log(user);
+
+
     const [
         createUserWithEmailAndPassword,
-        userCreateWithEmail,
-        loadingCreateWithEmail,
-        errorCreateWithEmail,
     ] = useCreateUserWithEmailAndPassword(auth);
+
+    const [updateProfile, profileLoading] = useUpdateProfile(auth);
+
+
+
     const [
         signInWithEmailAndPassword,
         userSignIn,
@@ -20,17 +31,20 @@ const Login = ({ darkmode }) => {
         errorSignIn,
     ] = useSignInWithEmailAndPassword(auth);
     const [email, setEmail] = useState('');
-
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [loginSwitch, setLoginSwith] = useState(false);
     const [view, setView] = useState(false);
     console.log(view)
 
 
+    const actionCodeSettings = {
+        url: 'https://optometrist-a88bd.web.app/login',
+    };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
     };
 
     useEffect(() => {
@@ -38,9 +52,36 @@ const Login = ({ darkmode }) => {
             setView(true)
             setTimeout(() => {
                 setView(false);
+                if (userSignIn) {
+                    navigate('/');
+                    toast.success("login successfull")
+                }
             }, 2000)
         }
-    }, [userSignIn, errorSignIn])
+    }, [userSignIn, errorSignIn, navigate]);
+
+
+    const handleSignInWithGoogle = async () => {
+        await signInWithGoogle();
+
+
+        navigate('/');
+        toast.success("successfully signed in with google");
+
+    }
+
+    const handleEmailVarification = () => {
+        sendEmailVerification(auth.currentUser).then(
+            () => {
+                toast.success("an email has been sent. please check!");
+            }
+        )
+
+    }
+
+    if (profileLoading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div style={{ transition: '1s ease-in-out' }} className={` ${darkmode && 'bg-black text-white'} loginMain`}>
@@ -53,7 +94,6 @@ const Login = ({ darkmode }) => {
                 {
                     !loginSwitch &&
                     <div className="login-form">
-                        <h2>Login</h2>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
                                 <label>Email:</label>
@@ -87,18 +127,37 @@ const Login = ({ darkmode }) => {
                                         {userSignIn && <p className='text-green-600'>successfully logged in</p>}
                                     </p>
                                 }
+
+                                <div className='w-full flex items-center justify-end'>
+                                    <p className='text-green-500 text-sm cursor-pointer' onClick={async () => {
+                                        if (email !== '') {
+                                            const success = await sendPasswordResetEmail(email, actionCodeSettings)
+                                            if (success) {
+                                                toast.success("an email has been sent. please check!")
+                                            }
+                                        } else {
+                                            toast.error("you did not type any email!")
+                                        }
+                                    }}>forgot password?</p>
+                                </div>
+                                <br />
+                                <br />
+                                {
+                                    user?.emailVerified === false &&
+                                    <p className='text-red-500 text-sm'>your email is not varified. please go to gmail account and verify soon!</p>
+                                }
                             </div>
 
 
                             <div className="loginRegSubmitBtn">
                                 <div className="loginRegSubmitBtnContainer">
-                                    <button onClick={() => {
-                                        signInWithEmailAndPassword(email, password)
+                                    <button onClick={async () => {
 
+                                        signInWithEmailAndPassword(email, password)
                                         setPassword('');
                                     }} className='btnLoginReg' type="submit">Login</button>
                                     <br /><br />
-                                    <button onClick={() => signInWithGoogle()} className='btnLoginReg' type="submit">Login with Google</button>
+                                    <button onClick={handleSignInWithGoogle} className='btnLoginReg' type="submit">Login with Google</button>
                                 </div>
                             </div>
                         </form>
@@ -107,8 +166,17 @@ const Login = ({ darkmode }) => {
                 {
                     loginSwitch &&
                     <div className="login-form">
-                        <h2>Registration</h2>
                         <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label>name:</label>
+                                <input
+                                    className='inputLoginReg'
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                />
+                            </div>
                             <div className="form-group">
                                 <label>Email:</label>
                                 <input
@@ -130,13 +198,17 @@ const Login = ({ darkmode }) => {
                                 />
                             </div>
                             <div className="loginRegSubmitBtn">
-                                <button onClick={() => {
-                                    createUserWithEmailAndPassword(email, password)
-
+                                <button onClick={async () => {
+                                    await createUserWithEmailAndPassword(email, password);
+                                    await updateProfile({ displayName: name });
+                                    handleEmailVarification();
+                                    toast.success("Registration successfull");
+                                    navigate('/login');
                                     setPassword('');
+
                                 }} className='btnLoginReg' type="submit">Signup</button>
                                 <br /><br />
-                                <button onClick={() => signInWithGoogle()} className='btnLoginReg' type="submit">Login with Google</button>
+                                <button onClick={handleSignInWithGoogle} className='btnLoginReg' type="submit">Login with Google</button>
                             </div>
                         </form>
                     </div>

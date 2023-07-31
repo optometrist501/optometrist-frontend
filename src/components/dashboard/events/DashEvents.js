@@ -11,6 +11,7 @@ import useEventData from '../../../customHooks/useEventSectionHook';
 const DashEvents = () => {
     const [user] = useAuthState(auth);
     console.log(user?.email);
+
     const editor = useRef(null);
     const [eventData, refetch] = useEventData();
     const [content, setContent] = useState('');
@@ -63,11 +64,15 @@ const DashEvents = () => {
         }
     }
 
-    const findEvent = allEvents?.find(f => {
+    const findpostsByEmail = allEvents?.filter(f => {
+        return f?.email === user?.email;
+    })
+
+    const findEvent = findpostsByEmail?.find(f => {
         return f._id === findId;
     });
 
-    const findPendings = allEvents?.filter(f => {
+    const findPendings = findpostsByEmail?.filter(f => {
         return f.approval === false;
     });
 
@@ -184,7 +189,7 @@ const DashEvents = () => {
                 </div>
                 <br />
                 {
-                    allEvents?.slice()?.reverse()?.map((events, index) => {
+                    findpostsByEmail?.slice()?.reverse()?.map((events, index) => {
                         return (
                             <div className={`${open ? 'none' : 'block'}`}>
                                 {

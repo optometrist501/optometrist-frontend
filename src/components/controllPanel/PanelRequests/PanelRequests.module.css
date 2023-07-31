@@ -1,0 +1,102 @@
+.modalDetail{
+    width: 100%;
+}
+
+
+
+.viewPart{
+    width: 100%;
+    min-height: 400px;
+}
+
+.membersContainer{
+    width: 90%;
+    margin: auto;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    box-shadow: 0 0 2px 2px #e7e4e4;
+    margin-bottom: 20px;
+}
+
+
+
+.detailMemberOne{
+width: 35%;
+height: 400px;
+margin: 5px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-right: 1px solid lightgray;
+}
+
+.detailMemberTwo{
+width: 65%;
+height: 400px;
+margin: 5px;
+}
+
+.detailMemberTwo p{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.memberImg img{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 2px #e7e4e4;
+}
+
+.noRequestPart{
+    width: 80vw;
+    height: 70vh;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.noRequestPartContainer{
+    width: 70%;
+    height: 400px;
+    box-shadow: 0 0 2px 2px #e7e4e4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media screen and (max-width: 768px) {
+    .membersContainer{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .detailMemberTwo, .detailMemberOne{
+        width: 100%;
+    }
+
+    .detailMemberOne{
+        border-right: none;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .membersContainer{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .detailMemberTwo, .detailMemberOne{
+        width: 100%;
+    }
+
+    .detailMemberOne{
+        border-right: none;
+    }
+}

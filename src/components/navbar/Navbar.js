@@ -2,17 +2,24 @@ import React from 'react';
 import userIcone from '../../images/User_icon_2.svg.png';
 import navbar from './Navbar.module.css'
 import Infobar from '../infoBar/Infobar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
+import useMemberData from '../../customHooks/useMemberSectionHook';
 
 const Navbar = ({ setDarkmode, darkmode }) => {
 
+    const navigate = useNavigate();
     const [signOut] = useSignOut(auth);
-    const [user] = useAuthState(auth)
+    const [user] = useAuthState(auth);
+    const [memberData] = useMemberData();
+    const allMember = memberData?.data?.data?.data;
+
+    const findMember = allMember?.find(f => {
+        return f.email === user?.email
+    })
 
     const handleDarkMode = () => {
-        console.log('hello')
         if (darkmode === false) {
             setDarkmode(true)
         } else if (darkmode === true) {
@@ -36,7 +43,7 @@ const Navbar = ({ setDarkmode, darkmode }) => {
                                 <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/publication'>Publications</Link></li>
                                 <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/gallery'>Gallery</Link></li>
                                 <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/events'>Events</Link></li>
-                                <li><a className={`${darkmode && 'hover:text-orange-500'} `} href='##'>Member Login</a></li>
+
                                 <li>
                                     <a href='##'>view more</a>
                                     <ul className="p-2">
@@ -46,18 +53,36 @@ const Navbar = ({ setDarkmode, darkmode }) => {
                                                 <span className='text-green-500' title={user?.email}><Link to='/' className={`${darkmode && 'hover:text-orange-500'} `} >{user?.email.length > 17 ? user?.email?.slice(0, 17) + '...' : user?.email}</Link></span>
                                             </li>
                                         }
-                                        <li>
-                                            <span> <i class="uil uil-user-plus"></i> <Link to='/myProfile' className={`${darkmode && 'hover:text-orange-500'} `} >profile</Link></span>
-                                        </li>
-                                        <li>
-                                            <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-sliders-v"></i><Link to='./panelBoard'>Controll Panel</Link></span>
-                                        </li>
-                                        <li>
-                                            <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-setting"></i><Link to='./dashboard'>Dashboard</Link></span>
-                                        </li>
+                                        {
+                                            (user?.email === findMember?.email && findMember?.approval && findMember?.isSignOut === false && user?.emailVerified === true) &&
+                                            <li>
+                                                <span className={`${darkmode && 'hover:text-orange-500'} `}> <i class="uil uil-user-plus"></i> <Link to='/myProfile'  >profile</Link></span>
+                                            </li>
+                                        }
+                                        {
+                                            (user?.email === findMember?.email && findMember?.isSignOut === false && findMember?.isAdmin === true && findMember?.approval === true && user?.emailVerified === true) &&
+
+                                            <li>
+                                                <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-sliders-v"></i><Link to='./panelBoard'>Controll Panel</Link></span>
+                                            </li>
+                                        }
+
+                                        {(user?.email === findMember?.email && findMember?.isSignOut === false && findMember?.approval === true && findMember?.isAdmin === false && user?.emailVerified === true) &&
+
+                                            <li>
+                                                <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-setting"></i><Link to='./dashboard'>Dashboard</Link></span>
+                                            </li>
+                                        }
+
                                         <li>
                                             <span><i class="uil uil-signin"></i><Link className={`${darkmode && 'hover:text-orange-500'} `} to='./login'>Login</Link></span>
                                         </li>
+                                        {
+                                            (user?.email && user?.emailVerified === true) &&
+                                            <li>
+                                                <span><i class="uil uil-signin"></i><Link className={`${darkmode && 'hover:text-orange-500'} `} to='./memberLogin'>Member Login</Link></span>
+                                            </li>
+                                        }
 
                                         <li>
                                             <span
@@ -65,6 +90,7 @@ const Navbar = ({ setDarkmode, darkmode }) => {
                                                     const success = await signOut();
                                                     if (success) {
                                                         alert('You are sign out');
+                                                        navigate('/login')
                                                     }
                                                 }}
                                             ><i class="uil uil-signout"></i> <a className={`${darkmode && 'hover:text-orange-500'} `} href='###'>Logout</a></span>
@@ -100,33 +126,45 @@ const Navbar = ({ setDarkmode, darkmode }) => {
                                 {
                                     user?.email &&
                                     <li>
-                                        <span className='text-green-500' title={user?.email}><Link to='/' className={`${darkmode && 'hover:text-orange-500'} `} >{user?.email.length > 23 ? user?.email?.slice(0, 23) + '...' : user?.email}</Link></span>
+                                        <span className='text-green-500' title={user?.email}><Link to='/' className={`${darkmode && 'hover:text-orange-500'} `} >{user?.email?.length > 23 ? user?.email?.slice(0, 23) + '...' : user?.email}</Link></span>
+                                    </li>
+                                }
+                                {
+                                    (user?.email === findMember?.email && findMember?.approval && findMember?.isSignOut === false && user?.emailVerified === true) &&
+                                    <li>
+                                        <span className={`${darkmode && 'hover:text-orange-500'} `}> <i class="uil uil-user-plus"></i> <Link to='/myProfile'  >profile</Link></span>
+                                    </li>
+                                }
+                                {
+                                    (user?.email === findMember?.email && findMember?.isSignOut === false && findMember?.isAdmin === true && findMember?.approval === true && user?.emailVerified === true) &&
+
+                                    <li>
+                                        <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-sliders-v"></i><Link to='./panelBoard'>Controll Panel</Link></span>
+                                    </li>
+                                }
+                                {(user?.email === findMember?.email && findMember?.isSignOut === false && findMember?.approval === true && findMember?.isAdmin === false && user?.emailVerified === true) &&
+
+                                    <li>
+                                        <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-setting"></i><Link to='./dashboard'>Dashboard</Link></span>
                                     </li>
                                 }
                                 <li>
-                                    <span className={`${darkmode && 'hover:text-orange-500'} `}> <i class="uil uil-user-plus"></i> <Link to='/myProfile'  >profile</Link></span>
-                                </li>
-                                <li>
-                                    <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-sliders-v"></i><Link to='./panelBoard'>Controll Panel</Link></span>
-                                </li>
-                                <li>
-                                    <span className={`${darkmode && 'hover:text-orange-500'} `} ><i class="uil uil-setting"></i><Link to='./dashboard'>Dashboard</Link></span>
-                                </li>
-                                <li>
                                     <span><i class="uil uil-signin"></i><Link className={`${darkmode && 'hover:text-orange-500'} `} to='./login'>Login</Link></span>
                                 </li>
-                                <li>
-                                    <span className={`${darkmode && 'hover:text-orange-500'} `}>
-                                        <i class="uil uil-user-square"></i>
-                                        <a href='##'>Member Login</a>
-                                    </span>
-                                </li>
+                                {
+                                    (user?.email && user?.emailVerified === true) &&
+                                    <li>
+                                        <span><i class="uil uil-signin"></i><Link className={`${darkmode && 'hover:text-orange-500'} `} to='./memberLogin'>Member Login</Link></span>
+                                    </li>
+                                }
+
                                 <li>
                                     <span
                                         onClick={async () => {
                                             const success = await signOut();
                                             if (success) {
                                                 alert('You are sign out');
+                                                navigate('/login')
                                             }
                                         }}
                                         className={`${darkmode && 'hover:text-orange-500'} `}><i class="uil uil-signout"></i> <a href='###'>Logout</a></span>

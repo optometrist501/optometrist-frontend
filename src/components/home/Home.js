@@ -7,6 +7,7 @@ import MemberCart from '../memberCart/MemberCart';
 import Footer from '../footer/Footer';
 import Advertise from '../advertise/Advertise';
 import AboutAll from '../aboutAll/AboutAll';
+import { Link } from 'react-router-dom';
 
 
 const Home = ({ darkmode }) => {
@@ -22,6 +23,9 @@ const Home = ({ darkmode }) => {
             <Gallery darkmode={darkmode}></Gallery>
             <BlogHome darkmode={darkmode}></BlogHome>
             <MemberCart darkmode={darkmode}></MemberCart>
+            <div style={{ width: '150px', height: '150px' }} className=" flex items-center justify-center mx-auto">
+                <Link to='/members'><button className='btn btn-primary '>view all</button></Link>
+            </div>
             <Footer></Footer>
         </div>
     );

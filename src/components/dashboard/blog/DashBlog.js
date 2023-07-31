@@ -61,13 +61,21 @@ const DashBlog = () => {
         }
     }
 
-    const findBlog = allBlogs?.find(f => {
+    const findpostsByEmail = allBlogs?.filter(f => {
+        return f.email === user?.email;
+    });
+
+    const findBlog = findpostsByEmail?.find(f => {
         return f._id === findId;
     });
 
-    const findPendings = allBlogs?.filter(f => {
+    const findPendings = findpostsByEmail?.filter(f => {
         return f.approval === false;
     });
+
+
+
+    console.log(findpostsByEmail);
 
     useEffect(() => {
         setUpdateTitle(findBlog?.title);
@@ -106,7 +114,7 @@ const DashBlog = () => {
         allBlogInfo.title = title
         allBlogInfo.name = publisherName
         allBlogInfo.email = user?.email
-        allBlogInfo.release = date
+        allBlogInfo.release_date = date
         allBlogInfo.imgLink = addImg
         allBlogInfo.description = content;
 
@@ -121,7 +129,7 @@ const DashBlog = () => {
         console.log(allBlogInfo);
 
         if (
-            allBlogInfo.title !== '' && allBlogInfo.name !== '' && allBlogInfo.email !== '' && allBlogInfo.eventDate !== '' && allBlogInfo.imgLink !== '' && allBlogInfo.description !== ''
+            allBlogInfo.title !== '' && allBlogInfo.name !== '' && allBlogInfo.email !== '' && allBlogInfo.release_date !== '' && allBlogInfo.imgLink !== '' && allBlogInfo.description !== ''
         ) {
             await fetchPostBlogData(allBlogInfo, refetch);
             toast.success('Blog added successfully');
@@ -179,7 +187,7 @@ const DashBlog = () => {
                 </div>
                 <br />
                 {
-                    allBlogs?.slice()?.reverse()?.map((blogs, index) => {
+                    findpostsByEmail?.slice()?.reverse()?.map((blogs, index) => {
                         return (
                             <div className={`${open ? 'none' : 'block'}`}>
                                 {

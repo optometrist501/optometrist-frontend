@@ -24,6 +24,12 @@ import PanelBlog from './components/controllPanel/panelBlog/PanelBlog';
 import PanelEvent from './components/controllPanel/PanelEvent/PanelEvent';
 import PanelGallery from './components/controllPanel/PanelGallery/PanelGallery';
 import PanelPublication from './components/controllPanel/PanelPublication/PanelPublication';
+import MemberLogin from './components/logingRegistration/memberLogin/MemberLogin';
+import RequireMember from './Varification/RequireMember';
+import RequireAdmin from './Varification/RequireAdmin';
+import RequireProfile from './Varification/RequireProfile';
+import PanelMember from './components/controllPanel/PanelMember/PanelMember';
+import PanelRequests from './components/controllPanel/PanelRequests/PanelRequests';
 
 
 
@@ -48,20 +54,40 @@ function App() {
         <Route path='/works' element={<OurWorks darkmode={darkmode}></OurWorks>} />
         <Route path='/partners' element={<OurPartners darkmode={darkmode}></OurPartners>} />
         <Route path='/members' element={<MemberCart darkmode={darkmode}></MemberCart>} />
-        <Route path='/myProfile' element={<MyProfile darkmode={darkmode}></MyProfile>} />
+        <Route path='/myProfile'
+          element={
+            <RequireProfile>
+              <MyProfile darkmode={darkmode}></MyProfile>
+            </RequireProfile>
+          }
+        />
         <Route path='/login' element={<Login darkmode={darkmode}></Login>} />
-        <Route path='/dashboard' element={<Dashboard></Dashboard>} >
+        <Route path='/memberLogin' element={<MemberLogin darkmode={darkmode}></MemberLogin>} />
+        <Route path='/dashboard'
+          element={
+            <RequireMember>
+              <Dashboard></Dashboard>
+            </RequireMember>}
+        >
           <Route index to='' element={<DashBlog></DashBlog>}></Route>
           <Route path='event' element={<DashEvents></DashEvents>}></Route>
           <Route path='gallery' element={<DashGallery></DashGallery>}></Route>
           <Route path='publication' element={<DashPublications></DashPublications>}></Route>
         </Route>
 
-        <Route path='/panelBoard' element={<PanelBoard></PanelBoard>} >
+        <Route path='/panelBoard'
+          element={
+            <RequireAdmin>
+              <PanelBoard></PanelBoard>
+            </RequireAdmin>
+          }
+        >
           <Route index to='' element={<PanelBlog></PanelBlog>}></Route>
           <Route path='event' element={<PanelEvent></PanelEvent>}></Route>
           <Route path='gallery' element={<PanelGallery></PanelGallery>}></Route>
           <Route path='publication' element={<PanelPublication></PanelPublication>}></Route>
+          <Route path='panelMember' element={<PanelMember></PanelMember>}></Route>
+          <Route path='panelRequest' element={<PanelRequests></PanelRequests>}></Route>
         </Route>
       </Routes>
 
