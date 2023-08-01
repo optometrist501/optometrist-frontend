@@ -210,8 +210,8 @@ const PanelEvent = () => {
                                             <div className={panelEvent.partOne}>
                                                 <div className={panelEvent.partOneDetail}>
                                                     <p className='mr-2'>{index + 1} </p>
-                                                    <p title={events?.title} className={panelEvent.partOneDetailTitle}>Title: {events?.title?.length > 37 ? events?.title?.slice(0, 37) + '...' : events?.title}</p>
-                                                    <p title={events?.title} className={panelEvent.partOneDetailTitleRes}>Title: {events?.title.length > 12 ? events?.title.slice(0, 12) + '...' : events?.title}</p>
+                                                    <p title={events?.title} className={panelEvent.partOneDetailTitle}> {events?.title?.length > 37 ? events?.title?.slice(0, 37) + '...' : events?.title}</p>
+                                                    <p title={events?.title} className={panelEvent.partOneDetailTitleRes}>{events?.title.length > 12 ? events?.title.slice(0, 12) + '...' : events?.title}</p>
                                                 </div>
                                             </div>
                                             <div className={panelEvent.partTwo}>

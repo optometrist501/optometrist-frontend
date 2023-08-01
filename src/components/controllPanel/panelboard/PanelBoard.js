@@ -4,6 +4,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
 import { Link, Outlet } from 'react-router-dom';
 import useMemberData from '../../../customHooks/useMemberSectionHook';
+import useBlogData from '../../../customHooks/useBlogSectionHook';
+import useGalleryData from '../../../customHooks/useGallerySectionHook';
+import useEventData from '../../../customHooks/useEventSectionHook';
 
 const PanelBoard = () => {
 
@@ -15,12 +18,30 @@ const PanelBoard = () => {
     const remaining = 60 - second;
 
     const [memberData] = useMemberData();
+    const [blogData] = useBlogData();
+    const [galleryData] = useGalleryData();
+    const [eventData] = useEventData();
+    const allBlogs = blogData?.data?.data?.data;
     const allMembers = memberData?.data?.data?.data;
+    const allGallery = galleryData?.data?.data?.data;
+    const allEventData = eventData?.data?.data?.data;
     console.log(allMembers);
 
 
     const findPendings = allMembers?.filter(f => {
         return f?.approval === false;
+    })
+
+    const findPendingBlogs = allBlogs?.filter(f => {
+        return f?.approval === false
+    })
+
+    const findPendingGallery = allGallery?.filter(f => {
+        return f?.approval === false
+    })
+
+    const findPendingEvents = allEventData?.filter(f => {
+        return f?.approval === false
     })
 
 
@@ -45,18 +66,26 @@ const PanelBoard = () => {
                         <br />
                         <div className="sidebarDetailpart">
                             <ul>
-                                <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} > <Link to=''><i class="uil uil-file-edit-alt text-xl"></i>  BLOG</Link> </li>
-                                <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY</Link> </li>
-                                <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT</Link></li>
+                                <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} > <Link to=''><i class="uil uil-file-edit-alt text-xl"></i>  BLOG {findPendingBlogs?.length > 0 &&
+                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingBlogs?.length}</span>
+                                } </Link> </li>
+                                <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY  {findPendingGallery?.length > 0 &&
+                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingGallery?.length}</span>
+                                } </Link> </li>
+                                <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT  {findPendingEvents?.length > 0 &&
+                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingEvents?.length}</span>
+                                }</Link></li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
                                 <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
-                                <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} indicator`} >
-                                    {
-                                        findPendings?.length !== 0 &&
-                                        <span class="indicator-item badge badge-secondary">{findPendings?.length}</span>
-                                    }
-                                    <Link to='panelRequest'>
-                                        <i class="uil uil-user-exclamation text-xl"></i> REQUESTS
+                                <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} `} >
+
+                                    <Link style={{ width: '125px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='panelRequest'>
+                                        <div>
+                                            <i class="uil uil-user-exclamation text-xl"></i> REQUESTS
+                                        </div>
+                                        {findPendings?.length > 0 &&
+                                            <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
+                                        }
                                     </Link>
                                 </li>
 
@@ -77,24 +106,30 @@ const PanelBoard = () => {
                         <br />
                         <div className="sidebarDetailPartHidden">
                             <ul>
-                                <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} > <Link to=''><i class="uil uil-file-edit-alt text-xl"></i>  BLOG</Link> </li>
-                                <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY</Link> </li>
-                                <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT</Link></li>
+                                <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} > <Link to=''><i class="uil uil-file-edit-alt text-xl"></i>  BLOG {findPendingBlogs?.length > 0 &&
+                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingBlogs?.length}</span>
+                                } </Link> </li>
+                                <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY  {findPendingGallery?.length > 0 &&
+                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingGallery?.length}</span>
+                                } </Link> </li>
+                                <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT  {findPendingEvents?.length > 0 &&
+                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingEvents?.length}</span>
+                                }</Link></li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
                                 <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
-                                <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} indicator`} >
-                                    {
-                                        findPendings?.length !== 0 &&
-                                        <span class="indicator-item badge badge-secondary">{findPendings?.length}</span>
-                                    }
-                                    <Link to='panelRequest'>
-                                        <i class="uil uil-user-exclamation text-xl"></i> REQUESTS
+                                <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} `} >
+
+                                    <Link style={{ width: '125px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='panelRequest'>
+                                        <div>
+                                            <i class="uil uil-user-exclamation text-xl"></i> REQUESTS
+                                        </div>
+                                        {findPendings?.length > 0 &&
+                                            <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
+                                        }
                                     </Link>
                                 </li>
 
-
                                 <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
-
                             </ul>
                         </div>
                     </div>

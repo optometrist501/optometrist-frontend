@@ -191,8 +191,8 @@ const PanelGallery = () => {
                                             <div className={panelGallery.partOne}>
                                                 <div className={panelGallery.partOneDetail}>
                                                     <p className='mr-2'>{index + 1} </p>
-                                                    <p title={blogs?.title} className={panelGallery.partOneDetailTitle}>Title: {blogs?.title?.length > 37 ? blogs?.title?.slice(0, 37) + '...' : blogs?.title}</p>
-                                                    <p title={blogs?.title} className={panelGallery.partOneDetailTitleRes}>Title: {blogs?.title.length > 12 ? blogs?.title.slice(0, 12) + '...' : blogs?.title}</p>
+                                                    <p title={blogs?.title} className={panelGallery.partOneDetailTitle}> {blogs?.title?.length > 37 ? blogs?.title?.slice(0, 37) + '...' : blogs?.title}</p>
+                                                    <p title={blogs?.title} className={panelGallery.partOneDetailTitleRes}> {blogs?.title.length > 12 ? blogs?.title.slice(0, 12) + '...' : blogs?.title}</p>
                                                 </div>
                                             </div>
                                             <div className={panelGallery.partTwo}>

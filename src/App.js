@@ -96,3 +96,12 @@ function App() {
 }
 
 export default App;
+
+
+// github email: optometrist501@gmail.compact
+// password: qMAux5QvPDFt@e5
+
+/* 
+ optometrist501@gmail.com
+  optometRist_501@#
+*/
