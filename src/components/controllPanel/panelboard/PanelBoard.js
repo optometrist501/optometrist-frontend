@@ -66,15 +66,48 @@ const PanelBoard = () => {
                         <br />
                         <div className="sidebarDetailpart">
                             <ul>
-                                <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} > <Link to=''><i class="uil uil-file-edit-alt text-xl"></i>  BLOG {findPendingBlogs?.length > 0 &&
-                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingBlogs?.length}</span>
-                                } </Link> </li>
-                                <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY  {findPendingGallery?.length > 0 &&
-                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingGallery?.length}</span>
-                                } </Link> </li>
-                                <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT  {findPendingEvents?.length > 0 &&
-                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingEvents?.length}</span>
-                                }</Link></li>
+                                <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} >
+                                    <Link style={{ width: '90px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to=''>
+                                        <div>
+                                            <i class="uil uil-file-edit-alt text-xl"></i>  BLOG
+                                        </div>
+
+                                        {findPendingBlogs?.length > 0 &&
+                                            <div
+                                                style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>
+                                                {findPendingBlogs?.length}
+                                            </div>
+                                        }
+                                    </Link>
+                                </li>
+                                <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}>
+                                    <Link style={{ width: '115px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='gallery'>
+                                        <div>
+                                            <i class="uil uil-file-edit-alt text-xl"></i>  GALLERY
+                                        </div>
+
+                                        {findPendingGallery?.length > 0 &&
+                                            <div
+                                                style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>
+                                                {findPendingGallery?.length}
+                                            </div>
+                                        }
+                                    </Link>
+                                </li>
+                                <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}>
+                                    <Link style={{ width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='event'>
+                                        <div>
+                                            <i class="uil uil-file-edit-alt text-xl"></i>  EVENT
+                                        </div>
+
+                                        {findPendingEvents?.length > 0 &&
+                                            <div
+                                                style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>
+                                                {findPendingEvents?.length}
+                                            </div>
+                                        }
+                                    </Link>
+                                </li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
                                 <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
                                 <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} `} >
@@ -106,15 +139,48 @@ const PanelBoard = () => {
                         <br />
                         <div className="sidebarDetailPartHidden">
                             <ul>
-                                <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} > <Link to=''><i class="uil uil-file-edit-alt text-xl"></i>  BLOG {findPendingBlogs?.length > 0 &&
-                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingBlogs?.length}</span>
-                                } </Link> </li>
-                                <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY  {findPendingGallery?.length > 0 &&
-                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingGallery?.length}</span>
-                                } </Link> </li>
-                                <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT  {findPendingEvents?.length > 0 &&
-                                    <span style={{ color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendingEvents?.length}</span>
-                                }</Link></li>
+                                <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} >
+                                    <Link style={{ width: '90px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to=''>
+                                        <div>
+                                            <i class="uil uil-file-edit-alt text-xl"></i>  BLOG
+                                        </div>
+
+                                        {findPendingBlogs?.length > 0 &&
+                                            <div
+                                                style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>
+                                                {findPendingBlogs?.length}
+                                            </div>
+                                        }
+                                    </Link>
+                                </li>
+                                <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}>
+                                    <Link style={{ width: '115px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='gallery'>
+                                        <div>
+                                            <i class="uil uil-file-edit-alt text-xl"></i>  GALLERY
+                                        </div>
+
+                                        {findPendingGallery?.length > 0 &&
+                                            <div
+                                                style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>
+                                                {findPendingGallery?.length}
+                                            </div>
+                                        }
+                                    </Link>
+                                </li>
+                                <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}>
+                                    <Link style={{ width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='event'>
+                                        <div>
+                                            <i class="uil uil-file-edit-alt text-xl"></i>  EVENT
+                                        </div>
+
+                                        {findPendingEvents?.length > 0 &&
+                                            <div
+                                                style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>
+                                                {findPendingEvents?.length}
+                                            </div>
+                                        }
+                                    </Link>
+                                </li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
                                 <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
                                 <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} `} >

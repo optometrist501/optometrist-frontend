@@ -45,7 +45,7 @@ export const fetchDeleteLikeData = async (theId, refetch) => {
 
 export const fetchBulkDeleteLikeData = async (idsLike, refetch) => {
     try {
-        const response = await axios.post(`http://localhost:5000/api/v1/like/bulk-delete`, { idsLike });
+        const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/like/bulk-delete`, { idsLike });
         const likeData = response;
         console.log(likeData)
         refetch()

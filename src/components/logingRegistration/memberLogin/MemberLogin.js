@@ -38,10 +38,14 @@ const MemberLogin = (darkmode) => {
                 .then(res => res.json())
                 .then(result => {
 
-                    setImgHolder(result?.data?.url)
+                    setImgHolder(result?.data?.url);
                 })
         }
     }, [imgHolder]);
+
+    const imageLinkWord = process.env.REACT_APP_IMG_LINK_SLICED;
+    const imgHolderModifiedWord = imgHolder.slice(0, 17);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,20 +65,24 @@ const MemberLogin = (darkmode) => {
         };
         console.log(bodyData);
 
+        if (user?.email !== findEmail?.email) {
 
-        if (bodyData.name !== '' && bodyData.address !== '' && bodyData.designation !== '' && bodyData.email !== '' && bodyData.mobile_no !== '' && bodyData.imgLink !== '') {
+            if (imageLinkWord === imgHolderModifiedWord) {
+                const response = await fetchPostMemberData(bodyData, refetch);
 
-            if (user?.email !== findEmail?.email) {
-                await fetchPostMemberData(bodyData);
-                toast.success('Request Submitted successfully');
-                navigate('/');
+                if (response.status === 200) {
+                    toast.success('success');
+                    navigate('/');
+                } else {
+                    toast.error(response);
+                }
             } else {
-                toast.error('account already exists');
+                toast.error("image not added yet. please wait for load image")
             }
 
         } else {
-            toast.error('failed to submit');
-        };
+            toast.error('account already exists');
+        }
 
         e.target.address.value = '';
         e.target.name.value = '';
@@ -82,17 +90,12 @@ const MemberLogin = (darkmode) => {
         e.target.designation.value = '';
     }
 
-    console.log(member_id);
-
     const matchId = allMember?.find(f => {
-        return f.member_id === member_id
+        return f.email === user?.email
     });
 
-
-
-
     const matchPassword = allMember?.find(f => {
-        return f.password === password
+        return f.email === user?.email
     });
 
     const handleLogin = async (e) => {
@@ -109,9 +112,15 @@ const MemberLogin = (darkmode) => {
 
             if (response.status === 200) {
                 if (findEmail?.approval === true) {
+
                     setTimeout(() => {
-                        navigate('/dashboard')
-                    }, 1000)
+                        if (findEmail?.isAdmin === true) {
+                            navigate('/panelBoard')
+                        } else {
+                            navigate('/dashboard')
+                        }
+                    }, 2000)
+
                     toast.success("Login succussfull");
                 } else if (findEmail?.approval === false) {
                     toast.dark("Login successfull and wait for approval...")
@@ -257,8 +266,11 @@ const MemberLogin = (darkmode) => {
 
                                 </div>
 
+                                {/* {
+                                    imgHolder && <img style={{ height: '50px', width: '50px', marginTop: '27px' }} src={imgHolder} alt="" />
+                                } */}
                                 {
-                                    imgHolder && <span className='text-green-500 italic mt-5'>Image Added</span>
+                                    (imageLinkWord === imgHolderModifiedWord) && <span className='text-green-600 text-sm italic mt-5'>Image added</span>
                                 }
                                 <div>
 

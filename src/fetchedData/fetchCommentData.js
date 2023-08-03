@@ -43,7 +43,7 @@ export const fetchDeleteCommentData = async (idForDelete, refetch) => {
 
 export const fetchBulkDeleteCommentData = async (idsComment, refetch) => {
     try {
-        const response = await axios.post(`http://localhost:5000/api/v1/comment/bulk-delete`, { idsComment });
+        const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/comment/bulk-delete`, { idsComment });
         const commentData = response;
         console.log(commentData)
         refetch()

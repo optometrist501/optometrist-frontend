@@ -100,8 +100,6 @@ const About = ({ darkmode }) => {
                                     <h1 className={`text-5xl font-bold ${about.gradient_text} `}>OPTOMETRIST</h1>
                                     <p className="py-6" dangerouslySetInnerHTML={{ __html: data?.description }}>
                                     </p>
-                                    <button className="btn btn-primary">Get Started</button>
-
                                 </div>
 
                             </div>

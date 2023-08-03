@@ -6,10 +6,11 @@ export const fetchGetMemberData = async () => {
     return memberData
 }
 
-export const fetchPostMemberData = async (MemberDataContainer) => {
+export const fetchPostMemberData = async (MemberDataContainer, refetch) => {
     try {
         const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/member/create-member`, MemberDataContainer);
         const memberData = response;
+        refetch();
         console.log(memberData)
         return memberData;
     } catch (error) {
