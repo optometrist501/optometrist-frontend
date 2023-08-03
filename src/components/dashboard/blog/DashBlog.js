@@ -6,6 +6,10 @@ import { toast } from 'react-toastify';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
 import { fetchDeleteBlogData, fetchPostBlogData, fetchUpdateBlogData } from '../../../fetchedData/fetchBlogData';
+import useLikeData from '../../../customHooks/useLikeSectionHook';
+import useCommentData from '../../../customHooks/useCommentSectionHooks';
+import { fetchBulkDeleteLikeData } from '../../../fetchedData/fetchLikeData';
+import { fetchBulkDeleteCommentData } from '../../../fetchedData/fetchCommentData';
 
 const DashBlog = () => {
 
@@ -36,6 +40,12 @@ const DashBlog = () => {
     const [updateImg, setUpdateImg] = useState('');
     const [addImg, setAddImg] = useState('');
     const [blankIdentifier, setBlankIdentifier] = useState({});
+
+    const [likeData, refetchLike] = useLikeData();
+    const allLikes = likeData?.data?.data?.data;
+
+    const [commentData, refetchComment] = useCommentData();
+    const allComments = commentData?.data?.data?.data;
 
     const handleModal = (value, id) => {
         setOpen(true);
@@ -167,7 +177,33 @@ const DashBlog = () => {
                 toast.dark('successfully deleted');
                 refetch();
             }
+
+            const idsLike = allLikes?.filter(f => {
+                return f?.link === theId
+            })?.map(m => m._id)
+
+            const idsComment = allComments?.filter(f => {
+                return f?.link === theId
+            })?.map(m => {
+                return m._id
+            })
+
+            if (idsLike) {
+                await fetchBulkDeleteLikeData(idsLike, refetchLike);
+            }
+
+            if (idsComment) {
+                await fetchBulkDeleteCommentData(idsComment, refetchLike);
+            }
         }
+
+
+
+
+
+
+
+
     }
 
     return (

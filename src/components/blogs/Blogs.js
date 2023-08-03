@@ -1,13 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import blogs from './Blogs.module.css'
-import JoditEditor from 'jodit-react';
 import useBlogData from '../../customHooks/useBlogSectionHook';
+import useLikeData from '../../customHooks/useLikeSectionHook';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase/firebase.init';
+import { fetchDeleteLikeData, fetchPostLikeData } from '../../fetchedData/fetchLikeData';
+import { useNavigate } from 'react-router-dom';
+import { fetchPostCommentData } from '../../fetchedData/fetchCommentData';
+import useCommentData from '../../customHooks/useCommentSectionHooks';
+import { toast } from 'react-toastify';
 
 const Blogs = ({ darkmode }) => {
-    const editor = useRef(null);
-    const [content, setContent] = useState('');
-    const [description, setDescription] = useState('');
-    const [sectionController, setSectionController] = useState(1);
+    const navigate = useNavigate();
+    const [user] = useAuthState(auth);
+    const [likeData, refetch] = useLikeData();
+    const allLikes = likeData?.data?.data?.data;
+    console.log(allLikes);
+
     const [blogData] = useBlogData();
     const allBlogs = blogData?.data?.data?.data;
     console.log(allBlogs);
@@ -19,14 +28,103 @@ const Blogs = ({ darkmode }) => {
     const [buttonNumber, setButtonNumber] = useState(10);
     const [modifiedButtonNumber, setModifiedButtonNumber] = useState();
     const [idContainer, setIdContainer] = useState('');
+    const [commentSwitch, setCommentSwitch] = useState(false);
+    const [comments, setComments] = useState('');
+
+
+    const [commentData, refetchComments] = useCommentData();
+    const allComments = commentData?.data?.data?.data;
+    console.log(allComments);
+
     const findApprovedBlogs = allBlogs?.filter(f => {
         return f.approval === true;
     });
-    console.log(findApprovedBlogs);
+
 
     const findDetailBlogInfo = findApprovedBlogs?.find(f => {
         return f._id === idContainer
     })
+
+
+    const commentsFilteredByBlogId = allComments?.filter(f => {
+        return f?.link === idContainer
+    });
+
+    console.log(commentsFilteredByBlogId);
+
+    const handlePostLike = async (idforLike) => {
+        if (user?.email) {
+
+            const bodyData = {
+                email: user?.email,
+                link: idforLike
+            }
+            await fetchPostLikeData(bodyData, refetch)
+        } else {
+            navigate('/login');
+        }
+    }
+
+    const handleDeleteLike = async (blogId) => {
+        console.log(blogId);
+
+        const findLikeId = allLikes?.filter(f => {
+            return f.link === blogId
+        })?.find(f => {
+            return f.email === user?.email
+        })?._id
+
+        console.log(findLikeId);
+
+        if (user?.email) {
+            await fetchDeleteLikeData(findLikeId, refetch)
+        } else {
+            navigate('/login');
+        }
+    }
+
+
+    const handleComments = (idForComments) => {
+        setCommentSwitch(true);
+        setIdContainer(idForComments);
+
+    }
+
+    const postComment = async () => {
+
+        const commentBody = {
+            name: user?.displayName,
+            email: user?.email,
+            link: idContainer,
+            comments: comments
+        };
+
+
+        if (user?.email) {
+
+
+            if (comments !== '') {
+                const response = await fetchPostCommentData(commentBody, refetchComments);
+                if (response?.status === 200) {
+                    toast("comment post successfully");
+                } else {
+                    toast.error("failed to post");
+                }
+            } else {
+                toast.error('you can not post comment blank')
+            }
+
+
+        } else {
+            navigate('/login');
+            setCommentSwitch(false)
+        }
+
+
+
+
+        setComments('');
+    }
 
 
     const handleModalSection = (value) => {
@@ -153,12 +251,34 @@ const Blogs = ({ darkmode }) => {
                                                     <br />
                                                     <p className='text-3xl font-bold'>{allBlogs.title}</p>
                                                     <br />
-                                                    <p>{allBlogs.description}</p>
+                                                    <p dangerouslySetInnerHTML={{ __html: allBlogs.description }}></p>
                                                     <br />
                                                     <div className={blogs.blogLastPart}>
                                                         <div className={blogs.blogLastPartOne}>
-                                                            <span><i class="uil uil-heart"></i></span>
-                                                            <span> 0</span>
+                                                            {
+                                                                allLikes?.filter(f => {
+                                                                    return f?.email === user?.email
+                                                                })?.find(f => {
+                                                                    return f?.link === allBlogs?._id
+                                                                })?.link !== allBlogs?._id
+                                                                    ?
+                                                                    <span onClick={() => handlePostLike(allBlogs?._id)}><i class="uil uil-heart cursor-pointer"></i></span>
+                                                                    :
+                                                                    <span onClick={() => handleDeleteLike(allBlogs?._id)}><i class="uil uil-heart cursor-pointer text-red-600"></i></span>
+                                                            }
+                                                            <span className='ml-1'>{allLikes?.filter(f => {
+                                                                return f?.link === allBlogs?._id
+                                                            })?.length}</span>
+                                                            <span className='ml-5'>
+                                                                <i onClick={() => handleComments(allBlogs?._id)} class="uil uil-comment-alt-dots cursor-pointer"></i>
+                                                            </span>
+                                                            <span className='ml-2'>
+                                                                {
+                                                                    allComments?.filter(f => {
+                                                                        return f?.link === allBlogs?._id
+                                                                    })?.length
+                                                                }
+                                                            </span>
                                                         </div>
                                                         <div className={blogs.blogLastPartTwo}>
                                                             <span onClick={() => handleModalSection(allBlogs?._id)} ><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
@@ -210,6 +330,51 @@ const Blogs = ({ darkmode }) => {
                                         <p dangerouslySetInnerHTML={{ __html: findDetailBlogInfo?.description }} className=''></p>
                                     </div>
                                     <br />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div className={commentSwitch ? 'block' : 'none'}>
+                            <div className={blogs.blogComments}>
+                                <div className={blogs.blogCommentsContainer}>
+                                    <div className={blogs.blogCommentBar}>
+                                        <div className={blogs.commentBarOne}>
+                                            <span className='ml-5 font-bold'>
+                                                {
+                                                    findDetailBlogInfo?.title
+                                                }
+                                            </span>
+                                        </div>
+                                        <div className={blogs.commentBarTwo}>
+                                            <i onClick={() => setCommentSwitch(false)} class="uil uil-times text-xl cursor-pointer"></i>
+                                        </div>
+                                    </div>
+                                    <div className={blogs.blogCommentsPart}>
+                                        <div className={blogs.allCommentsPart}>
+                                            {
+                                                commentsFilteredByBlogId?.map((comments, index) =>
+
+                                                    <div className='mb-10'>
+                                                        <p className='text-sm text-gray-500 italic'><span>{index + 1}.</span> {comments?.name}</p>
+                                                        <hr className='ml-2' />
+                                                        <p className='text-sm ml-2'>{comments?.comments}</p>
+                                                    </div>
+
+                                                )
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className={blogs.commentInputField}>
+                                        <span>
+                                            <input type="text"
+                                                value={comments}
+                                                onChange={(e) => setComments(e.target.value)}
+                                            />
+                                        </span>
+                                        <span onClick={postComment}>
+                                            <i class="uil uil-message text-2xl ml-5 cursor-pointer"></i>
+                                        </span>
+                                    </div>
 
                                 </div>
                             </div>

@@ -138,11 +138,10 @@
     background-color: white;
     position: sticky;
     top: 100px;
+    z-index: 4;
   }
 
 
-  
-  
   @media screen and (max-width:768px) {
 
     .firstBar{
@@ -174,18 +173,13 @@
       margin-left: 10px;
       font-size: 18px;
   }
-  
 
     .sidebarDetailpartHidden{
-  
         width: 100%;
         margin-left: 20px;
         font-size: 14px;
-   
     }
 
-   
-    
     .main-content{
       width: 100%;
     }
@@ -199,6 +193,8 @@
       padding-top: 10px;
       padding-left: 7px;
     }
+
+    
    
   }
   
@@ -208,6 +204,10 @@
     }
     .hiddenSidebar{
       margin-top: 15px;
+      width: 45%;
+    }
+
+    .hiddenSidebar-panel{
       width: 45%;
     }
 
@@ -235,6 +235,11 @@
       display: block;
       padding-top: 10px;
       padding-left: 7px;
+    }
+
+    .dashboard-title-container{
+      position: sticky;
+      top: 110px;
     }
    
   }

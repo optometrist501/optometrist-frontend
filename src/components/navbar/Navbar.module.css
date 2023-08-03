@@ -30,10 +30,18 @@
     border-radius: 10px;
   }
 
+ @media screen and (max-width: 768px)  { 
+
+    /* .navbarTheContainer{
+        top: 40px;
+    } */
+   
+ }
+
  @media screen and (max-width: 480px)  { 
 
     .navbarTheContainer{
-        top: 41px;
+        top: 40px;
     }
    
  }

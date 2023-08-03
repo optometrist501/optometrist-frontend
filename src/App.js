@@ -91,6 +91,10 @@ function App() {
         </Route>
       </Routes>
 
+      {/* <div className='w-full h-80 flex items-center justify-center'>
+        <p className='text-red-500'>website is under development...</p>
+      </div> */}
+
     </div>
   );
 }
