@@ -24,6 +24,7 @@ const Dashboard = () => {
                                 <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-blue-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY</Link> </li>
                                 <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-blue-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT</Link></li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-blue-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
+                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-blue-500'}> <Link to='dashTransection'> <i class="uil uil-transaction text-xl"></i> TRANSECTION</Link> </li>
                             </ul>
                         </div>
                     </div>
@@ -44,6 +45,7 @@ const Dashboard = () => {
                                 <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-blue-500'}> <Link to='gallery'> <i class="uil uil-image text-xl"></i> GALLERY</Link> </li>
                                 <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-blue-500'}> <Link to='event'> <i class="uil uil-calendar-alt text-xl"></i> EVENT</Link> </li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-blue-500'}> <Link to='publication'> <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link> </li>
+                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-blue-500'}> <Link to='dashTransection'> <i class="uil uil-transaction text-xl"></i> TRANSECTION</Link> </li>
                             </ul>
                         </div>
                     </div>

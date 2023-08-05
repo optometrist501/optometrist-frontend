@@ -30,6 +30,10 @@ import RequireAdmin from './Varification/RequireAdmin';
 import RequireProfile from './Varification/RequireProfile';
 import PanelMember from './components/controllPanel/PanelMember/PanelMember';
 import PanelRequests from './components/controllPanel/PanelRequests/PanelRequests';
+import PanelTransection from './components/controllPanel/PanelTransection/PanelTransection';
+import PaymentSuccess from './components/paymentSuccess/PaymentSuccess';
+import PaymentFail from './components/PaymentFail/PaymentFail';
+import DashTransection from './components/DashTransection/DashTransection';
 
 
 
@@ -54,6 +58,18 @@ function App() {
         <Route path='/works' element={<OurWorks darkmode={darkmode}></OurWorks>} />
         <Route path='/partners' element={<OurPartners darkmode={darkmode}></OurPartners>} />
         <Route path='/members' element={<MemberCart darkmode={darkmode}></MemberCart>} />
+        <Route path='/payment/success'
+          element={
+            <RequireProfile>
+              <PaymentSuccess></PaymentSuccess>
+            </RequireProfile>
+          }
+        />
+        <Route path='/payment/fail'
+          element={
+            <PaymentFail></PaymentFail>
+          }
+        />
         <Route path='/myProfile'
           element={
             <RequireProfile>
@@ -73,6 +89,7 @@ function App() {
           <Route path='event' element={<DashEvents></DashEvents>}></Route>
           <Route path='gallery' element={<DashGallery></DashGallery>}></Route>
           <Route path='publication' element={<DashPublications></DashPublications>}></Route>
+          <Route path='dashTransection' element={<DashTransection></DashTransection>}></Route>
         </Route>
 
         <Route path='/panelBoard'
@@ -88,6 +105,7 @@ function App() {
           <Route path='publication' element={<PanelPublication></PanelPublication>}></Route>
           <Route path='panelMember' element={<PanelMember></PanelMember>}></Route>
           <Route path='panelRequest' element={<PanelRequests></PanelRequests>}></Route>
+          <Route path='panelTransection' element={<PanelTransection></PanelTransection>}></Route>
         </Route>
       </Routes>
 

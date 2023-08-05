@@ -122,7 +122,7 @@ const PanelBoard = () => {
                                     </Link>
                                 </li>
 
-                                <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
+                                <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='panelTransection'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
                             </ul>
                         </div>
                     </div>
@@ -195,7 +195,7 @@ const PanelBoard = () => {
                                     </Link>
                                 </li>
 
-                                <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
+                                <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='panelTransection'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
                             </ul>
                         </div>
                     </div>

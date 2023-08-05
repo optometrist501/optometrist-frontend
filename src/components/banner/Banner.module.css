@@ -217,6 +217,15 @@
       position: absolute;
       top: 150px;
     }
+
+    .bannerImgPreview{
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .bannerImgPreviewContainer{
+      width: 100%;
+    }
   }
   @media screen and (max-width: 480px ) {
     .bannerMain{
@@ -225,7 +234,14 @@
     .bannerImage{
       height: 30vh;
     }
+    .bannerImgPreview{
+      display: flex;
+      flex-wrap: wrap;
+    }
 
+    .bannerImgPreviewContainer{
+      width: 100%;
+    }
   }
 
  

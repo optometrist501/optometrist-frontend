@@ -3,7 +3,7 @@ import infobar from './Infobar.module.css';
 
 const Infobar = () => {
     return (
-        <div className={infobar.infobar}>
+        <div className={`${infobar.infobar} print:hidden`}>
             <div className={infobar.infobarContainer}>
                 <div className={infobar.infobarInfoOne}>
                     <span><i className="uil uil-phone"></i><span>+880 13002291</span> </span>

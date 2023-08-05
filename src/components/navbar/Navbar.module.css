@@ -30,11 +30,21 @@
     border-radius: 10px;
   }
 
+  .logoRes{
+    display: none
+   }
+   .logo{
+    display: block;
+   }
+
  @media screen and (max-width: 768px)  { 
 
-    /* .navbarTheContainer{
-        top: 40px;
-    } */
+   .logoRes{
+    display: block
+   }
+   .logo{
+    display: none;
+   }
    
  }
 
@@ -43,5 +53,12 @@
     .navbarTheContainer{
         top: 40px;
     }
+
+    .logoRes{
+        display: block
+       }
+       .logo{
+        display: none;
+       }
    
  }

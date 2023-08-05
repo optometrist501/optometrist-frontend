@@ -17,7 +17,7 @@
 .eventsFirstPart{
     width: 20%;
     height: 100vh;
-    background-color: rgb(44, 44, 44);
+    /* background-color: rgb(44, 44, 44); */
     transition: 1s ease-in-out;
 }
 
@@ -25,7 +25,7 @@
     width: 20%;
     height: 100%;
     position: fixed;
-    top: 90px;
+    top: 124px;
 }
 
 .eventsFirstPartDetail{
@@ -66,7 +66,7 @@
     justify-content: space-between;
     z-index: 5;
     position: fixed;
-    top: 92px;
+    top: 124px;
     
 }
 
@@ -129,7 +129,7 @@ font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 60px;
+  padding-top: 94px;
   flex-wrap: wrap;
   justify-content: flex-start;
   width: 100%;
@@ -393,6 +393,7 @@ font-size: 12px;
   .eventsFirstPartContainer{
     width: 50%;
     transition: 1s ease-in-out;
+    top:124px
   }
 
     .eventsSecondPart{
@@ -444,6 +445,7 @@ font-size: 12px;
   .eventsFirstPartContainer{
     width:50%;
     transition: 1s ease-in-out;
+    top:140px
   }
 
   .searchBar{

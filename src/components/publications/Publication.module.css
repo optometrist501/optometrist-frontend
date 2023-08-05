@@ -24,7 +24,7 @@
     width: 20%;
     height: 100%;
     position: fixed;
-    top: 90px;
+    top: 124px;
     transition: 1s ease-in-out;
 }
 
@@ -71,7 +71,7 @@
     justify-content: space-between;
     z-index: 5;
     position: fixed;
-    top: 92px;
+    top: 124px;
     
 }
 

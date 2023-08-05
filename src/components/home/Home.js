@@ -14,7 +14,7 @@ const Home = ({ darkmode }) => {
     console.log()
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black' : 'bg-white'}`} >
-
+            <br />
             <About darkmode={darkmode}></About>
             <Advertise darkmode={darkmode}></Advertise>
             <AboutAll></AboutAll>

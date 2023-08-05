@@ -21,7 +21,7 @@ const RequireProfile = ({ children }) => {
 
     const findMember = memberData?.find(f => {
         return f.email === user?.email;
-    })
+    });
 
     if (!user?.email) {
         return <Navigate
@@ -33,9 +33,13 @@ const RequireProfile = ({ children }) => {
     }
 
 
-    if (findMember?.isSignOut === true || findMember?.isSignOut === undefined) {
+    if (findMember?.isSignOut === true) {
         return <Navigate to='/memberLogin' state={{ from: location }} replace />
     }
+
+    // if (findMember?.isSignOut === true || findMember?.isSignOut === undefined) {
+    //     return <Navigate to='/memberLogin' state={{ from: location }} replace />
+    // }
 
 
 

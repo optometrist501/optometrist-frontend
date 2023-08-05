@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 
 const BlogHome = ({ darkmode }) => {
     const [imgData, setImgData] = useState([]);
+    console.log(imgData)
 
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        const url = 'blog.json';
-        fetch(url).then(res => res.json()).then(res => setImgData(res))
+        const url = 'https://optometrist-server-46oo.onrender.com/api/v1/blog';
+        fetch(url).then(res => res.json()).then(res => setImgData(res?.data?.data))
     })
 
 
@@ -42,7 +43,7 @@ const BlogHome = ({ darkmode }) => {
 
                         <div style={{ width: `${imgData?.length * 100}%` }} className="blog-modal-container">
                             {
-                                imgData?.map((blogs) => {
+                                imgData?.slice()?.reverse()?.map((blogs) => {
                                     return (
                                         <div key={blogs.id} style={{ transform: `translateX(${count * -100}%)`, transition: 'transform 1s' }} className="allBlogs">
                                             <p className='text-gray-500 text-sm italic'><i class="uil uil-user-square"></i> {blogs.name}</p>
@@ -51,7 +52,7 @@ const BlogHome = ({ darkmode }) => {
                                             <  hr />
                                             <br />
                                             <h1 className='text-2xl font-bold mb-12'>{blogs.title}</h1>
-                                            <p> {blogs.description}</p>
+                                            <p dangerouslySetInnerHTML={{ __html: blogs.description }}></p>
                                         </div>
                                     )
                                 })

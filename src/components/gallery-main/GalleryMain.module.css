@@ -17,20 +17,20 @@
 .galleryFirstPart{
     width: 20%;
     height: 100vh;
-    background-color: rgb(44, 44, 44);
     transition: 1s ease-in-out;
-    
 }
 
 .galleryFirstPartContainer{
     width: 20%;
     height: 100%;
     position: fixed;
-    top: 90px;
+    background-color: rgb(44, 44, 44);
+    top: 124px;
 }
 
 .gallery_title_container{
     width: 100%;
+
 
 }
 
@@ -73,7 +73,7 @@
     justify-content: space-between;
     z-index: 5;
     position: fixed;
-    top: 92px;
+    top: 124px;
     
 }
 
@@ -105,7 +105,7 @@ font-size: 12px;
 
 .gallery {
     display: flex;
-    padding-top: 60px;
+    padding-top: 94px;
     flex-wrap: wrap;
     justify-content: flex-start;
     width: auto;
@@ -399,6 +399,7 @@ font-size: 12px;
   .galleryFirstPartContainer{
     width: 50%;
     transition: 1s ease-in-out;
+    top: 124px;
   }
 
     .gallerySecondPart{
@@ -435,6 +436,8 @@ font-size: 12px;
   .galleryFirstPartContainer{
     width:50%;
     transition: 1s ease-in-out;
+    
+    top: 140px
   }
 
   .searchBar{

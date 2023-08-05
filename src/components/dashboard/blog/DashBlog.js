@@ -190,6 +190,7 @@ const DashBlog = () => {
 
             if (idsLike) {
                 await fetchBulkDeleteLikeData(idsLike, refetchLike);
+
             }
 
             if (idsComment) {

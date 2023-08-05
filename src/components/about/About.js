@@ -112,8 +112,8 @@ const About = ({ darkmode }) => {
                 </div>
                 <div style={{ transform: `translateX(${updateModal}%)`, transition: 'transform 2s' }} className={`${about.updateModal} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <div style={{ transition: '1s ease-in-out' }} className={`${about.updateModalContainer} ${darkmode ? 'bg-black' : 'bg-white'}`}>
-
-                        <span onClick={() => setUpdateModal(100)}><i className="uil uil-times cursor-pointer text-2xl ml-5"></i></span>
+                        <br />
+                        <span style={{ zIndex: '30' }} onClick={() => setUpdateModal(100)}><i className="uil uil-times cursor-pointer text-2xl ml-5"></i></span>
                         <br />
                         <br />
                         <hr />

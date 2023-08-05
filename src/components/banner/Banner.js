@@ -208,6 +208,8 @@ const Banner = ({ darkmode }) => {
             <div style={{ transform: `translateX(${updateModal}%)`, transition: 'transform 2s' }} className={`${banner.updateModal} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
 
                 <div style={{ transition: '1s ease-in-out' }} className={`${banner.updateModalContainer} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
+                    <br />
+                    <br />
                     <span onClick={() => setUpdateModal(100)}><i className="uil uil-times cursor-pointer text-2xl ml-5"></i></span>
                     <br />
                     <br />

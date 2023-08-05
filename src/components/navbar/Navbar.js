@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
 import useMemberData from '../../customHooks/useMemberSectionHook';
+import logo from '../../images/oab-logo.png'
 
 const Navbar = ({ setDarkmode, darkmode }) => {
 
@@ -29,8 +30,8 @@ const Navbar = ({ setDarkmode, darkmode }) => {
     return (
         <div className={navbar.navbarTheMain}>
             <Infobar></Infobar>
-            <div className={navbar.navbarTheContainer}>
-                <div style={{ transition: '1s ease-in-out', height: '67px' }} className={`navbar ${darkmode ? `${navbar.module_border_wrap}  ` : `${navbar.module_border_wrap}`} `}>
+            <div className={`${navbar.navbarTheContainer} print:hidden`}>
+                <div style={{ transition: '1s ease-in-out', height: '100px' }} className={`navbar ${darkmode ? `${navbar.module_border_wrap}  ` : `${navbar.module_border_wrap}`} `}>
 
                     <div className="navbar-start">
                         <div className="dropdown">
@@ -103,7 +104,8 @@ const Navbar = ({ setDarkmode, darkmode }) => {
 
                             </ul>
                         </div>
-                        <Link to='/' className="btn btn-ghost normal-case text-xl">Logo</Link>
+                        <img className={navbar.logo} onClick={() => navigate('/')} style={{ height: '125px', width: '155px', cursor: 'pointer', marginBottom: '40px' }} src={logo} alt="" />
+                        <img className={navbar.logoRes} onClick={() => navigate('/')} style={{ height: '60px', width: '80px', cursor: 'pointer', marginBottom: '20px' }} src={logo} alt="" />
                     </div>
                     <div className="navbar-end hidden lg:flex">
                         <ul className={`menu menu-horizontal px-2 font-medium text-white  ${darkmode && 'text-white '}`}>
