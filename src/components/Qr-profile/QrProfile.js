@@ -21,14 +21,14 @@ const QrProfile = () => {
     console.log(allMembers)
 
     const location = useLocation();
-    console.log(location?.pathname);
+    console.log(location?.pathname?.substring(11));
 
     const mainQrProfileLink = `https://optometrist-a88bd.web.app${location?.pathname}`;
     console.log(mainQrProfileLink);
 
 
     const findMembership = allMembers?.find(f => {
-        return f?.email === user?.email;
+        return f?._id === location?.pathname?.substring(11)
     });
 
 
@@ -109,7 +109,7 @@ const QrProfile = () => {
                         }
 
                         {
-                            findMembership?.qr_code &&
+                            (findMembership?.qr_code && findMembership?.email === user?.email) &&
                             // eslint-disable-next-line jsx-a11y/anchor-has-content
                             <button className='btn btn-neutral ml-2'><a
                                 href={findMembership?.qr_code}
