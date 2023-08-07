@@ -34,6 +34,7 @@ import PanelTransection from './components/controllPanel/PanelTransection/PanelT
 import PaymentSuccess from './components/paymentSuccess/PaymentSuccess';
 import PaymentFail from './components/PaymentFail/PaymentFail';
 import DashTransection from './components/DashTransection/DashTransection';
+import QrProfile from './components/Qr-profile/QrProfile';
 
 
 
@@ -51,6 +52,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home darkmode={darkmode}></Home>} />
         <Route path='/blogs' element={<Blogs darkmode={darkmode} ></Blogs>} />
+        <Route path='/qrProfile/:id' element={<QrProfile></QrProfile>} />
         <Route path='/gallery' element={<GalleryMain darkmode={darkmode}></GalleryMain>} />
         <Route path='/events' element={<Events darkmode={darkmode}></Events>} />
         <Route path='/about' element={<About></About>} />

@@ -61,7 +61,7 @@ const MemberLogin = (darkmode) => {
             mobile_no,
             address,
             imgLink,
-            email: user?.email
+            email: user?.email,
         };
         console.log(bodyData);
 
@@ -70,7 +70,7 @@ const MemberLogin = (darkmode) => {
             if (imageLinkWord === imgHolderModifiedWord) {
                 const response = await fetchPostMemberData(bodyData, refetch);
 
-                if (response.status === 200) {
+                if (response?.status === 200) {
                     toast.success('success');
                     navigate('/');
                 } else {

@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 const MyProfile = ({ darkmode }) => {
+
     const navigate = useNavigate();
     const [viewEditOption, setViewEditOption] = useState(false);
 
@@ -135,8 +136,9 @@ const MyProfile = ({ darkmode }) => {
                         <br />
                         <br />
                         <br />
-                        <div className='w-full flex items-center justify-end'>
+                        <div className='w-full flex items-center justify-between'>
                             <button onClick={handleSignOut} className='btn btn-primary'>sign out</button>
+                            <button onClick={() => navigate(`/qrProfile/${findMember?._id}`)} className='btn btn-primary'>QR-code</button>
                         </div>
                     </div>
                     <div className={viewEditOption ? 'block' : 'none'}>
