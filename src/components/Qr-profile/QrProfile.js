@@ -93,10 +93,12 @@ const QrProfile = () => {
                     <div className={viewEditOption ? 'block' : 'none'}>
                         <div className={qrProfile.qrContainer} style={{ minHeight: '320px', width: '100%' }}>
                             {
-                                findMembership?.qr_code ?
-                                    <img style={{ width: '250px', height: '250px' }} src={findMembership?.qr_code} alt="" />
-                                    :
+                                findMembership?.qr_code === 'will be updated' ?
+
                                     <p className='text-red-600'>No QR-Code Generated yet....</p>
+                                    :
+
+                                    <img style={{ width: '250px', height: '250px' }} src={findMembership?.qr_code} alt="" />
                             }
                         </div>
                         <hr />
