@@ -8,6 +8,12 @@ export const fetchGetBlogData = async () => {
     return blogData
 }
 
+export const fetchGetBlogBySearchData = async (searchValue) => {
+    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/blog?searchTerm=${searchValue}`);
+    const blogData = response;
+    return blogData
+}
+
 export const fetchPostBlogData = async (blogDataContainer, refetch) => {
     try {
         const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/blog/create-blog`, blogDataContainer);

@@ -9,17 +9,22 @@ import { useNavigate } from 'react-router-dom';
 import { fetchPostCommentData } from '../../fetchedData/fetchCommentData';
 import useCommentData from '../../customHooks/useCommentSectionHooks';
 import { toast } from 'react-toastify';
+import useBlogBySearchSectionData from '../../customHooks/useBlogBySearchSectionHook';
+import { fetchGetBlogBySearchData } from '../../fetchedData/fetchBlogData';
 
 const Blogs = ({ darkmode }) => {
     const navigate = useNavigate();
     const [user] = useAuthState(auth);
     const [likeData, refetch] = useLikeData();
     const allLikes = likeData?.data?.data?.data;
-    console.log(allLikes);
+
 
     const [blogData] = useBlogData();
     const allBlogs = blogData?.data?.data?.data;
-    console.log(allBlogs);
+
+    const [blogBySearchData, setBlogBySearchData] = useState([]);
+    console.log(blogBySearchData);
+
     const [updateModal, setUpdateModal] = useState(100)
 
     const [flipDrawer, setFlipDrawer] = useState(-50);
@@ -30,15 +35,21 @@ const Blogs = ({ darkmode }) => {
     const [idContainer, setIdContainer] = useState('');
     const [commentSwitch, setCommentSwitch] = useState(false);
     const [comments, setComments] = useState('');
+    const [search, setSearch] = useState('');
+    const [roundedDataLength, setRoundedDataLength] = useState()
 
 
     const [commentData, refetchComments] = useCommentData();
     const allComments = commentData?.data?.data?.data;
-    console.log(allComments);
+
 
     const findApprovedBlogs = allBlogs?.filter(f => {
         return f.approval === true;
     });
+
+    const findApprovedBlogsBySearch = blogBySearchData?.filter(f => {
+        return f.approval === true;
+    })
 
 
     const findDetailBlogInfo = findApprovedBlogs?.find(f => {
@@ -50,7 +61,6 @@ const Blogs = ({ darkmode }) => {
         return f?.link === idContainer
     });
 
-    console.log(commentsFilteredByBlogId);
 
     const handlePostLike = async (idforLike) => {
         if (user?.email) {
@@ -119,12 +129,24 @@ const Blogs = ({ darkmode }) => {
             navigate('/login');
             setCommentSwitch(false)
         }
-
-
-
-
         setComments('');
     }
+
+
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetchGetBlogBySearchData(search);
+                // console.log(response?.data?.data?.data);
+                setBlogBySearchData(response?.data?.data?.data)
+            } catch (error) {
+
+            }
+        }
+        fetchData()
+
+    }, [search])
 
 
     const handleModalSection = (value) => {
@@ -134,7 +156,14 @@ const Blogs = ({ darkmode }) => {
 
 
     // pagination
-    const roundedDataLength = Math.ceil(findApprovedBlogs?.length / 10);
+    useEffect(() => {
+        if (search === '') {
+            setRoundedDataLength(Math.ceil(findApprovedBlogs?.length / 10))
+        } else {
+            setRoundedDataLength(Math.ceil(findApprovedBlogsBySearch?.length / 10))
+        }
+    }, [findApprovedBlogs?.length, findApprovedBlogsBySearch?.length, search])
+
     const totalDataLength = roundedDataLength * 10
 
     const arrayOfObjects = [];
@@ -177,6 +206,11 @@ const Blogs = ({ darkmode }) => {
         }
     }
 
+    const getSingleBlogFromTitle = (idFromTitle) => {
+        setUpdateModal(0);
+        setIdContainer(idFromTitle);
+    }
+
 
 
     return (
@@ -196,20 +230,49 @@ const Blogs = ({ darkmode }) => {
                                 <i class="uil uil-angle-double-left text-2xl"></i>
                             </span>
                         </div>
-                        <div className={blogs.blogsFirstPartDetail}>
-                            {
-                                findApprovedBlogs?.slice((number - 10), number)?.reverse()?.map(blogData => {
-                                    return (
-                                        <p>
-                                            {
+                        {
+                            search === ''
+                                ?
+                                <div className={blogs.blogsFirstPartDetail}>
+                                    {
+                                        findApprovedBlogs?.slice((number - 10), number)?.reverse()?.map(blogData => {
+                                            return (
+                                                <p onClick={() => getSingleBlogFromTitle(blogData?._id)} className='cursor-pointer'>
+                                                    {
 
-                                                <p title={blogData?.title} className={blogs.title}>{blogData?.title?.length > 30 ? blogData?.title?.slice(0, 29) + '...' : blogData?.title}</p>
+                                                        <p title={blogData?.title} className={blogs.title}>{blogData?.title?.length > 30 ? blogData?.title?.slice(0, 29) + '...' : blogData?.title}</p>
+                                                    }
+                                                </p>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                :
+
+                                <div className={blogs.blogsFirstPartDetail}>
+                                    {
+                                        findApprovedBlogsBySearch?.length > 0 &&
+                                        <div>
+                                            {
+                                                findApprovedBlogsBySearch?.slice((number - 10), number)?.map(blogData => {
+                                                    return (
+                                                        <p onClick={() => getSingleBlogFromTitle(blogData?._id)} className='cursor-pointer'>
+                                                            {
+
+                                                                <p title={blogData?.title} className={blogs.title}>{blogData?.title?.length > 30 ? blogData?.title?.slice(0, 29) + '...' : blogData?.title}</p>
+                                                            }
+                                                        </p>
+                                                    )
+                                                })
                                             }
-                                        </p>
-                                    )
-                                })
-                            }
-                        </div>
+                                        </div>
+                                    }
+                                    {findApprovedBlogsBySearch?.length === 0 &&
+                                        <p className='text-red-600 ml-3'>Found nothing from search result</p>
+                                    }
+                                </div>
+
+                        }
 
                     </div>
                 </div>
@@ -221,23 +284,29 @@ const Blogs = ({ darkmode }) => {
                             <div className={blogs.searchBarContainer}>
                                 <div>
                                     <i className="uil uil-search text-xl "></i>
-                                    <input className={blogs.blogs_input} placeholder='search' type="text" />
+                                    <input
+                                        className={blogs.blogs_input}
+                                        placeholder='search'
+                                        type="text"
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        value={search}
+                                    />
                                 </div>
-                                <i class="uil uil-times text-xl cursor-pointer"></i>
+                                <i onClick={() => setSearch('')} className="uil uil-times text-xl cursor-pointer"></i>
                             </div>
 
                             <div className={blogs.totalBlogs}>
-                                <span>TOTAL BLOGS: {findApprovedBlogs?.length}</span>
+                                <span>TOTAL BLOGS: {search === '' ? findApprovedBlogs?.length : findApprovedBlogsBySearch?.length}</span>
                                 <span>  |  </span>
                                 <span>PAGE: {number.toString().slice(0, (number.toString().length - 1))}</span>
                             </div>
                         </div>
-                        <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogs} ${darkmode && 'bg-black text-white'}`}>
-                            {
-                                findApprovedBlogs?.slice(number - 10, number)?.reverse()?.map(allBlogs => {
-                                    return (
-                                        <div>
-                                            {
+                        {
+                            search === '' ?
+                                <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogs} ${darkmode && 'bg-black text-white'}`}>
+                                    {
+                                        findApprovedBlogs?.slice(number - 10, number)?.reverse()?.map(allBlogs => {
+                                            return (
                                                 <div className={blogs.blogsContainer}>
                                                     <br />
                                                     <p className='text-sm text-gray-500 italic'> <i class="uil uil-user-square"></i> {allBlogs.name}</p>
@@ -287,12 +356,82 @@ const Blogs = ({ darkmode }) => {
                                                     </div>
                                                     <br />
                                                 </div>
-                                            }
+                                            )
+                                        })
+                                    }
+                                </div>
+                                :
+                                <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogs} ${darkmode && 'bg-black text-white'}`}>
+                                    {
+                                        findApprovedBlogsBySearch?.slice(number - 10, number)?.map(allBlogs => {
+                                            return (
+                                                <div className={blogs.blogsContainer}>
+                                                    {
+                                                        <div>
+                                                            <br />
+                                                            <p className='text-sm text-gray-500 italic'> <i class="uil uil-user-square"></i> {allBlogs.name}</p>
+                                                            <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i> {allBlogs.release_date}</p>
+                                                            <br />
+                                                            <hr />
+                                                            <br />
+                                                            <div className={blogs.blogsImgContainer}>
+                                                                <img src={allBlogs.imgLink} alt="" />
+                                                            </div>
+                                                            <br />
+                                                            <p className='text-3xl font-bold'>{allBlogs.title}</p>
+                                                            <br />
+                                                            <p dangerouslySetInnerHTML={{ __html: allBlogs.description }}></p>
+                                                            <br />
+                                                            <div className={blogs.blogLastPart}>
+                                                                <div className={blogs.blogLastPartOne}>
+                                                                    {
+                                                                        allLikes?.filter(f => {
+                                                                            return f?.email === user?.email
+                                                                        })?.find(f => {
+                                                                            return f?.link === allBlogs?._id
+                                                                        })?.link !== allBlogs?._id
+                                                                            ?
+                                                                            <span onClick={() => handlePostLike(allBlogs?._id)}><i class="uil uil-heart cursor-pointer"></i></span>
+                                                                            :
+                                                                            <span onClick={() => handleDeleteLike(allBlogs?._id)}><i class="uil uil-heart cursor-pointer text-red-600"></i></span>
+                                                                    }
+                                                                    <span className='ml-1'>{allLikes?.filter(f => {
+                                                                        return f?.link === allBlogs?._id
+                                                                    })?.length}</span>
+                                                                    <span className='ml-5'>
+                                                                        <i onClick={() => handleComments(allBlogs?._id)} class="uil uil-comment-alt-dots cursor-pointer"></i>
+                                                                    </span>
+                                                                    <span className='ml-2'>
+                                                                        {
+                                                                            allComments?.filter(f => {
+                                                                                return f?.link === allBlogs?._id
+                                                                            })?.length
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                                <div className={blogs.blogLastPartTwo}>
+                                                                    <span onClick={() => handleModalSection(allBlogs?._id)} ><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
+
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                        </div>
+                                                    }
+
+
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        findApprovedBlogsBySearch?.length === 0 &&
+                                        <div style={{ width: '98%', height: '400px', boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.2)', margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <p className='text-red-600'>Found nothing from search result</p>
                                         </div>
-                                    )
-                                })
-                            }
-                        </div>
+                                    }
+
+                                </div>
+                        }
                         <div className={blogs.pagination} >
 
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

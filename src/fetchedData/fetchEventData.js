@@ -6,6 +6,12 @@ export const fetchGetEventData = async () => {
     return eventData
 }
 
+export const fetchGetEventBySearchData = async (searchTerm) => {
+    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/event?searchTerm=${searchTerm}`);
+    const eventData = response;
+    return eventData
+}
+
 export const fetchPostEventData = async (eventDataContainer, refetch) => {
     try {
         const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/event/create-event`, eventDataContainer);

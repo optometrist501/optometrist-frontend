@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import events from './Events.module.css';
 import JoditEditor from 'jodit-react';
 import useEventData from '../../customHooks/useEventSectionHook';
+import { fetchGetEventBySearchData } from '../../fetchedData/fetchEventData';
 
 const Events = ({ darkmode }) => {
 
@@ -17,13 +18,18 @@ const Events = ({ darkmode }) => {
     const [buttonNumber, setButtonNumber] = useState(10);
     const [modifiedButtonNumber, setModifiedButtonNumber] = useState();
     const [idContainer, setIdContainer] = useState('');
-    console.log(idContainer);
-
+    const [search, setSearch] = useState('');
+    const [eventBySearchData, setEventBySearchData] = useState([]);
+    const [roundedDataLength, setRoundedDataLength] = useState();
 
     const findApprovedEventData = allEvents?.filter(f => {
         return f.approval === true;
     })
-    console.log(findApprovedEventData);
+
+    const findApprovedEventDataBySearch = eventBySearchData?.filter(f => {
+        return f.approval === true;
+    })
+
 
 
     const findDetailEvents = findApprovedEventData?.find(f => {
@@ -38,7 +44,13 @@ const Events = ({ darkmode }) => {
 
 
     // pagination
-    const roundedDataLength = Math.ceil(findApprovedEventData?.length / 10);
+    useEffect(() => {
+        if (search === '') {
+            setRoundedDataLength(Math.ceil(findApprovedEventData?.length / 10))
+        } else {
+            setRoundedDataLength(Math.ceil(findApprovedEventDataBySearch?.length / 10))
+        }
+    }, [findApprovedEventData?.length, findApprovedEventDataBySearch?.length, search])
     const totalDataLength = roundedDataLength * 10
 
     const arrayOfObjects = [];
@@ -81,9 +93,23 @@ const Events = ({ darkmode }) => {
         }
     }
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetchGetEventBySearchData(search);
+                setEventBySearchData(response?.data?.data?.data)
+            } catch (error) {
 
+            }
+        }
+        fetchData()
 
+    }, [search])
 
+    const getSingleEventFromTitle = (valueFromTitle) => {
+        setIdContainer(valueFromTitle)
+        setUpdateModal(0)
+    }
 
 
     return (
@@ -103,15 +129,32 @@ const Events = ({ darkmode }) => {
                             </span>
                         </div>
 
-                        <div className={events.eventsFirstPartDetail}>
-                            {
-                                findApprovedEventData?.slice((number - 10), number)?.reverse()?.map(eventData => {
-                                    return (
-                                        <p title={eventData?.title} className={events.title}>{eventData?.title?.length > 30 ? eventData?.title?.slice(0, 29) + '...' : eventData?.title}</p>
-                                    )
-                                })
-                            }
-                        </div>
+                        {
+                            search === ''
+                                ?
+                                <div className={events.eventsFirstPartDetail}>
+                                    {
+                                        findApprovedEventData?.slice((number - 10), number)?.reverse()?.map(eventData => {
+                                            return (
+                                                <p style={{ cursor: 'pointer' }} onClick={() => getSingleEventFromTitle(eventData?._id)} title={eventData?.title} className={events.title}>{eventData?.title?.length > 30 ? eventData?.title?.slice(0, 29) + '...' : eventData?.title}</p>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                :
+                                <div className={events.eventsFirstPartDetail}>
+                                    {
+                                        findApprovedEventDataBySearch?.slice((number - 10), number)?.map(eventData => {
+                                            return (
+                                                <p style={{ cursor: 'pointer' }} onClick={() => getSingleEventFromTitle(eventData?._id)} title={eventData?.title} className={events.title}>{eventData?.title?.length > 30 ? eventData?.title?.slice(0, 29) + '...' : eventData?.title}</p>
+                                            )
+                                        })
+                                    }
+                                    {findApprovedEventDataBySearch?.length === 0 &&
+                                        <p className='text-red-600 ml-3'>Found nothing from search result</p>
+                                    }
+                                </div>
+                        }
 
                     </div>
                 </div>
@@ -123,49 +166,98 @@ const Events = ({ darkmode }) => {
                             <div className={events.searchBarContainer}>
                                 <div>
                                     <i className="uil uil-search text-xl "></i>
-                                    <input className={events.event_input} placeholder='search' type="text" />
+                                    <input
+                                        className={events.event_input}
+                                        placeholder='search'
+                                        type="text"
+                                        onChange={(e) => setSearch(e.target.value)}
+                                        value={search}
+                                    />
                                 </div>
-                                <i class="uil uil-times text-xl cursor-pointer"></i>
+                                <i onClick={() => setSearch('')} className="uil uil-times text-xl cursor-pointer"></i>
                             </div>
 
                             <div className={events.totalImg}>
-                                <span>TOTAL EVENTS: {findApprovedEventData?.length}</span>
+                                <span>TOTAL EVENTS: {search === '' ? findApprovedEventData?.length : findApprovedEventDataBySearch?.length}</span>
                                 <span>  |  </span>
                                 <span>PAGE: {number.toString().slice(0, (number.toString().length - 1))}</span>
                             </div>
                         </div>
-                        <div style={{ transition: '1s ease-in-out' }} className={`${events.events} ${darkmode && 'bg-black text-white'}`}>
-                            {
-                                findApprovedEventData?.slice(number - 10, number)?.reverse()?.map(allEvents => {
-                                    return (
-                                        <div className={events.eventCart}>
-                                            <div className={events.eventImagePart}>
-                                                <img src={allEvents.imgLink} alt="" />
-                                            </div>
+                        {
+                            search === ''
+                                ?
+                                <div style={{ transition: '1s ease-in-out' }} className={`${events.events} ${darkmode && 'bg-black text-white'}`}>
+                                    {
+                                        findApprovedEventData?.slice(number - 10, number)?.reverse()?.map(allEvents => {
+                                            return (
+                                                <div className={events.eventCart}>
+                                                    <div className={events.eventImagePart}>
+                                                        <img src={allEvents.imgLink} alt="" />
+                                                    </div>
 
-                                            <div className={events.eventDetailPart}>
-                                                <div className={events.eventDetailPartContainer}>
-                                                    <p title={allEvents.title} className='font-bold'>{allEvents.title.length > 70 ? allEvents.title.slice(0, 70) + '...' : allEvents.title}</p>
-                                                    <br />
-                                                    <p dangerouslySetInnerHTML={{ __html: allEvents?.description }} className={events.eventDetailPartDescription}></p>
+                                                    <div className={events.eventDetailPart}>
+                                                        <div className={events.eventDetailPartContainer}>
+                                                            <p title={allEvents.title} className='font-bold'>{allEvents.title.length > 70 ? allEvents.title.slice(0, 70) + '...' : allEvents.title}</p>
+                                                            <br />
+                                                            <p dangerouslySetInnerHTML={{ __html: allEvents?.description }} className={events.eventDetailPartDescription}></p>
 
-                                                    <hr />
-                                                    <div className={events.eventsLastPart}>
-                                                        <div className={events.eventsLastPartOne}>
-                                                            <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date : {allEvents.eventDate}</p>
-                                                            <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : {allEvents.deadline}</p>
-                                                        </div>
-                                                        <div className={events.eventsLastPartTwo}>
-                                                            <span title='view' onClick={() => handleModalSection(allEvents?._id)}><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
+                                                            <hr />
+                                                            <div className={events.eventsLastPart}>
+                                                                <div className={events.eventsLastPartOne}>
+                                                                    <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date : {allEvents.eventDate}</p>
+                                                                    <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : {allEvents.deadline}</p>
+                                                                </div>
+                                                                <div className={events.eventsLastPartTwo}>
+                                                                    <span title='view' onClick={() => handleModalSection(allEvents?._id)}><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                :
+                                <div style={{ transition: '1s ease-in-out' }} className={`${events.events} ${darkmode && 'bg-black text-white'}`}>
+                                    {
+                                        findApprovedEventDataBySearch?.slice(number - 10, number)?.map(allEvents => {
+                                            return (
+                                                <div className={events.eventCart}>
+                                                    <div className={events.eventImagePart}>
+                                                        <img src={allEvents.imgLink} alt="" />
+                                                    </div>
+
+                                                    <div className={events.eventDetailPart}>
+                                                        <div className={events.eventDetailPartContainer}>
+                                                            <p title={allEvents.title} className='font-bold'>{allEvents.title.length > 70 ? allEvents.title.slice(0, 70) + '...' : allEvents.title}</p>
+                                                            <br />
+                                                            <p dangerouslySetInnerHTML={{ __html: allEvents?.description }} className={events.eventDetailPartDescription}></p>
+
+                                                            <hr />
+                                                            <div className={events.eventsLastPart}>
+                                                                <div className={events.eventsLastPartOne}>
+                                                                    <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date : {allEvents.eventDate}</p>
+                                                                    <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : {allEvents.deadline}</p>
+                                                                </div>
+                                                                <div className={events.eventsLastPartTwo}>
+                                                                    <span title='view' onClick={() => handleModalSection(allEvents?._id)}><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        findApprovedEventDataBySearch?.length === 0 &&
+                                        <div style={{ width: '98%', height: '400px', boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.2)', margin: 'auto', marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            <p className='text-red-600'>Found nothing from search result</p>
                                         </div>
-                                    )
-                                })
-                            }
-                        </div>
+                                    }
+                                </div>
+                        }
                         <div className={events.pagination} >
 
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
