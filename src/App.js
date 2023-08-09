@@ -41,16 +41,15 @@ import QrProfile from './components/Qr-profile/QrProfile';
 
 
 function App() {
-
-
-
+  const [navScroll, setNavScroll] = useState(false);
+  console.log(navScroll)
   const [darkmode, setDarkmode] = useState(false);
   return (
     <div className="App">
-      <Navbar darkmode={darkmode} setDarkmode={setDarkmode} ></Navbar>
+      <Navbar darkmode={darkmode} setDarkmode={setDarkmode} navScroll={navScroll} ></Navbar>
       <ToastContainer style={{ marginTop: '100px' }} />
       <Routes>
-        <Route path='/' element={<Home darkmode={darkmode}></Home>} />
+        <Route path='/' element={<Home darkmode={darkmode} setNavScroll={setNavScroll} ></Home>} />
         <Route path='/blogs' element={<Blogs darkmode={darkmode} ></Blogs>} />
         <Route path='/qrProfile/:id' element={<QrProfile></QrProfile>} />
         <Route path='/gallery' element={<GalleryMain darkmode={darkmode}></GalleryMain>} />

@@ -8,12 +8,27 @@ import Footer from '../footer/Footer';
 import Advertise from '../advertise/Advertise';
 import AboutAll from '../aboutAll/AboutAll';
 import { Link } from 'react-router-dom';
+import Hero from '../Hero/Hero';
 
 
-const Home = ({ darkmode }) => {
-    console.log()
+
+const Home = ({ darkmode, setNavScroll }) => {
+
+    const ChangeBackground = () => {
+        if (window.scrollY >= 100) {
+            setNavScroll(true)
+        } else {
+            setNavScroll(false)
+        }
+    }
+
+    window?.addEventListener('scroll', ChangeBackground)
+
+
+
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black' : 'bg-white'}`} >
+            <Hero></Hero>
             <br />
             <About darkmode={darkmode}></About>
             <Advertise darkmode={darkmode}></Advertise>

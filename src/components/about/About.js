@@ -29,7 +29,7 @@ const About = ({ darkmode }) => {
     })
 
     useEffect(() => {
-        setDescription(findAboutData?.description);
+        setContent(findAboutData?.description);
         setImgHolder(findAboutData?.img);
 
     }, [findAboutData]);
@@ -130,7 +130,7 @@ const About = ({ darkmode }) => {
                                 <div className={about.aboutTextEditorSection}>
                                     <JoditEditor
                                         ref={editor}
-                                        value={description}
+                                        value={content}
                                         onBlur={newContent => setContent(newContent)}
                                         onChange={newContent => { setDescription(newContent) }}
                                     />

@@ -15,11 +15,16 @@
  .module_border_wrap{ 
     padding: 1rem;
     position: relative;
-    background: linear-gradient(to right, rgb(253, 147, 60), rgb(67, 20, 238),  rgb(127, 213, 253));
     padding: 5px;
   }
+ .module_border_wrap_active{ 
+    padding: 1rem;
+    position: relative;
+    padding: 5px;
+    background: linear-gradient(to right, rgb(253, 147, 60), rgb(67, 20, 238),  rgb(127, 213, 253));
+  }
   
-  
+
 
 
   .module{

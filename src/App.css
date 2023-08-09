@@ -3,14 +3,6 @@
 @tailwind utilities;
 
 
-.uil-phone{
-    margin-right: 5px;
-  }
-  
-  .uil-envelope{
-    margin-left: 10px;
-    margin-right: 5px;
-  }
 
   .block{
     display: block;

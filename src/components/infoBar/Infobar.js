@@ -6,13 +6,12 @@ const Infobar = () => {
         <div className={`${infobar.infobar} print:hidden`}>
             <div className={infobar.infobarContainer}>
                 <div className={infobar.infobarInfoOne}>
-                    <span><i className="uil uil-phone"></i><span>+880 13002291</span> </span>
+                    <p className='mr-5'><i className="uil uil-phone"></i> +880 13002291</p>
+                    <p><i className="uil uil-envelope"></i> optometrists@gmail.com</p>
 
-                    <span><i class="uil uil-envelope"></i></span>
-                    <span>optometrists@gmail.com</span>
                 </div>
                 <div className={infobar.infobarInfoTwo}>
-                    <span><span>Help Desk | Contact Us</span></span>
+                    <span><span>Contact Us</span></span>
                 </div>
             </div>
         </div>

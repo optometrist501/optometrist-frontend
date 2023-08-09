@@ -358,7 +358,9 @@ const GalleryMain = ({ darkmode }) => {
                     </div>
                 </div>
             </div>
+            <div className={galleryMain.fakeNavBackground}>
 
+            </div>
         </div>
     );
 };

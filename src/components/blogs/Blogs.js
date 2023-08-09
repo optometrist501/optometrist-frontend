@@ -523,6 +523,9 @@ const Blogs = ({ darkmode }) => {
                     </div>
                 </div>
             </div>
+            <div className={blogs.fakeNavBackground}>
+
+            </div>
         </div>
     );
 };

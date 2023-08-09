@@ -307,7 +307,9 @@ const Events = ({ darkmode }) => {
                     </div>
                 </div>
             </div>
+            <div className={events.fakeNavBackground}>
 
+            </div>
         </div>
     );
 };

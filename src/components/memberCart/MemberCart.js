@@ -13,6 +13,7 @@ const MemberCart = ({ darkmode }) => {
     return (
 
         <div className={`${darkmode && 'bg-black'} `}>
+            <br />
             <div style={{ transition: '1s ease-in-out' }} className={`pt-5 pb-5`}>
                 <p style={{ transition: '1s ease-in-out' }} className={`text-5xl font-bold text-center mb-7 ${darkmode && 'text-white'}`}>MEMBERS</p>
                 <div className={`cart ${darkmode && 'bg-black text-white'}`}>

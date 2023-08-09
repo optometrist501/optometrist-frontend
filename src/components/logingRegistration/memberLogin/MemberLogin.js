@@ -266,9 +266,7 @@ const MemberLogin = (darkmode) => {
 
                                 </div>
 
-                                {/* {
-                                    imgHolder && <img style={{ height: '50px', width: '50px', marginTop: '27px' }} src={imgHolder} alt="" />
-                                } */}
+
                                 {
                                     (imageLinkWord === imgHolderModifiedWord) && <span className='text-green-600 text-sm italic mt-5'>Image added</span>
                                 }
@@ -285,6 +283,9 @@ const MemberLogin = (darkmode) => {
                         </form>
                     </div>
                 }
+            </div>
+            <div className={member.fakeNavBackground}>
+
             </div>
         </div>
     );

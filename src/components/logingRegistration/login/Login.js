@@ -214,6 +214,9 @@ const Login = ({ darkmode }) => {
                     </div>
                 }
             </div>
+            <div className="fakeNavBackground">
+
+            </div>
         </div>
     );
 };

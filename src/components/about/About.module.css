@@ -7,13 +7,13 @@
   background-image: url("../../images/curveLine.png");
   background-size: cover; 
   background-position: center;
-  border-top: 1px solid lightgray;
+ 
 }
 .aboutBackgroundTwo{
   background-image: url("../../images/gradiantLowOpacity.png");
   background-size: cover; 
   background-position: center;
-  border-top: 1px solid lightgray;
+
   
 }
 
