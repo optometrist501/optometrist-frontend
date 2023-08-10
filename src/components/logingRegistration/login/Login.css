@@ -94,6 +94,7 @@
     height: 124px;
     position: fixed;
     top: 0;
+    z-index:5;
     background: linear-gradient(to right, rgb(253, 147, 60), rgb(67, 20, 238),  rgb(127, 213, 253));
   }
 
@@ -106,6 +107,15 @@
     .loginRegistrationOptions{
       width: 95%;
   }
+
+  .loginRegistrationContainer{
+    margin-top: 50px;
+  }
+
+  .fakeNavBackground{
+    height: 134px;
+  }
+
   }
   @media screen and ( max-width: 480px) {
     .login-form{
@@ -114,6 +124,10 @@
 
     .loginRegistrationOptions{
       width: 95%;
+  }
+
+  .loginRegistrationContainer{
+    margin-top: 50px;
   }
     
   }

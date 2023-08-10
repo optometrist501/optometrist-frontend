@@ -55,6 +55,7 @@
 
 @media screen and (max-width: 768px) {
     .container{
+        margin-top: 150px;
         display: flex;
         flex-wrap: wrap;
     }
@@ -74,6 +75,7 @@
 
 @media screen and (max-width: 480px) {
     .container{
+        margin-top: 150px;
         display: flex;
         flex-wrap: wrap;
         height: auto;

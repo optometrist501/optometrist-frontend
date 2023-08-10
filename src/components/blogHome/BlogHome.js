@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './BlogHome.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const BlogHome = ({ darkmode }) => {
+    const navigate = useNavigate();
     const [imgData, setImgData] = useState([]);
     console.log(imgData)
 
@@ -33,6 +35,11 @@ const BlogHome = ({ darkmode }) => {
     }
 
 
+    const handleNavigate = (idValue) => {
+        navigate(`/blogsDetail/${idValue}`)
+    }
+
+
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black text-white' : 'bg-base-200'} pt-5 pb-5`} >
             <p className='text-5xl font-bold text-center mb-7'>BLOGS</p>
@@ -52,7 +59,10 @@ const BlogHome = ({ darkmode }) => {
                                             <  hr />
                                             <br />
                                             <h1 className='text-2xl font-bold mb-12'>{blogs.title}</h1>
-                                            <p dangerouslySetInnerHTML={{ __html: blogs.description }}></p>
+                                            <p dangerouslySetInnerHTML={{ __html: blogs?.description?.length > 888 ? blogs?.description?.slice(0, 888) + '...' : blogs?.description }}>
+
+                                            </p>
+                                            <p onClick={() => handleNavigate(blogs?._id)}>{blogs?.description?.length > 888 && <span className='text-blue-500 cursor-pointer'>see more</span>}</p>
                                         </div>
                                     )
                                 })

@@ -248,7 +248,9 @@
         width: 60%;
       }
 
-     
+      .viewPart, .updatePart, .addPart{
+       padding: 10px;
+    }
     
 }
 
@@ -272,5 +274,9 @@
       .blogs_input{
         width: 60%;
       }
+
+      .viewPart, .updatePart, .addPart{
+        padding: 10px;
+     }
 
 }

@@ -362,6 +362,7 @@ font-size: 12px;
 .fakeNavBackground{
   width: 100%;
   height: 124px;
+  z-index:5;
   position: fixed;
   top: 0;
   background: linear-gradient(to right, rgb(253, 147, 60), rgb(67, 20, 238),  rgb(127, 213, 253));
@@ -424,6 +425,10 @@ font-size: 12px;
   .event_input{
     width: 60%;
   }
+  .fakeNavBackground{
+    height: 134px;
+  }
+
   }
   
   @media (max-width: 480px) {
@@ -490,5 +495,9 @@ font-size: 12px;
 
   .event_input{
     width: 60%;
+  }
+
+  .fakeNavBackground{
+    height: 140px;
   }
   }

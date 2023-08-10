@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import './MemberCart.css'
+import React from 'react';
 import useMemberData from '../../customHooks/useMemberSectionHook';
 
-const MemberCart = ({ darkmode }) => {
+const MemberCartHome = ({ darkmode }) => {
+
     const [memberData] = useMemberData();
     const allmembers = memberData?.data?.data?.data;
 
     const approvedMembers = allmembers?.filter(f => {
         return f?.approval === true;
     })
-    return (
 
+    return (
         <div className={`${darkmode && 'bg-black'} `}>
             <br />
             <div style={{ transition: '1s ease-in-out' }} className={`pt-5 pb-5`}>
                 <br />
-                <br />
-                <br />
-                <br />
-                <br />
+
                 <p style={{ transition: '1s ease-in-out' }} className={`text-5xl font-bold text-center mb-7 ${darkmode && 'text-white'}`}>MEMBERS</p>
                 <div className={`cart ${darkmode && 'bg-black text-white'}`}>
                     {
@@ -40,11 +37,8 @@ const MemberCart = ({ darkmode }) => {
                     }
                 </div>
             </div>
-            <div className="fakeNavBackground">
-
-            </div>
         </div>
     );
 };
 
-export default MemberCart;
+export default MemberCartHome;

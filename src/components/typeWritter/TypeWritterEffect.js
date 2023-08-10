@@ -4,7 +4,7 @@ import ScrollTrigger from 'react-scroll-trigger';
 import Typewriter from 'typewriter-effect';
 import CountUp from 'react-countup';
 import AOS from 'aos';
-import 'aos/dist/aos.css'; // You can also use <link> for styles
+import 'aos/dist/aos.css';
 // ..
 AOS.init();
 

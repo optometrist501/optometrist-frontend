@@ -105,20 +105,37 @@ const QrProfile = () => {
                         <br />
                         {
                             findMembership?.email === user?.email &&
-                            <span ><button className='btn btn-error' onClick={viewEditOption ? () => setViewEditOption(false) : () => setViewEditOption(true)}>BACK</button> <button onClick={generatingQrCode} className='btn btn-primary'>Generate QR Code</button></span>
+                            <span >
+                                <button className='btn btn-sm mr-2' onClick={viewEditOption ? () => setViewEditOption(false) : () => setViewEditOption(true)}>
+                                    BACK
+                                </button>
+                                <button onClick={generatingQrCode} className='btn btn-sm'>
+                                    Generate QR Code
+                                </button>
+                            </span>
                         }
-
+                        <br />
+                        <br />
                         {
                             (findMembership?.qr_code && findMembership?.email === user?.email) &&
                             // eslint-disable-next-line jsx-a11y/anchor-has-content
-                            <button className='btn btn-neutral ml-2'><a
-                                href={findMembership?.qr_code}
-                                download
-                            >DOWNLOAD</a> </button>
+                            <span>
+                                <button className='btn btn-sm '>
+                                    <a
+                                        href={findMembership?.qr_code}
+                                        download
+                                    >
+                                        DOWNLOAD
+                                    </a>
+                                </button>
+                            </span>
                         }
                     </div>
 
                 </div>
+            </div>
+            <div className="fakeNavBackground">
+
             </div>
         </div>
     );

@@ -52,3 +52,16 @@
     width: 90%;
     font-size: 13px;
 }
+
+@media screen and (max-width:768px) {
+    .container{
+        width: 90%;
+    }
+}
+
+
+@media screen and (max-width:480px) {
+    .container{
+        width: 90%;
+    }
+}

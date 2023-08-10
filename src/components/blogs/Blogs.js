@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { fetchPostCommentData } from '../../fetchedData/fetchCommentData';
 import useCommentData from '../../customHooks/useCommentSectionHooks';
 import { toast } from 'react-toastify';
-import useBlogBySearchSectionData from '../../customHooks/useBlogBySearchSectionHook';
 import { fetchGetBlogBySearchData } from '../../fetchedData/fetchBlogData';
 
 const Blogs = ({ darkmode }) => {
@@ -152,7 +151,10 @@ const Blogs = ({ darkmode }) => {
     const handleModalSection = (value) => {
         setUpdateModal(0);
         setIdContainer(value)
-    }
+    };
+
+
+
 
 
     // pagination
@@ -480,9 +482,9 @@ const Blogs = ({ darkmode }) => {
                                 <div className={blogs.blogCommentsContainer}>
                                     <div className={blogs.blogCommentBar}>
                                         <div className={blogs.commentBarOne}>
-                                            <span className='ml-5 font-bold'>
+                                            <span title={findDetailBlogInfo?.title} className='ml-5 font-bold'>
                                                 {
-                                                    findDetailBlogInfo?.title
+                                                    findDetailBlogInfo?.title?.length > 30 ? findDetailBlogInfo?.title?.slice(0, 30) + '...' : findDetailBlogInfo?.title
                                                 }
                                             </span>
                                         </div>

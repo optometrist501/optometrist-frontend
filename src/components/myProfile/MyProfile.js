@@ -183,6 +183,9 @@ const MyProfile = ({ darkmode }) => {
                 </div>
                 <span onClick={viewEditOption ? () => setViewEditOption(false) : () => setViewEditOption(true)} ><i className="uil uil-edit cursor-pointer"></i></span>
             </div>
+            <div className="fakeNavBackground">
+
+            </div>
         </div>
     );
 };

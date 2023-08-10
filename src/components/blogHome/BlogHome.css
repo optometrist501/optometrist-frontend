@@ -7,7 +7,7 @@
 
  .blog-modal-main{
     width: 100%;
-    height: auto;
+    height: 60vh;
     position: relative;
    
  }
@@ -22,7 +22,7 @@
 
   .blog-modal-container {
     width: 100%;
-    height: auto;
+    /* height: auto; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -80,6 +80,11 @@
     .blog-modal{
       width: 85%;
     }
+
+    .blog-modal-main{
+      width: 80%;
+      margin: auto;
+    }
   }
   
   @media (max-width: 480px) {
@@ -94,6 +99,11 @@
 
     .blog-modal{
       width: 100%;
+    }
+
+    .blog-modal-main{
+      width: 80%;
+      margin: auto;
     }
   }
   
