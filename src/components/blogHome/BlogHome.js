@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './BlogHome.css';
 import { Link, useNavigate } from 'react-router-dom';
+import useBlogData from '../../customHooks/useBlogSectionHook';
 
 
 const BlogHome = ({ darkmode }) => {
     const navigate = useNavigate();
     const [imgData, setImgData] = useState([]);
+    const [blogData] = useBlogData();
+    const allBlogs = blogData?.data?.data?.data;
+
+    useEffect(() => {
+        setImgData(allBlogs);
+    }, [allBlogs])
 
 
     const [count, setCount] = useState(0);
 
-    useEffect(() => {
-        const url = 'https://optometrist-server-46oo.onrender.com/api/v1/blog';
-        fetch(url).then(res => res.json()).then(res => setImgData(res?.data?.data))
-    })
+
 
 
     const handleDirection = (value) => {
