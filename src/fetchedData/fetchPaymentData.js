@@ -8,7 +8,7 @@ export const fetchPostPaymentData = async (paymentDataContainer) => {
         return paymentData;
     } catch (error) {
 
-        console.log(error);
+
     }
 }
 

@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import banner from './Banner.module.css';
 import Lottie from 'react-lottie';
 import loadingData from '../lottieFiles/97930-loading.json';
 import useBannerData from '../../customHooks/useBannerSectionHook';
 import { fetchDeleteBannerData, fetchPostBannerData, fetchUpdateBannerData } from '../../fetchedData/fetchBannerData';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase/firebase.init';
+import useMemberData from '../../customHooks/useMemberSectionHook';
 
 const Banner = ({ darkmode }) => {
+    const [memberData] = useMemberData();
+    const allMembers = memberData?.data?.data?.data;
     const [updateModal, setUpdateModal] = useState(100);
     const [sectionController, setSectionController] = useState(1);
     const [bannerDataContainer, setBannerDataContainer] = useState({});
@@ -16,11 +21,15 @@ const Banner = ({ darkmode }) => {
     const [idContainer, setIdContainer] = useState('');
     const [bannerData, refetch] = useBannerData();
     const data = bannerData?.data?.data?.data;
-
+    const [user] = useAuthState(auth);
 
 
     const findBannerData = data?.find(f => {
         return f._id === idContainer
+    })
+
+    const findAdmin = allMembers?.find(f => {
+        return f?.email === user?.email;
     })
 
     useEffect(() => {
@@ -35,7 +44,7 @@ const Banner = ({ darkmode }) => {
             })
                 .then(res => res.json())
                 .then(result => {
-                    console.log(result?.data?.url);
+
                     setImgHolder(result?.data?.url);
                     setBannerDataContainer({
                         img: result?.data?.url
@@ -47,8 +56,6 @@ const Banner = ({ darkmode }) => {
         }
     }, [imgHolder, findBannerData]);
 
-
-    console.log(imgHolder);
 
     const postBannerData = async () => {
         await fetchPostBannerData(bannerDataContainer, refetch);
@@ -101,11 +108,7 @@ const Banner = ({ darkmode }) => {
 
     const findImageId = findImageIdMapped?.slice(0, 1);
 
-    const findSingleImageId = data?.find(f => {
-        return f._id === idContainer;
-    });
 
-    console.log(findSingleImageId);
 
     const findFirstImage = data?.find(f => {
         return f._id === findImageId[0]
@@ -158,7 +161,6 @@ const Banner = ({ darkmode }) => {
     const handleUpdateBanner = (value) => {
         setUpdateModal(0);
         setIdContainer(value);
-        console.log(idContainer);
     }
 
     return (
@@ -182,13 +184,16 @@ const Banner = ({ darkmode }) => {
                                 onMouseLeave={() => setPause(false)}
                             >
                                 <img className={banner.bannerImage} src={d?.img} alt="" />
-                                <div className={banner.editAndDelete}>
-                                    <span onClick={() => handleUpdateBanner(d?._id)} ><i className="uil uil-edit cursor-pointer"></i></span>
-                                    {
-                                        data?.length > 1 &&
-                                        <span onClick={() => deleteBannerData(d?._id)}><i className="uil uil-trash-alt ml-3 cursor-pointer"></i></span>
-                                    }
-                                </div>
+                                {
+                                    findAdmin?.isAdmin &&
+                                    <div className={banner.editAndDelete}>
+                                        <span onClick={() => handleUpdateBanner(d?._id)} ><i className="uil uil-edit cursor-pointer"></i></span>
+                                        {
+                                            data?.length > 1 &&
+                                            <span onClick={() => deleteBannerData(d?._id)}><i className="uil uil-trash-alt ml-3 cursor-pointer"></i></span>
+                                        }
+                                    </div>
+                                }
                             </div>
                         </div>
 

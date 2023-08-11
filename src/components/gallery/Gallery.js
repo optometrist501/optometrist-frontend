@@ -10,10 +10,10 @@ const Gallery = ({ darkmode }) => {
         return f.approval === true;
     });
 
-    console.log(findApprovedGalleryImg);
+
 
     const imgData = findApprovedGalleryImg;
-    console.log(galleryData);
+
 
 
     const [count, setCount] = useState(0);

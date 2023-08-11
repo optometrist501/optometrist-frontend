@@ -1,16 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import about from './About.module.css';
 import JoditEditor from 'jodit-react';
 
 import useAboutData from '../../customHooks/useAboutSectionHook';
 import axios from 'axios';
+import useMemberData from '../../customHooks/useMemberSectionHook';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase/firebase.init';
 
 const About = ({ darkmode }) => {
 
 
-
+    const [memberData] = useMemberData();
+    const allMembers = memberData?.data?.data?.data;
     const [updateModal, setUpdateModal] = useState(100);
     const editor = useRef(null);
     const [content, setContent] = useState('');
@@ -18,6 +22,7 @@ const About = ({ darkmode }) => {
     const [imgHolder, setImgHolder] = useState('');
     const [updateContent, setupdateContent] = useState({});
     const [switchUpdate, setSwitchUpdate] = useState(false);
+    const [user] = useAuthState(auth)
     const [id, setId] = useState('')
 
     const [aboutData, refetch] = useAboutData()
@@ -26,6 +31,10 @@ const About = ({ darkmode }) => {
 
     const findAboutData = allAboutData?.find(f => {
         return f._id === allAboutData[0]._id
+    });
+
+    const findAdmin = allMembers?.find(f => {
+        return f?.email === user?.email
     })
 
     useEffect(() => {
@@ -47,17 +56,10 @@ const About = ({ darkmode }) => {
             })
                 .then(res => res.json())
                 .then(result => {
-                    console.log(result?.data?.url);
                     setImgHolder(result?.data?.url);
                 })
         }
     }, [imgHolder, findAboutData]);
-
-
-
-    console.log(imgHolder);
-    console.log(findAboutData?.img)
-
 
 
     const updateAboutSection = (theId) => {
@@ -78,7 +80,7 @@ const About = ({ darkmode }) => {
                         refetch();
                         toast.dark("successfully updated");
                     } catch (error) {
-                        console.log(error);
+
                         toast.error("failed to update");
                     }
                 }
@@ -107,7 +109,10 @@ const About = ({ darkmode }) => {
                     })
                 }
                 <div className={about.aboutUsUpdatePart}>
-                    <span onClick={() => setUpdateModal(0)}><i className="uil uil-edit mr-2 cursor-pointer"></i></span>
+                    {
+                        findAdmin?.isAdmin &&
+                        <span onClick={() => setUpdateModal(0)}><i className="uil uil-edit mr-2 cursor-pointer"></i></span>
+                    }
 
                 </div>
                 <div style={{ transform: `translateX(${updateModal}%)`, transition: 'transform 2s' }} className={`${about.updateModal} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
@@ -156,7 +161,7 @@ const About = ({ darkmode }) => {
                                             </p>
                                             <input className={about.chooseFile} type="file" onChange={(e) => {
                                                 const imgFile = e.target.files[0];
-                                                console.log(imgFile);
+
                                                 setImgHolder(imgFile)
                                             }} />
                                         </div>

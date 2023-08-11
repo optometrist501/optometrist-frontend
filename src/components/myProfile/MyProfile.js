@@ -13,11 +13,11 @@ const MyProfile = ({ darkmode }) => {
     const [viewEditOption, setViewEditOption] = useState(false);
 
     const [user] = useAuthState(auth);
-    console.log(user?.emailVerified)
+
 
     const [memberData, refetch] = useMemberData();
     const allMember = memberData?.data?.data?.data;
-    console.log(allMember);
+
     const [mobile, setmobile] = useState('')
     const [email, setemail] = useState('')
     const [password, setpassword] = useState('')
@@ -33,7 +33,7 @@ const MyProfile = ({ darkmode }) => {
         return f?.email === user?.email;
     });
 
-    console.log(findMember?.email)
+
 
     useEffect(() => {
         setmobile(findMember?.mobile_no)
@@ -71,7 +71,7 @@ const MyProfile = ({ darkmode }) => {
             imgLink: imgHolder
         }
 
-        console.log(updateData);
+
 
         await fetchUpdateMemberData(findMember?._id, updateData, refetch);
         setimgHolder('');

@@ -3,6 +3,7 @@ import galleryMain from './GalleryMain.module.css';
 
 import useGalleryData from '../../customHooks/useGallerySectionHook';
 import { fetchGetGalleryBySearchData } from '../../fetchedData/fetchGalleryData';
+import Loading from '../../Loading/Loading';
 
 const GalleryMain = ({ darkmode }) => {
     const [updateModal, setUpdateModal] = useState(100)
@@ -128,7 +129,6 @@ const GalleryMain = ({ darkmode }) => {
         async function fetchData() {
             try {
                 const response = await fetchGetGalleryBySearchData(search);
-                console.log(response?.data?.data?.data);
                 setGalleryBySearchData(response?.data?.data?.data)
             } catch (error) {
 
@@ -141,6 +141,10 @@ const GalleryMain = ({ darkmode }) => {
     const getSingleBlogFromTitle = (valueFromTitle) => {
         setIdContainer(valueFromTitle)
         setUpdateModal(0)
+    }
+
+    if (galleryData?.data?.statusCode !== 200) {
+        return <Loading></Loading>
     }
 
 

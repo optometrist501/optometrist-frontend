@@ -11,20 +11,20 @@ import { toast } from 'react-toastify';
 
 const QrProfile = () => {
     const id = useParams('/:id');
-    console.log(id);
+
     const [viewEditOption, setViewEditOption] = useState(false);
     const [user] = useAuthState(auth);
     const [imgUrl, setImgUrl] = useState('');
 
     const [memberData, refetch] = useMemberData();
     const allMembers = memberData?.data?.data?.data;
-    console.log(allMembers)
+
 
     const location = useLocation();
-    console.log(location?.pathname?.substring(11));
+
 
     const mainQrProfileLink = `https://optometrist-a88bd.web.app${location?.pathname}`;
-    console.log(mainQrProfileLink);
+
 
 
     const findMembership = allMembers?.find(f => {
@@ -36,24 +36,22 @@ const QrProfile = () => {
         try {
             const response = await QRCode.toDataURL(mainQrProfileLink);
             setImgUrl(response);
-            console.log(imgUrl);
-            console.log(typeof (response))
+
 
             const updatedData = {
                 qr_code: response
             }
 
-            console.log(updatedData);
-            console.log(id?.id)
+
 
             const responseMemberData = await fetchUpdateMemberData(id?.id, updatedData, refetch);
-            console.log(responseMemberData);
+
             if (responseMemberData) {
                 toast("QR-CODE Generated");
             }
 
         } catch (error) {
-            console.log(error);
+
         }
     }
 

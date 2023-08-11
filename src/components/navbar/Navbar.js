@@ -7,9 +7,20 @@ import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
 import useMemberData from '../../customHooks/useMemberSectionHook';
 import logo from '../../images/oab-logo.png'
+import useAboutData from '../../customHooks/useAboutSectionHook';
+import useAdvertiseData from '../../customHooks/useAdvertiseSectionHook';
+import useBannerData from '../../customHooks/useBannerSectionHook';
+import useGalleryData from '../../customHooks/useGallerySectionHook';
+import useBlogData from '../../customHooks/useBlogSectionHook';
 
 const Navbar = ({ setDarkmode, darkmode, navScroll }) => {
-    console.log(navScroll)
+
+    const [aboutData] = useAboutData();
+    const [advertiseData] = useAdvertiseData();
+    const [bannerData] = useBannerData();
+    const [galleryData] = useGalleryData();
+    const [blogData] = useBlogData();
+
 
     const navigate = useNavigate();
     const [signOut] = useSignOut(auth);
@@ -29,7 +40,9 @@ const Navbar = ({ setDarkmode, darkmode, navScroll }) => {
         }
     }
 
-
+    if (aboutData?.data?.statusCode !== 200 || advertiseData?.data?.statusCode !== 200 || bannerData?.data?.statusCode !== 200 || galleryData?.data?.statusCode !== 200 || blogData?.data?.statusCode !== 200 || memberData?.data?.statusCode !== 200) {
+        return <div></div>
+    }
 
     return (
         <div className={navbar.navbarTheMain}>

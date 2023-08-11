@@ -5,13 +5,12 @@ import { Link, useLocation } from 'react-router-dom';
 const PaymentSuccess = () => {
     const [order, setOrder] = useState({});
     const location = useLocation();
-    console.log(location);
-    console.log(order);
+
 
     const query = new URLSearchParams(location.search);
 
     const transectionId = query.get("transectionId");
-    console.log(transectionId);
+
 
 
     useEffect(() => {

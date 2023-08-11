@@ -21,7 +21,7 @@ const MemberLogin = (darkmode) => {
         return f.email === user?.email;
     });
 
-    console.log(findEmail);
+
 
 
 
@@ -63,7 +63,7 @@ const MemberLogin = (darkmode) => {
             imgLink,
             email: user?.email,
         };
-        console.log(bodyData);
+
 
         if (user?.email !== findEmail?.email) {
 
@@ -256,7 +256,6 @@ const MemberLogin = (darkmode) => {
                                         </p>
                                         <input className={member.chooseFile} type="file" onChange={(e) => {
                                             const imgFile = e.target.files[0];
-                                            console.log(imgFile);
 
                                             setImgHolder(imgFile);
                                         }}

@@ -14,8 +14,6 @@ import { fetchBulkDeleteLikeData } from '../../../fetchedData/fetchLikeData';
 const PanelBlog = () => {
 
     const [user] = useAuthState(auth);
-    console.log(user?.email);
-
     const [blogData, refetch] = useBlogData();
     const editor = useRef(null);
     const [content, setContent] = useState('');
@@ -109,7 +107,7 @@ const PanelBlog = () => {
         }
     }, [imgHolder, findBlog, allBlogInfo, updateAllBlogInfo, title, publisherName, user, date, content, updateImg]);
 
-    console.log(imgHolder);
+
 
 
     const postBlog = async () => {
@@ -129,7 +127,7 @@ const PanelBlog = () => {
             description: content
         })
 
-        console.log(allBlogInfo);
+
 
         if (
             allBlogInfo.title !== '' && allBlogInfo.name !== '' && allBlogInfo.email !== '' && allBlogInfo.eventDate !== '' && allBlogInfo.imgLink !== '' && allBlogInfo.description !== ''
@@ -159,16 +157,13 @@ const PanelBlog = () => {
         setImgHolder('');
         setContent('');
         toast.dark('updated successfully');
-        console.log(updateAllBlogInfo);
+
     }
 
 
     const updateApprovalPost = async (value) => {
 
         updateApproval.approval = value;
-
-        console.log(updateApproval);
-
         await fetchUpdateBlogData(findId, updateApproval, refetch);
 
         if (value === true) {

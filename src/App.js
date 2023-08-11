@@ -42,9 +42,7 @@ import BlogHomeDetail from './components/blogHome/BlogHomeDetail';
 
 
 function App() {
-  const [blogsIdcontainer, setBlogsIdContainer] = useState('');
   const [navScroll, setNavScroll] = useState(false);
-  console.log(navScroll)
   const [darkmode, setDarkmode] = useState(false);
   return (
     <div className="App">
@@ -52,7 +50,7 @@ function App() {
       <ToastContainer style={{ marginTop: '100px' }} />
       <Routes>
         <Route path='/' element={<Home darkmode={darkmode} setNavScroll={setNavScroll} ></Home>} />
-        <Route path='/blogs' element={<Blogs blogsIdcontainer={blogsIdcontainer} darkmode={darkmode} ></Blogs>} />
+        <Route path='/blogs' element={<Blogs darkmode={darkmode} ></Blogs>} />
         <Route path='/blogsDetail/:blogId' element={<BlogHomeDetail></BlogHomeDetail>} />
         <Route path='/qrProfile/:id' element={<QrProfile></QrProfile>} />
         <Route path='/gallery' element={<GalleryMain darkmode={darkmode}></GalleryMain>} />

@@ -10,11 +10,25 @@ import { Link } from 'react-router-dom';
 import Hero from '../Hero/Hero';
 import MemberCartHome from '../memberCart/MemberCartHome';
 import { useEffect } from 'react';
+import useAboutData from '../../customHooks/useAboutSectionHook';
+import useAdvertiseData from '../../customHooks/useAdvertiseSectionHook';
+import useBannerData from '../../customHooks/useBannerSectionHook';
+import useGalleryData from '../../customHooks/useGallerySectionHook';
+import useBlogData from '../../customHooks/useBlogSectionHook';
+import useMemberData from '../../customHooks/useMemberSectionHook';
+import LoadingHome from '../../Loading/LoadingHome';
 
 
 
 
 const Home = ({ darkmode, setNavScroll }) => {
+
+    const [aboutData] = useAboutData();
+    const [advertiseData] = useAdvertiseData();
+    const [bannerData] = useBannerData();
+    const [galleryData] = useGalleryData();
+    const [blogData] = useBlogData();
+    const [memberData] = useMemberData();
 
 
 
@@ -28,7 +42,11 @@ const Home = ({ darkmode, setNavScroll }) => {
         }
         window?.addEventListener('scroll', ChangeBackground)
 
-    }, [setNavScroll])
+    }, [setNavScroll]);
+
+    if (aboutData?.data?.statusCode !== 200 || advertiseData?.data?.statusCode !== 200 || bannerData?.data?.statusCode !== 200 || galleryData?.data?.statusCode !== 200 || blogData?.data?.statusCode !== 200 || memberData?.data?.statusCode !== 200) {
+        return <LoadingHome></LoadingHome>
+    }
 
 
     return (

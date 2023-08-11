@@ -10,7 +10,7 @@ import useEventData from '../../../customHooks/useEventSectionHook';
 
 const DashEvents = () => {
     const [user] = useAuthState(auth);
-    console.log(user?.email);
+
 
     const editor = useRef(null);
     const [eventData, refetch] = useEventData();
@@ -18,7 +18,7 @@ const DashEvents = () => {
 
     const [open, setOpen] = useState(false);
     const allEvents = eventData?.data?.data?.data;
-    console.log(allEvents);
+
     const [viewOption, setViewOption] = useState(1);
     const [findId, setFindId] = useState('');
 
@@ -105,7 +105,7 @@ const DashEvents = () => {
         }
     }, [imgHolder, findEvent, allEventInfo, updateAllEventsInfo, title, publisherName, user, eventDate, content, updateImg]);
 
-    console.log(imgHolder);
+
 
 
     const postBlog = async () => {
@@ -128,7 +128,7 @@ const DashEvents = () => {
             deadline: deadline
         })
 
-        console.log(allEventInfo);
+
 
         if (
             allEventInfo.title !== '' && allEventInfo.name !== '' && allEventInfo.eventDate !== '' && allEventInfo.imgLink !== '' && allEventInfo.description !== '' && allEventInfo.deadline !== ''
@@ -159,7 +159,6 @@ const DashEvents = () => {
         setImgHolder('');
         setContent('');
         toast.dark('updated successfully');
-        console.log(updateAllEventsInfo);
     }
 
     const deletePost = async (theId) => {

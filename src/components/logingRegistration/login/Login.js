@@ -13,7 +13,7 @@ const Login = ({ darkmode }) => {
     const [signInWithGoogle,] = useSignInWithGoogle(auth);
     const [sendEmailVerification] = useSendEmailVerification(auth);
     const [user] = useAuthState(auth);
-    console.log(user);
+
 
 
     const [

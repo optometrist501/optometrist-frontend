@@ -3,10 +3,24 @@ import './Dashboard.css';
 import { Link, Outlet } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
+import useMemberData from '../../customHooks/useMemberSectionHook';
+import useBlogData from '../../customHooks/useBlogSectionHook';
+import useGalleryData from '../../customHooks/useGallerySectionHook';
+import useEventData from '../../customHooks/useEventSectionHook';
+import Loading from '../../Loading/Loading';
 const Dashboard = () => {
     const [positionSlide, setPositionSlide] = useState(50);
     const [heighlight, setHighlight] = useState(1)
-    const [user] = useAuthState(auth)
+    const [user] = useAuthState(auth);
+
+    const [memberData] = useMemberData();
+    const [blogData] = useBlogData();
+    const [galleryData] = useGalleryData();
+    const [eventData] = useEventData();
+
+    if (blogData?.data?.statusCode !== 200 || galleryData?.data?.statusCode !== 200 || eventData?.data?.statusCode !== 200 || memberData?.data?.statusCode !== 200) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className='dashboard_main'>

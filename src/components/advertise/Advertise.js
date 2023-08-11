@@ -4,6 +4,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import advertisement from './Advertise.module.css';
 import useAdvertiseData from '../../customHooks/useAdvertiseSectionHook';
 import axios from 'axios';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase/firebase.init';
+import useMemberData from '../../customHooks/useMemberSectionHook';
 
 const Advertise = ({ darkmode }) => {
     const [updateModal, setUpdateModal] = useState(100);
@@ -11,6 +14,9 @@ const Advertise = ({ darkmode }) => {
     const [imgHolder, setImgHolder] = useState('');
     const [updateContent, setupdateContent] = useState({});
     const [switchUpdate, setSwitchUpdate] = useState(false);
+    const [user] = useAuthState(auth);
+    const [memberData] = useMemberData();
+    const allMembers = memberData?.data?.data?.data;
 
     const [advertiseData, refetch] = useAdvertiseData();
     const advertise = advertiseData?.data?.data?.data;
@@ -23,14 +29,16 @@ const Advertise = ({ darkmode }) => {
     const findAdvertiseData = advertise?.find(f => {
         return f._id === idContainer
     });
-    console.log(findAdvertiseData);
+
+    const findAdmin = allMembers?.find(f => {
+        return f?.email === user?.email;
+    })
+
 
     useEffect(() => {
         setImgHolder(findAdvertiseData?.img);
 
     }, [findAdvertiseData]);
-
-    console.log(imgHolder);
 
     useEffect(() => {
         if (imgHolder !== findAdvertiseData?.img) {
@@ -44,13 +52,13 @@ const Advertise = ({ darkmode }) => {
             })
                 .then(res => res.json())
                 .then(result => {
-                    console.log(result?.data?.url);
+
                     setImgHolder(result?.data?.url);
                 })
         }
     }, [imgHolder, findAdvertiseData]);
 
-    console.log(imgHolder);
+
 
 
     const updateAdvertiseData = () => {
@@ -69,7 +77,7 @@ const Advertise = ({ darkmode }) => {
                         refetch();
                         toast.dark("successfully updated");
                     } catch (error) {
-                        console.log(error);
+
                         toast.error("failed to update");
                     }
                 }
@@ -92,7 +100,11 @@ const Advertise = ({ darkmode }) => {
                                     </div>
                                 </div>
 
-                                <span onClick={() => handleUpdateModal(add?._id)} className={advertisement.editButton}><i className="uil uil-edit text-white cursor-pointer"></i></span>
+                                {
+                                    findAdmin?.isAdmin &&
+
+                                    <span onClick={() => handleUpdateModal(add?._id)} className={advertisement.editButton}><i className="uil uil-edit text-white cursor-pointer"></i></span>
+                                }
                             </div>
                         )
                     })

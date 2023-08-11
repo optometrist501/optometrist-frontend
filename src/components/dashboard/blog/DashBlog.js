@@ -14,7 +14,7 @@ import { fetchBulkDeleteCommentData } from '../../../fetchedData/fetchCommentDat
 const DashBlog = () => {
 
     const [user] = useAuthState(auth);
-    console.log(user?.email);
+
 
     const [blogData, refetch] = useBlogData();
     const editor = useRef(null);
@@ -85,7 +85,7 @@ const DashBlog = () => {
 
 
 
-    console.log(findpostsByEmail);
+
 
     useEffect(() => {
         setUpdateTitle(findBlog?.title);
@@ -116,9 +116,6 @@ const DashBlog = () => {
         }
     }, [imgHolder, findBlog, allBlogInfo, updateAllBlogInfo, title, publisherName, user, date, content, updateImg]);
 
-    console.log(imgHolder);
-
-
     const postBlog = async () => {
 
         allBlogInfo.title = title
@@ -136,7 +133,7 @@ const DashBlog = () => {
             description: content
         })
 
-        console.log(allBlogInfo);
+
 
         if (
             allBlogInfo.title !== '' && allBlogInfo.name !== '' && allBlogInfo.email !== '' && allBlogInfo.release_date !== '' && allBlogInfo.imgLink !== '' && allBlogInfo.description !== ''
@@ -166,7 +163,7 @@ const DashBlog = () => {
         setImgHolder('');
         setContent('');
         toast.dark('updated successfully');
-        console.log(updateAllBlogInfo);
+
     }
 
     const deletePost = async (theId) => {

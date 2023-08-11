@@ -9,7 +9,7 @@ import Loading from '../Loading/Loading';
 const RequireProfile = ({ children }) => {
     const [user, loading] = useAuthState(auth);
     const location = useLocation();
-    console.log(user);
+
 
     const { data: getMemberData } = useQuery("getMemberData", () => fetchGetMemberData());
 

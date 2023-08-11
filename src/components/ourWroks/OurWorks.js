@@ -1,15 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import works from './OurWorks.module.css';
 import JoditEditor from 'jodit-react';
+import useMemberData from '../../customHooks/useMemberSectionHook';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase/firebase.init';
 
 const OurWorks = ({ darkmode }) => {
     const editor = useRef(null);
     const [content, setContent] = useState('');
     const [description, setDescription] = useState('');
     const [blogData, setBlogData] = useState([]);
-
     const [updateModal, setUpdateModal] = useState(100);
-    console.log(blogData)
+
+    const [memberData] = useMemberData();
+    const allMembers = memberData?.data?.data?.data;
+    const [user] = useAuthState(auth);
+
+    const findAdmin = allMembers?.find(f => {
+        return f?.email === user?.email
+    })
+
     useEffect(() => {
         const url = 'blog.json';
         fetch(url).then(res => res.json()).then(res => setBlogData(res));
@@ -17,7 +27,10 @@ const OurWorks = ({ darkmode }) => {
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${works.main} ${darkmode && 'bg-black text-white'}`}>
             <div className={works.imgPart}>
-                <p onClick={() => setUpdateModal(0)} className={works.editButton}><i className="uil uil-edit mr-2 cursor-pointer"></i></p>
+                {
+                    findAdmin?.isAdmin &&
+                    <p onClick={() => setUpdateModal(0)} className={works.editButton}><i className="uil uil-edit mr-5 text-green-500 cursor-pointer"></i></p>
+                }
                 <img src="https://source.unsplash.com/1600x900/?office" alt="" />
             </div>
             <div className={works.detailPart}>

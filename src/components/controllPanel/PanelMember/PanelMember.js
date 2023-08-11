@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import panelMember from './PanelMember.module.css';
 import useMemberData from '../../../customHooks/useMemberSectionHook';
 import { fetchDeleteMemberData, fetchUpdateMemberData } from '../../../fetchedData/fetchMemberData';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
+import auth from '../../../firebase/firebase.init';
 
 const PanelMember = ({ darkmode }) => {
+    const [user] = useAuthState(auth)
     const [viewOption, setViewOption] = useState(1);
     const [open, setOpen] = useState(false);
     const [idContainer, setIdContainer] = useState('');
 
     const [memberData, refetch] = useMemberData();
     const allMembers = memberData?.data?.data?.data;
-    console.log(allMembers);
+
 
 
     const findMembers = allMembers?.find(f => {
@@ -20,6 +23,14 @@ const PanelMember = ({ darkmode }) => {
 
     const findPendingRequest = allMembers?.filter(f => {
         return f.approval === false;
+    })
+
+    const filterAdmins = allMembers?.filter(f => {
+        return f?.isAdmin === true;
+    });
+
+    const findMainAdmin = filterAdmins?.find(f => {
+        return f.email === 'akilinjamam@gmail.com';
     })
 
     const handleOption = (value, number) => {
@@ -63,6 +74,23 @@ const PanelMember = ({ darkmode }) => {
         }
     }
 
+    const adminRole = async (adminValue, adminId) => {
+
+        const adminUpdateData = {
+            isAdmin: adminValue
+        };
+
+        if (filterAdmins?.length < 5) {
+            const response = await fetchUpdateMemberData(adminId, adminUpdateData, refetch);
+
+            if (response?.status === 200) {
+                toast.success("coverted to Admin")
+            }
+        } else {
+            toast.error("Admin Role cannot exceed 4")
+        }
+    }
+
 
     return (
         <div className={panelMember.main}>
@@ -85,10 +113,10 @@ const PanelMember = ({ darkmode }) => {
                         return (
                             <div className={`${open ? 'none' : 'block'}`}>
                                 {
-                                    <div key={members?._id} className={panelMember.detailPart}>
+                                    <div className={panelMember.detailPart}>
                                         <div className={panelMember.detailPartContainer}>
                                             <div className={panelMember.partOne}>
-                                                <div className={panelMember.partOneDetail}>
+                                                <div key={members?._id} className={panelMember.partOneDetail}>
                                                     <p className='mr-2'>{index + 1} </p>
                                                     <p title={members?.title} className={panelMember.partOneDetailTitle}> {members?.name?.length > 37 ? members?.name?.slice(0, 37) + '...' : members?.name}</p>
                                                     <p title={members?.title} className={panelMember.partOneDetailTitleRes}> {members?.name.length > 12 ? members?.name.slice(0, 12) + '...' : members?.name}</p>
@@ -132,8 +160,9 @@ const PanelMember = ({ darkmode }) => {
                                             <p>Name : {findMembers?.name} </p>
                                             <p>Designation : {findMembers?.designation} </p>
                                             <p>Email : {findMembers?.email} </p>
-                                            <br />
-                                            <br />
+                                            <p>Type : {findMembers?.isAdmin ? 'Admin' : 'Member'}
+                                                <span>{findMainAdmin?.email === findMembers?.email && <i class="uil uil-star ml-1 text-orange-500 font-bold"></i>}</span>
+                                            </p>
                                             <br />
                                             <br />
                                             <br />
@@ -144,7 +173,32 @@ const PanelMember = ({ darkmode }) => {
                                             <br />
                                             {
                                                 !findMembers?.isAdmin &&
-                                                <button className='btn btn-primary'>{findMembers?.approval === false ? <span onClick={() => updateApproval(true, findMembers?._id)}>Approve</span> : <span onClick={() => updateApproval(false, findMembers?._id)}>Cancel Approval</span>}</button>
+                                                <button className='btn btn-primary'>
+                                                    {findMembers?.approval === false
+                                                        ?
+                                                        <span onClick={() => updateApproval(true, findMembers?._id)}>
+                                                            Approve
+                                                        </span>
+                                                        :
+                                                        <span onClick={() => updateApproval(false, findMembers?._id)}>
+                                                            Cancel Approval
+                                                        </span>}
+                                                </button>
+                                            }
+                                            {
+                                                (findMainAdmin?.email === user?.email &&
+                                                    findMainAdmin?.email !== findMembers?.email && findMembers?.approval === true) &&
+                                                <button className='btn btn-primary ml-4'>
+                                                    {(findMembers?.isAdmin === false)
+                                                        ?
+                                                        <span onClick={() => adminRole(true, findMembers?._id)}>
+                                                            Make Admin
+                                                        </span>
+                                                        :
+                                                        <span onClick={() => adminRole(false, findMembers?._id)}>
+                                                            Make Member
+                                                        </span>}
+                                                </button>
                                             }
                                         </div>
                                     </div>

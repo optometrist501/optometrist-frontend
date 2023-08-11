@@ -9,14 +9,14 @@ import JoditEditor from 'jodit-react';
 
 const PanelEvent = () => {
     const [user] = useAuthState(auth);
-    console.log(user?.email);
+
     const editor = useRef(null);
     const [eventData, refetch] = useEventData();
     const [content, setContent] = useState('');
 
     const [open, setOpen] = useState(false);
     const allEvents = eventData?.data?.data?.data;
-    console.log(allEvents);
+
     const [viewOption, setViewOption] = useState(1);
     const [findId, setFindId] = useState('');
 
@@ -101,7 +101,7 @@ const PanelEvent = () => {
         }
     }, [imgHolder, findEvent, allEventInfo, updateAllEventsInfo, title, publisherName, user, eventDate, content, updateImg]);
 
-    console.log(imgHolder);
+
 
 
     const postBlog = async () => {
@@ -124,7 +124,7 @@ const PanelEvent = () => {
             deadline: deadline
         })
 
-        console.log(allEventInfo);
+
 
         if (
             allEventInfo.title !== '' && allEventInfo.name !== '' && allEventInfo.eventDate !== '' && allEventInfo.imgLink !== '' && allEventInfo.description !== '' && allEventInfo.deadline !== ''
@@ -155,14 +155,14 @@ const PanelEvent = () => {
         setImgHolder('');
         setContent('');
         toast.dark('updated successfully');
-        console.log(updateAllEventsInfo);
+
     }
 
     const updateApprovalPost = async (value) => {
 
         updateApproval.approval = value;
 
-        console.log(updateApproval);
+
 
         await fetchUpdateEventData(findId, updateApproval, refetch);
 

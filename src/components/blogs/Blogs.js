@@ -10,6 +10,7 @@ import { fetchPostCommentData } from '../../fetchedData/fetchCommentData';
 import useCommentData from '../../customHooks/useCommentSectionHooks';
 import { toast } from 'react-toastify';
 import { fetchGetBlogBySearchData } from '../../fetchedData/fetchBlogData';
+import Loading from '../../Loading/Loading';
 
 const Blogs = ({ darkmode }) => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Blogs = ({ darkmode }) => {
     const allBlogs = blogData?.data?.data?.data;
 
     const [blogBySearchData, setBlogBySearchData] = useState([]);
-    console.log(blogBySearchData);
+
 
     const [updateModal, setUpdateModal] = useState(100)
 
@@ -75,7 +76,7 @@ const Blogs = ({ darkmode }) => {
     }
 
     const handleDeleteLike = async (blogId) => {
-        console.log(blogId);
+
 
         const findLikeId = allLikes?.filter(f => {
             return f.link === blogId
@@ -83,7 +84,7 @@ const Blogs = ({ darkmode }) => {
             return f.email === user?.email
         })?._id
 
-        console.log(findLikeId);
+
 
         if (user?.email) {
             await fetchDeleteLikeData(findLikeId, refetch)
@@ -133,11 +134,11 @@ const Blogs = ({ darkmode }) => {
 
 
 
+
     useEffect(() => {
         async function fetchData() {
             try {
                 const response = await fetchGetBlogBySearchData(search);
-                // console.log(response?.data?.data?.data);
                 setBlogBySearchData(response?.data?.data?.data)
             } catch (error) {
 
@@ -213,7 +214,9 @@ const Blogs = ({ darkmode }) => {
         setIdContainer(idFromTitle);
     }
 
-
+    if (blogData?.data?.statusCode !== 200) {
+        return <Loading></Loading>
+    }
 
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogsMain} ${darkmode && 'bg-black'}`}>

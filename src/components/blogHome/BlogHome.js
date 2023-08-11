@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const BlogHome = ({ darkmode }) => {
     const navigate = useNavigate();
     const [imgData, setImgData] = useState([]);
-    console.log(imgData)
+
 
     const [count, setCount] = useState(0);
 

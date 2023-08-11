@@ -3,12 +3,13 @@ import events from './Events.module.css';
 import JoditEditor from 'jodit-react';
 import useEventData from '../../customHooks/useEventSectionHook';
 import { fetchGetEventBySearchData } from '../../fetchedData/fetchEventData';
+import Loading from '../../Loading/Loading';
 
 const Events = ({ darkmode }) => {
 
     const [eventData] = useEventData();
     const allEvents = eventData?.data?.data?.data;
-    console.log(allEvents);
+
     const [updateModal, setUpdateModal] = useState(100);
 
 
@@ -35,7 +36,7 @@ const Events = ({ darkmode }) => {
     const findDetailEvents = findApprovedEventData?.find(f => {
         return f._id === idContainer;
     })
-    console.log(findDetailEvents);
+
 
     const handleModalSection = (value) => {
         setUpdateModal(0);
@@ -111,7 +112,9 @@ const Events = ({ darkmode }) => {
         setUpdateModal(0)
     }
 
-
+    if (eventData?.data?.statusCode !== 200) {
+        return <Loading></Loading>
+    }
     return (
         <div className={events.eventsMain}>
             <div className={events.eventsMainContainer}>

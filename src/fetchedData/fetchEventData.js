@@ -17,10 +17,10 @@ export const fetchPostEventData = async (eventDataContainer, refetch) => {
         const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/event/create-event`, eventDataContainer);
         const eventData = response;
         refetch();
-        console.log(eventData)
+
         return eventData;
     } catch (error) {
-        console.log(error);
+
     }
 }
 
@@ -28,11 +28,11 @@ export const fetchUpdateEventData = async (idContainer, updateeventDataContainer
     try {
         const response = await axios.patch(`https://optometrist-server-46oo.onrender.com/api/v1/event/${idContainer}`, updateeventDataContainer);
         const eventData = response;
-        console.log(eventData)
+
         refetch();
         return eventData;
     } catch (error) {
-        console.log(error);
+
     }
 }
 
@@ -40,11 +40,11 @@ export const fetchDeleteEventData = async (theId, refetch) => {
     try {
         const response = await axios.delete(`https://optometrist-server-46oo.onrender.com/api/v1/event/${theId}`);
         const eventData = response;
-        console.log(eventData)
+
         refetch()
         return eventData;
     } catch (error) {
-        console.log(error);
+
     }
 }
 

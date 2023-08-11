@@ -8,7 +8,7 @@ import { fetchDeleteGalleryData, fetchPostGalleryData, fetchUpdateGalleryData } 
 
 const DashGallery = () => {
     const [user] = useAuthState(auth);
-    console.log(user?.email);
+
 
     const [galleryData, refetch] = useGalleryData()
     const [content, setContent] = useState('');
@@ -18,7 +18,7 @@ const DashGallery = () => {
 
     const [open, setOpen] = useState(false);
     const allGallery = galleryData?.data?.data?.data;
-    console.log(allGallery);
+
     const [viewOption, setViewOption] = useState(1);
     const [findId, setFindId] = useState('');
 
@@ -98,7 +98,7 @@ const DashGallery = () => {
         }
     }, [imgHolder, findBlog, allBlogInfo, updateAllGalleryInfo, title, publisherName, user, date, content, updateImg]);
 
-    console.log(imgHolder);
+
 
 
     const postBlog = async () => {
@@ -117,7 +117,7 @@ const DashGallery = () => {
             description: content
         })
 
-        console.log(allBlogInfo);
+
 
         if (
             allBlogInfo.title !== '' && allBlogInfo.name !== '' && allBlogInfo.email !== '' && allBlogInfo.release_date !== '' && allBlogInfo.imgLink !== '' && allBlogInfo.description !== ''
@@ -143,7 +143,7 @@ const DashGallery = () => {
         setImgHolder('');
         setContent('');
         toast.dark('updated successfully');
-        console.log(updateAllGalleryInfo);
+
     }
 
     const deletePost = async (theId) => {

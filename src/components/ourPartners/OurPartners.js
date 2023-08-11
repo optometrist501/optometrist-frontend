@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import partners from './OurPartners.module.css';
 import JoditEditor from 'jodit-react';
+import useMemberData from '../../customHooks/useMemberSectionHook';
+import auth from '../../firebase/firebase.init';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const OurPartners = ({ darkmode }) => {
     const editor = useRef(null);
@@ -9,7 +12,16 @@ const OurPartners = ({ darkmode }) => {
     const [blogData, setBlogData] = useState([]);
 
     const [updateModal, setUpdateModal] = useState(100);
-    console.log(blogData)
+
+    const [memberData] = useMemberData();
+    const allMembers = memberData?.data?.data?.data;
+    const [user] = useAuthState(auth);
+
+    const findAdmin = allMembers?.find(f => {
+        return f?.email === user?.email
+    })
+
+
     useEffect(() => {
         const url = 'blog.json';
         fetch(url).then(res => res.json()).then(res => setBlogData(res));
@@ -17,8 +29,12 @@ const OurPartners = ({ darkmode }) => {
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${partners.main} ${darkmode && 'bg-black text-white'}`}>
             <div className={partners.imgPart}>
-                <p onClick={() => setUpdateModal(0)} className={partners.editButton}><i className="uil uil-edit mr-2 cursor-pointer text-white"></i></p>
+                {
+                    findAdmin?.isAdmin &&
+                    <p onClick={() => setUpdateModal(0)} className={partners.editButton}><i className="uil uil-edit mr-5 text-green-500 cursor-pointer"></i></p>
+                }
                 <img src="https://source.unsplash.com/1600x900/?business" alt="" />
+
             </div>
             <div className={partners.detailPart}>
                 <div className={partners.leftPart}>

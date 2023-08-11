@@ -1,17 +1,18 @@
 import React from 'react';
 import useBlogData from '../../customHooks/useBlogSectionHook';
 import { useParams } from 'react-router-dom';
-import blogsDetail from './BlogHomeDetail.module.css';
+import Loading from '../../Loading/Loading';
 
 const BlogHomeDetail = () => {
     const { blogId } = useParams();
     const [blogData] = useBlogData();
 
+    if (blogData?.data?.statusCode !== 200) {
+        return <Loading></Loading>
+    }
     const findDetailBlogInfo = blogData?.data?.data?.data?.find(f => {
         return f._id === blogId
     });
-
-
 
     return (
         <div>

@@ -7,6 +7,7 @@ import useMemberData from '../../../customHooks/useMemberSectionHook';
 import useBlogData from '../../../customHooks/useBlogSectionHook';
 import useGalleryData from '../../../customHooks/useGallerySectionHook';
 import useEventData from '../../../customHooks/useEventSectionHook';
+import Loading from '../../../Loading/Loading';
 
 const PanelBoard = () => {
 
@@ -25,7 +26,6 @@ const PanelBoard = () => {
     const allMembers = memberData?.data?.data?.data;
     const allGallery = galleryData?.data?.data?.data;
     const allEventData = eventData?.data?.data?.data;
-    console.log(allMembers);
 
 
     const findPendings = allMembers?.filter(f => {
@@ -53,6 +53,11 @@ const PanelBoard = () => {
             setMinute(todayMinute);
         }, 1000)
     }, [second, minute]);
+
+
+    if (blogData?.data?.statusCode !== 200 || galleryData?.data?.statusCode !== 200 || eventData?.data?.statusCode !== 200 || memberData?.data?.statusCode !== 200) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className='dashboard_main'>

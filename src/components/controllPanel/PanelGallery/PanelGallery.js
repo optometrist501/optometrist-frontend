@@ -8,20 +8,20 @@ import useGalleryData from '../../../customHooks/useGallerySectionHook';
 
 const PanelGallery = () => {
     const [user] = useAuthState(auth);
-    console.log(user?.email);
+
 
     const [galleryData, refetch] = useGalleryData()
     const [content, setContent] = useState('');
 
     const [open, setOpen] = useState(false);
     const allGallery = galleryData?.data?.data?.data;
-    console.log(allGallery);
+
     const [viewOption, setViewOption] = useState(1);
     const [findId, setFindId] = useState('');
 
     const [title, setTitle] = useState('');
     const [publisherName, setPublisherName] = useState('');
-    const [date, setDate] = useState('');
+
     const [imgHolder, setImgHolder] = useState('');
     const [allBlogInfo] = useState({});
     const [updateAllGalleryInfo] = useState({});
@@ -92,7 +92,7 @@ const PanelGallery = () => {
         }
     }, [imgHolder, findBlog, allBlogInfo, updateAllGalleryInfo, title, publisherName, user, content, updateImg]);
 
-    console.log(imgHolder);
+
 
 
     const postBlog = async () => {
@@ -110,7 +110,7 @@ const PanelGallery = () => {
             description: content
         })
 
-        console.log(allBlogInfo);
+
 
         if (
             allBlogInfo.title !== '' && allBlogInfo.name !== '' && allBlogInfo.email !== '' && allBlogInfo.imgLink !== '' && allBlogInfo.description !== ''
@@ -136,14 +136,14 @@ const PanelGallery = () => {
         setImgHolder('');
         setContent('');
         toast.dark('updated successfully');
-        console.log(updateAllGalleryInfo);
+
     }
 
     const updateApprovalPost = async (value) => {
 
         updateApproval.approval = value;
 
-        console.log(updateApproval);
+
 
         await fetchUpdateGalleryData(findId, updateApproval, refetch);
 
