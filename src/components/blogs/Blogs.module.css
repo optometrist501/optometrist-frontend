@@ -417,6 +417,13 @@ font-size: 12px;
   background: linear-gradient(to right, rgb(253, 147, 60), rgb(67, 20, 238),  rgb(127, 213, 253));
 }
 
+.sharePart{
+  background-color: rgb(172, 162, 219);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
  
   @media (max-width: 768px) {
    

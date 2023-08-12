@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import blogs from './Blogs.module.css'
 import useBlogData from '../../customHooks/useBlogSectionHook';
@@ -11,6 +12,8 @@ import useCommentData from '../../customHooks/useCommentSectionHooks';
 import { toast } from 'react-toastify';
 import { fetchGetBlogBySearchData } from '../../fetchedData/fetchBlogData';
 import Loading from '../../Loading/Loading';
+import { FacebookShareButton, WhatsappShareButton, WhatsappIcon, TwitterShareButton, TwitterIcon, LinkedinShareButton, LinkedinIcon } from 'react-share';
+import { FacebookIcon } from 'react-share';
 
 const Blogs = ({ darkmode }) => {
     const navigate = useNavigate();
@@ -225,6 +228,8 @@ const Blogs = ({ darkmode }) => {
         return <Loading></Loading>
     }
 
+
+
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogsMain} ${darkmode ? 'bg-black' : 'bg-white'}`}>
             <div className={blogs.blogsMainContainer}>
@@ -365,6 +370,32 @@ const Blogs = ({ darkmode }) => {
                                                             <span onClick={() => handleModalSection(allBlogs?._id)} ><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
 
                                                         </div>
+                                                    </div>
+                                                    <br />
+                                                    <div className={blogs.sharePart}>
+                                                        {/* <FacebookShareButton url={`${REACT_APP_CLIENT_SIDE_LINK_BLOG}/${allBlogs?._id}`}>
+                                                            <span className='block ml-3'>
+                                                                <FacebookIcon round={true} size={22} />
+                                                            </span>
+                                                        </FacebookShareButton> */}
+
+                                                        < WhatsappShareButton url="https://optometrist-a88bd.web.app/blogsDetail/64b94391d84b5756fa8a4901">
+                                                            <span className='block ml-3'>
+                                                                <WhatsappIcon round={true} size={25} />
+                                                            </span>
+                                                        </ WhatsappShareButton>
+
+                                                        < TwitterShareButton url="https://optometrist-a88bd.web.app/blogsDetail/64b94391d84b5756fa8a4901">
+                                                            <span className='block ml-3'>
+                                                                <TwitterIcon round={true} size={25} />
+                                                            </span>
+                                                        </ TwitterShareButton>
+
+                                                        < LinkedinShareButton url="https://optometrist-a88bd.web.app/blogsDetail/64b94391d84b5756fa8a4901">
+                                                            <span className='block ml-3'>
+                                                                <LinkedinIcon round={true} size={25} />
+                                                            </span>
+                                                        </ LinkedinShareButton>
                                                     </div>
                                                     <br />
                                                 </div>
