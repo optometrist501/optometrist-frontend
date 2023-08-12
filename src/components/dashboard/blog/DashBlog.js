@@ -11,7 +11,7 @@ import useCommentData from '../../../customHooks/useCommentSectionHooks';
 import { fetchBulkDeleteLikeData } from '../../../fetchedData/fetchLikeData';
 import { fetchBulkDeleteCommentData } from '../../../fetchedData/fetchCommentData';
 
-const DashBlog = () => {
+const DashBlog = ({ darkmode }) => {
 
     const [user] = useAuthState(auth);
 
@@ -207,12 +207,12 @@ const DashBlog = () => {
     return (
         <div className={dashblog.main}>
             <div className={dashblog.container}>
-                <div className={dashblog.titleContainer}>
+                <div className={`${dashblog.titleContainer} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <br />
                     <div className={dashblog.titleMain}>
                         <p className={dashblog.title}> YOUR BLOGS</p>
                         <div className='flex items-center justify-between lg:w-1/6 md:w-2/6 sm:w-3/6'>
-                            <p style={{ fontSize: '12.5px' }} className='text-gray-500 font-semibold '>TOTAL PENDING: {findPendings?.length} </p>
+                            <p style={{ fontSize: '12.5px' }} className={`${darkmode ? 'text-white' : 'text-gray-500 '} font-semibold`}>TOTAL PENDING: {findPendings?.length} </p>
                             <p onClick={() => handleOption(3)} ><i class="uil uil-plus-circle mr-3 text-3xl text-purple-600 cursor-pointer"></i></p>
                         </div>
                     </div>
@@ -227,7 +227,7 @@ const DashBlog = () => {
                                 {
                                     <div key={blogs?._id} className={dashblog.detailPart}>
                                         <div className={dashblog.detailPartContainer}>
-                                            <div className={dashblog.partOne}>
+                                            <div className={`${dashblog.partOne} ${darkmode && 'text-white'}`}>
                                                 <div className={dashblog.partOneDetail}>
                                                     <p className='mr-2'>{index + 1} </p>
                                                     <p title={blogs?.title} className={dashblog.partOneDetailTitle}>Title: {blogs?.title?.length > 37 ? blogs?.title?.slice(0, 37) + '...' : blogs?.title}</p>
@@ -249,7 +249,7 @@ const DashBlog = () => {
                         )
                     })
                 }
-                <div className={`${open ? 'block' : 'none'}  ${dashblog.modal}`}>
+                <div className={`${open ? 'block' : 'none'}  ${dashblog.modal} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <i onClick={() => setOpen(false)} class="uil uil-backspace text-2xl ml-2 cursor-pointer"></i>
 
                     <br />

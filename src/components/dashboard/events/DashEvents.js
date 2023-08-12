@@ -8,7 +8,7 @@ import auth from '../../../firebase/firebase.init';
 import { fetchDeleteEventData, fetchPostEventData, fetchUpdateEventData } from '../../../fetchedData/fetchEventData';
 import useEventData from '../../../customHooks/useEventSectionHook';
 
-const DashEvents = () => {
+const DashEvents = ({ darkmode }) => {
     const [user] = useAuthState(auth);
 
 
@@ -134,7 +134,7 @@ const DashEvents = () => {
             allEventInfo.title !== '' && allEventInfo.name !== '' && allEventInfo.eventDate !== '' && allEventInfo.imgLink !== '' && allEventInfo.description !== '' && allEventInfo.deadline !== ''
         ) {
             await fetchPostEventData(allEventInfo, refetch);
-            toast.success('Blog added successfully');
+            toast.success('Event added successfully');
 
             setTitle('');
             setPublisherName('');
@@ -174,12 +174,12 @@ const DashEvents = () => {
     return (
         <div className={dashEvent.main}>
             <div className={dashEvent.container}>
-                <div className={dashEvent.titleContainer}>
+                <div className={`${dashEvent.titleContainer} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <br />
                     <div className={dashEvent.titleMain}>
                         <p className={dashEvent.title}> YOUR EVENTS :</p>
                         <div className='flex items-center justify-between lg:w-1/6 md:w-2/6 sm:w-3/6'>
-                            <p style={{ fontSize: '12.5px' }} className='text-gray-500 font-semibold '>TOTAL PENDING: {findPendings?.length} </p>
+                            <p style={{ fontSize: '12.5px' }} className={`${darkmode && 'text-white'} text-gray-500 font-semibold`}>TOTAL PENDING: {findPendings?.length} </p>
                             <p onClick={() => handleOption(3)} ><i class="uil uil-plus-circle mr-3 text-3xl text-purple-600 cursor-pointer"></i></p>
                         </div>
                     </div>
@@ -195,7 +195,7 @@ const DashEvents = () => {
                                     <div key={events?._id} className={dashEvent.detailPart}>
                                         <div className={dashEvent.detailPartContainer}>
                                             <div className={dashEvent.partOne}>
-                                                <div className={dashEvent.partOneDetail}>
+                                                <div className={`${dashEvent.partOneDetail} ${darkmode && 'text-white'}`}>
                                                     <p className='mr-2'>{index + 1} </p>
                                                     <p title={events?.title} className={dashEvent.partOneDetailTitle}>Title: {events?.title?.length > 37 ? events?.title?.slice(0, 37) + '...' : events?.title}</p>
                                                     <p title={events?.title} className={dashEvent.partOneDetailTitleRes}>Title: {events?.title.length > 12 ? events?.title.slice(0, 12) + '...' : events?.title}</p>
@@ -216,7 +216,7 @@ const DashEvents = () => {
                         )
                     })
                 }
-                <div className={`${open ? 'block' : 'none'}  ${dashEvent.modal}`}>
+                <div className={`${open ? 'block' : 'none'}  ${dashEvent.modal} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <i onClick={() => setOpen(false)} class="uil uil-backspace text-2xl ml-2 cursor-pointer"></i>
 
                     <br />

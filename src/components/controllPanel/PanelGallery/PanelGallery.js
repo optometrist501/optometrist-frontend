@@ -6,7 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
 import useGalleryData from '../../../customHooks/useGallerySectionHook';
 
-const PanelGallery = () => {
+const PanelGallery = ({ darkmode }) => {
     const [user] = useAuthState(auth);
 
 
@@ -168,12 +168,12 @@ const PanelGallery = () => {
     return (
         <div className={panelGallery.main}>
             <div className={panelGallery.container}>
-                <div className={panelGallery.titleContainer}>
+                <div className={`${panelGallery.titleContainer} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <br />
                     <div className={panelGallery.titleMain}>
                         <p className={panelGallery.title}> All GALLERY-IMAGES:</p>
                         <div className='flex items-center justify-between lg:w-1/6 md:w-2/6 sm:w-3/6'>
-                            <p style={{ fontSize: '12.5px' }} className='text-gray-500 font-semibold '>TOTAL PENDING: {findPendings?.length} </p>
+                            <p style={{ fontSize: '12.5px' }} className={`${darkmode ? 'text-white' : 'text-gray-500 '} font-semibold`}  >TOTAL PENDING: {findPendings?.length} </p>
                             <p onClick={() => handleOption(3)} ><i class="uil uil-plus-circle mr-3 text-3xl text-purple-600 cursor-pointer"></i></p>
                         </div>
                     </div>
@@ -188,7 +188,7 @@ const PanelGallery = () => {
                                 {
                                     <div key={blogs?._id} className={panelGallery.detailPart}>
                                         <div className={panelGallery.detailPartContainer}>
-                                            <div className={panelGallery.partOne}>
+                                            <div className={`${darkmode && 'text-white'} ${panelGallery.partOne}`}>
                                                 <div className={panelGallery.partOneDetail}>
                                                     <p className='mr-2'>{index + 1} </p>
                                                     <p title={blogs?.title} className={panelGallery.partOneDetailTitle}> {blogs?.title?.length > 37 ? blogs?.title?.slice(0, 37) + '...' : blogs?.title}</p>
@@ -210,7 +210,7 @@ const PanelGallery = () => {
                         )
                     })
                 }
-                <div className={`${open ? 'block' : 'none'}  ${panelGallery.modal}`}>
+                <div className={`${open ? 'block' : 'none'}  ${panelGallery.modal} ${darkmode ? 'text-white bg-black' : 'bg-white'} `}>
                     <i onClick={() => setOpen(false)} class="uil uil-backspace text-2xl ml-2 cursor-pointer"></i>
 
                     <br />
@@ -324,7 +324,7 @@ const PanelGallery = () => {
                                     <div className={panelGallery.updateEventButton}>
 
                                         <div >
-                                            <button onClick={handleUpdate} className='btn btn-primary mr-10'><i class="uil uil-edit mr-1"></i>update Blog</button>
+                                            <button onClick={handleUpdate} className='btn btn-primary mr-10'><i class="uil uil-edit mr-1"></i>Update Gallery</button>
                                         </div>
                                     </div>
                                 </div>
@@ -392,7 +392,7 @@ const PanelGallery = () => {
                                     }
 
                                     <div className={panelGallery.updateEventButton}>
-                                        <button onClick={postBlog} className='btn btn-primary mr-10'><i class="uil uil-plus-circle mr-2"></i>Add Blog</button>
+                                        <button onClick={postBlog} className='btn btn-primary mr-10'><i class="uil uil-plus-circle mr-2"></i>Add Gallery</button>
                                     </div>
                                 </div>
                             </div>

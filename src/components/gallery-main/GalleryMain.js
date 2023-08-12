@@ -4,6 +4,7 @@ import galleryMain from './GalleryMain.module.css';
 import useGalleryData from '../../customHooks/useGallerySectionHook';
 import { fetchGetGalleryBySearchData } from '../../fetchedData/fetchGalleryData';
 import Loading from '../../Loading/Loading';
+import { useLocation } from 'react-router-dom';
 
 const GalleryMain = ({ darkmode }) => {
     const [updateModal, setUpdateModal] = useState(100)
@@ -142,6 +143,12 @@ const GalleryMain = ({ darkmode }) => {
         setIdContainer(valueFromTitle)
         setUpdateModal(0)
     }
+
+    const pageLocation = useLocation();
+
+    useEffect(() => {
+        document.title = `oabd-${pageLocation?.pathname?.slice(1)}`;
+    }, [pageLocation]);
 
     if (galleryData?.data?.statusCode !== 200) {
         return <Loading></Loading>

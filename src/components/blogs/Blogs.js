@@ -5,7 +5,7 @@ import useLikeData from '../../customHooks/useLikeSectionHook';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
 import { fetchDeleteLikeData, fetchPostLikeData } from '../../fetchedData/fetchLikeData';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchPostCommentData } from '../../fetchedData/fetchCommentData';
 import useCommentData from '../../customHooks/useCommentSectionHooks';
 import { toast } from 'react-toastify';
@@ -214,12 +214,19 @@ const Blogs = ({ darkmode }) => {
         setIdContainer(idFromTitle);
     }
 
+    const pageLocation = useLocation();
+
+
+    useEffect(() => {
+        document.title = `oabd-${pageLocation?.pathname?.slice(1)}`;
+    }, [pageLocation]);
+
     if (blogData?.data?.statusCode !== 200) {
         return <Loading></Loading>
     }
 
     return (
-        <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogsMain} ${darkmode && 'bg-black'}`}>
+        <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogsMain} ${darkmode ? 'bg-black' : 'bg-white'}`}>
             <div className={blogs.blogsMainContainer}>
                 <div onMouseLeave={() => setFlipDrawer(-50)} style={{ left: `${flipDrawer}%`, transition: '1s ease-in-out' }} className={blogs.blogsFirstPart}>
                     <div className={blogs.blogsFirstPartContainer}>

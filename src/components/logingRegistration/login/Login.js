@@ -4,7 +4,7 @@ import './Login.css';
 import auth from '../../../firebase/firebase.init';
 import Loading from '../../../Loading/Loading';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = ({ darkmode }) => {
     const navigate = useNavigate();
@@ -78,6 +78,13 @@ const Login = ({ darkmode }) => {
         )
 
     }
+
+    const pageLocation = useLocation();
+
+    useEffect(() => {
+        document.title = `oabd-${pageLocation?.pathname?.slice(1)}`;
+    }, [pageLocation]);
+
 
     if (profileLoading) {
         return <Loading></Loading>

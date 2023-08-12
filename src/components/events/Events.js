@@ -4,6 +4,7 @@ import JoditEditor from 'jodit-react';
 import useEventData from '../../customHooks/useEventSectionHook';
 import { fetchGetEventBySearchData } from '../../fetchedData/fetchEventData';
 import Loading from '../../Loading/Loading';
+import { useLocation } from 'react-router-dom';
 
 const Events = ({ darkmode }) => {
 
@@ -111,6 +112,13 @@ const Events = ({ darkmode }) => {
         setIdContainer(valueFromTitle)
         setUpdateModal(0)
     }
+
+    const pageLocation = useLocation();
+
+    useEffect(() => {
+        document.title = `oabd-${pageLocation?.pathname?.slice(1)}`;
+    }, [pageLocation]);
+
 
     if (eventData?.data?.statusCode !== 200) {
         return <Loading></Loading>

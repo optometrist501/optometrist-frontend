@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import './panelBoard.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import useMemberData from '../../../customHooks/useMemberSectionHook';
 import useBlogData from '../../../customHooks/useBlogSectionHook';
 import useGalleryData from '../../../customHooks/useGallerySectionHook';
 import useEventData from '../../../customHooks/useEventSectionHook';
 import Loading from '../../../Loading/Loading';
 
-const PanelBoard = () => {
+const PanelBoard = ({ darkmode }) => {
 
     const [positionSlide, setPositionSlide] = useState(50);
     const [heighlight, setHighlight] = useState(1)
@@ -53,6 +53,13 @@ const PanelBoard = () => {
             setMinute(todayMinute);
         }, 1000)
     }, [second, minute]);
+
+    const pageLocation = useLocation();
+
+    useEffect(() => {
+        document.title = `oabd-${pageLocation?.pathname?.slice(1)}`;
+    }, [pageLocation]);
+
 
 
     if (blogData?.data?.statusCode !== 200 || galleryData?.data?.statusCode !== 200 || eventData?.data?.statusCode !== 200 || memberData?.data?.statusCode !== 200) {
@@ -211,9 +218,9 @@ const PanelBoard = () => {
                         <div className="firstBar">
                             <p onClick={() => setPositionSlide(0)} className='dashboardBargerIcon'>  <i class="uil uil-bars cursor-pointer"></i></p>
                         </div>
-                        <div className="main-content-detailpart">
+                        <div className={`${darkmode ? 'bg-black' : 'bg-white'} main-content-detailpart`}>
                             <div className='dashboard-title-container'>
-                                <div className='dashboard-title'>
+                                <div className={`${darkmode ? 'bg-black text-white ' : 'bg-white'} dashboard-title`}>
                                     <h1>CONTROLL PANEL</h1>
                                 </div>
                             </div>

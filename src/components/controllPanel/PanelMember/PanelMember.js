@@ -95,12 +95,12 @@ const PanelMember = ({ darkmode }) => {
     return (
         <div className={panelMember.main}>
             <div className={panelMember.container}>
-                <div className={panelMember.titleContainer}>
+                <div className={`${panelMember.titleContainer} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <br />
                     <div className={panelMember.titleMain}>
                         <p className={panelMember.title}> All members :</p>
                         <div className='flex items-center justify-between lg:w-1/6 md:w-2/6 sm:w-3/6'>
-                            <p style={{ fontSize: '12.5px' }} className='text-gray-500 font-semibold '>TOTAL PENDING: {findPendingRequest?.length} </p>
+                            <p style={{ fontSize: '12.5px' }} className={`${darkmode && 'text-white'} text-gray-500 font-semibold`}>TOTAL PENDING: {findPendingRequest?.length} </p>
 
                         </div>
                     </div>
@@ -115,7 +115,7 @@ const PanelMember = ({ darkmode }) => {
                                 {
                                     <div className={panelMember.detailPart}>
                                         <div className={panelMember.detailPartContainer}>
-                                            <div className={panelMember.partOne}>
+                                            <div className={`${darkmode && 'text-white'} ${panelMember.partOne}`}>
                                                 <div key={members?._id} className={panelMember.partOneDetail}>
                                                     <p className='mr-2'>{index + 1} </p>
                                                     <p title={members?.title} className={panelMember.partOneDetailTitle}> {members?.name?.length > 37 ? members?.name?.slice(0, 37) + '...' : members?.name}</p>
@@ -138,7 +138,7 @@ const PanelMember = ({ darkmode }) => {
                         )
                     })
                 }
-                <div className={`${open ? 'block' : 'none'}  ${panelMember.modal}`}>
+                <div className={`${open ? 'block' : 'none'}  ${panelMember.modal} ${darkmode ? 'bg-black text-white' : 'bg-white'} `}>
                     <i onClick={() => setOpen(false)} class="uil uil-backspace text-2xl ml-2 cursor-pointer"></i>
                     <br />
                     <br />

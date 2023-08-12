@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Dashboard.css';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
 import useMemberData from '../../customHooks/useMemberSectionHook';
@@ -8,7 +8,7 @@ import useBlogData from '../../customHooks/useBlogSectionHook';
 import useGalleryData from '../../customHooks/useGallerySectionHook';
 import useEventData from '../../customHooks/useEventSectionHook';
 import Loading from '../../Loading/Loading';
-const Dashboard = () => {
+const Dashboard = ({ darkmode }) => {
     const [positionSlide, setPositionSlide] = useState(50);
     const [heighlight, setHighlight] = useState(1)
     const [user] = useAuthState(auth);
@@ -18,6 +18,14 @@ const Dashboard = () => {
     const [galleryData] = useGalleryData();
     const [eventData] = useEventData();
 
+
+    const pageLocation = useLocation();
+
+    useEffect(() => {
+        document.title = `oabd-${pageLocation?.pathname?.slice(1)}`;
+    }, [pageLocation]);
+
+
     if (blogData?.data?.statusCode !== 200 || galleryData?.data?.statusCode !== 200 || eventData?.data?.statusCode !== 200 || memberData?.data?.statusCode !== 200) {
         return <Loading></Loading>
     }
@@ -26,7 +34,10 @@ const Dashboard = () => {
         <div className='dashboard_main'>
             <div className="dashboard">
 
-                <div className="sidebar">
+                <div className={`${darkmode ? 'bg-gray-600 sidebar text-white' : 'sidebar sidebar_background'}`}>
+
+                    <br />
+                    <br />
                     <div className="sidebarContainer">
                         <p title={user?.displayName} style={{ fontSize: '12px' }} className='text-center font-bold mt-3 uppercase'>{user?.displayName?.length > 20 ? user?.displayName?.slice(0, 20) + '...' : user?.displayName}
                         </p>
@@ -70,9 +81,9 @@ const Dashboard = () => {
                         <div className="firstBar">
                             <p onClick={() => setPositionSlide(0)} className='dashboardBargerIcon'>  <i class="uil uil-bars cursor-pointer"></i></p>
                         </div>
-                        <div className="main-content-detailpart">
+                        <div className={`${darkmode ? 'bg-black' : 'bg-white'} main-content-detailpart`}>
                             <div className='dashboard-title-container'>
-                                <div className='dashboard-title'>
+                                <div className={`${darkmode ? 'bg-black text-white ' : 'bg-white'} dashboard-title`}>
                                     <h1>DASHBOARD</h1>
                                 </div>
                             </div>

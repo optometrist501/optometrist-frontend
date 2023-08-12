@@ -4,7 +4,7 @@ import auth from '../../firebase/firebase.init';
 import { fetchPostPaymentData } from '../../fetchedData/fetchPaymentData';
 import dashTransection from './DashTransection.module.css';
 
-const DashTransection = () => {
+const DashTransection = ({ darkmode }) => {
     const [user] = useAuthState(auth);
     const currency = 'BDT';
     const [aUrl, setAUrl] = useState('');
@@ -42,54 +42,54 @@ const DashTransection = () => {
     return (
         <div className={dashTransection.main}>
             <div className={dashTransection.container}>
-                <form onSubmit={handlePayment} classname={dashTransection.styled_form}>
+                <form onSubmit={handlePayment} classname={`${dashTransection.styled_form}`}>
                     <p className='text-xl font-bold text-center mb-2 text-purple-600'>PAYMENT-FORM</p>
                     <hr />
                     <br />
                     <div className={dashTransection.form_row}>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Name :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">Name :</label>
                             <input required type="text" name="name" placeholder="Name" />
                         </div>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Phone :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">Phone :</label>
                             <input required type="text" name="phone" placeholder="Phone" />
                         </div>
                     </div>
                     <div className={dashTransection.form_row}>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Email :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">Email :</label>
                             <input required value={user?.email} type="text" name="email" placeholder="email" />
                         </div>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Postcode :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">Postcode :</label>
                             <input required type="text" name="postcode" placeholder="postcode" />
                         </div>
                     </div>
                     <div className={dashTransection.form_row}>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Country :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">Country :</label>
                             <input required type="text" name="country" placeholder="Country" />
                         </div>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">City :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">City :</label>
                             <input required type="text" name="city" placeholder="City" />
                         </div>
                     </div>
                     <div className={dashTransection.form_row}>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Amount :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">Amount :</label>
                             <input required type="text" name="amount" placeholder="Amount" />
                         </div>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Currency :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">Currency :</label>
                             <input required value={currency} type="text" name="currency" placeholder="Currency" />
                         </div>
                     </div>
 
                     <div className={dashTransection.form_row}>
                         <div className={dashTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Address :</label>
+                            <label className={`${darkmode && dashTransection.label_color} ml-3`} htmlFor="">Address :</label>
                             <input required type="text" name="address" placeholder="Address" />
                         </div>
                     </div>

@@ -9,17 +9,17 @@
 }
 
 .container{
+    margin-top: 30px;
     width: 60%;
     height: 500px;
     padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(124, 121, 121, 0.7);
 }
 
 .styled_form {
     width: 300px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
@@ -40,6 +40,10 @@
     margin-bottom: 0;
     font-weight: bold;
     font-size: 12px;
+}
+
+.label_color{
+    color: white;
 }
 
 .form_row input {

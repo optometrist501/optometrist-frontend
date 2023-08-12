@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import useGalleryData from '../../../customHooks/useGallerySectionHook';
 import { fetchDeleteGalleryData, fetchPostGalleryData, fetchUpdateGalleryData } from '../../../fetchedData/fetchGalleryData';
 
-const DashGallery = () => {
+const DashGallery = ({ darkmode }) => {
     const [user] = useAuthState(auth);
 
 
@@ -159,12 +159,12 @@ const DashGallery = () => {
     return (
         <div className={dashGallery.main}>
             <div className={dashGallery.container}>
-                <div className={dashGallery.titleContainer}>
+                <div className={`${dashGallery.titleContainer} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <br />
                     <div className={dashGallery.titleMain}>
-                        <p className={dashGallery.title}> YOUR GALLERY:</p>
+                        <p className={dashGallery.title}> YOUR GALLERY :</p>
                         <div className='flex items-center justify-between lg:w-1/6 md:w-2/6 sm:w-3/6'>
-                            <p style={{ fontSize: '12.5px' }} className='text-gray-500 font-semibold '>TOTAL PENDING: {findPendings?.length} </p>
+                            <p style={{ fontSize: '12.5px' }} className={`${darkmode && 'text-white'} text-gray-500 font-semibold `}>TOTAL PENDING: {findPendings?.length} </p>
                             <p onClick={() => handleOption(3)} ><i class="uil uil-plus-circle mr-3 text-3xl text-purple-600 cursor-pointer"></i></p>
                         </div>
                     </div>
@@ -180,7 +180,7 @@ const DashGallery = () => {
                                     <div key={blogs?._id} className={dashGallery.detailPart}>
                                         <div className={dashGallery.detailPartContainer}>
                                             <div className={dashGallery.partOne}>
-                                                <div className={dashGallery.partOneDetail}>
+                                                <div className={`${dashGallery.partOneDetail} ${darkmode && 'text-white'}`}>
                                                     <p className='mr-2'>{index + 1} </p>
                                                     <p title={blogs?.title} className={dashGallery.partOneDetailTitle}>Title: {blogs?.title?.length > 37 ? blogs?.title?.slice(0, 37) + '...' : blogs?.title}</p>
                                                     <p title={blogs?.title} className={dashGallery.partOneDetailTitleRes}>Title: {blogs?.title.length > 12 ? blogs?.title.slice(0, 12) + '...' : blogs?.title}</p>
@@ -201,7 +201,7 @@ const DashGallery = () => {
                         )
                     })
                 }
-                <div className={`${open ? 'block' : 'none'}  ${dashGallery.modal}`}>
+                <div className={`${open ? 'block' : 'none'}  ${dashGallery.modal} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <i onClick={() => setOpen(false)} class="uil uil-backspace text-2xl ml-2 cursor-pointer"></i>
 
                     <br />
@@ -369,7 +369,7 @@ const DashGallery = () => {
                                     }
 
                                     <div className={dashGallery.updateEventButton}>
-                                        <button onClick={postBlog} className='btn btn-primary mr-10'><i class="uil uil-plus-circle mr-2"></i>Add Blog</button>
+                                        <button onClick={postBlog} className='btn btn-primary mr-10'><i class="uil uil-plus-circle mr-2"></i>Add Gallery</button>
                                     </div>
 
                                 </div>

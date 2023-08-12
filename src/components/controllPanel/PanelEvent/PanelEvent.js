@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
 import JoditEditor from 'jodit-react';
 
-const PanelEvent = () => {
+const PanelEvent = ({ darkmode }) => {
     const [user] = useAuthState(auth);
 
     const editor = useRef(null);
@@ -187,12 +187,12 @@ const PanelEvent = () => {
     return (
         <div className={panelEvent.main}>
             <div className={panelEvent.container}>
-                <div className={panelEvent.titleContainer}>
+                <div className={`${panelEvent.titleContainer} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <br />
                     <div className={panelEvent.titleMain}>
                         <p className={panelEvent.title}> All EVENTS :</p>
                         <div className='flex items-center justify-between lg:w-1/6 md:w-2/6 sm:w-3/6'>
-                            <p style={{ fontSize: '12.5px' }} className='text-gray-500 font-semibold '>TOTAL PENDING: {findPendings?.length} </p>
+                            <p style={{ fontSize: '12.5px' }} className={`${darkmode ? 'text-white' : 'text-gray-500 font-semibold'} `}>TOTAL PENDING: {findPendings?.length} </p>
                             <p onClick={() => handleOption(3)} ><i class="uil uil-plus-circle mr-3 text-3xl text-purple-600 cursor-pointer"></i></p>
                         </div>
                     </div>
@@ -207,7 +207,7 @@ const PanelEvent = () => {
                                 {
                                     <div key={events?._id} className={panelEvent.detailPart}>
                                         <div className={panelEvent.detailPartContainer}>
-                                            <div className={panelEvent.partOne}>
+                                            <div className={`${darkmode && 'text-white'} ${panelEvent.partOne} `}>
                                                 <div className={panelEvent.partOneDetail}>
                                                     <p className='mr-2'>{index + 1} </p>
                                                     <p title={events?.title} className={panelEvent.partOneDetailTitle}> {events?.title?.length > 37 ? events?.title?.slice(0, 37) + '...' : events?.title}</p>

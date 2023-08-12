@@ -16,7 +16,6 @@
 .titleContainer{
     position: sticky;
     top: 0;
-    background-color: white;
 }
 .title{
     font-weight: bold;
@@ -92,7 +91,6 @@
 .modal{
     width: 99%;
     min-height: 900px;
-    background-color: white;
     position: absolute;
     top: 0;
     right: 4px;

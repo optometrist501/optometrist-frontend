@@ -102,7 +102,6 @@ const Advertise = ({ darkmode }) => {
 
                                 {
                                     findAdmin?.isAdmin &&
-
                                     <span onClick={() => handleUpdateModal(add?._id)} className={advertisement.editButton}><i className="uil uil-edit text-white cursor-pointer"></i></span>
                                 }
                             </div>

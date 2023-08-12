@@ -1,6 +1,6 @@
 import React from 'react';
 import qrProfile from './QrProfile.module.css';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import QRCode from 'qrcode';
 import useMemberData from '../../customHooks/useMemberSectionHook';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { fetchUpdateMemberData } from '../../fetchedData/fetchMemberData';
 import { toast } from 'react-toastify';
 
-const QrProfile = () => {
+const QrProfile = ({ darkmode }) => {
     const id = useParams('/:id');
 
     const [viewEditOption, setViewEditOption] = useState(false);
@@ -58,8 +58,8 @@ const QrProfile = () => {
 
 
     return (
-        <div style={{ width: '100%', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ transition: '1s ease-in-out' }} className={`${qrProfile.container}`}>
+        <div className={darkmode ? 'bg-black' : 'bg-white'} style={{ width: '100%', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ transition: '1s ease-in-out' }} className={`${qrProfile.container} ${darkmode ? 'bg-black text-white' : 'bg-white'} `}>
                 <div className={qrProfile.firstPart}>
                     <img src={findMembership?.imgLink} alt="" />
                     <div className={qrProfile.imgNameDesignation}>
@@ -85,6 +85,7 @@ const QrProfile = () => {
                             findMembership?.email === user?.email &&
                             <div className='w-full flex items-center justify-between'>
                                 <button onClick={viewEditOption ? () => setViewEditOption(false) : () => setViewEditOption(true)} className='btn btn-primary'>QR-CODE</button>
+                                <Link to='/'> <button className='btn btn-primary mr-3'>Back</button></Link>
                             </div>
                         }
                     </div>

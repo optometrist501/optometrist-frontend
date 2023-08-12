@@ -6,7 +6,7 @@ import BlogHome from '../blogHome/BlogHome';
 import Footer from '../footer/Footer';
 import Advertise from '../advertise/Advertise';
 import AboutAll from '../aboutAll/AboutAll';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Hero from '../Hero/Hero';
 import MemberCartHome from '../memberCart/MemberCartHome';
 import { useEffect } from 'react';
@@ -18,9 +18,6 @@ import useBlogData from '../../customHooks/useBlogSectionHook';
 import useMemberData from '../../customHooks/useMemberSectionHook';
 import LoadingHome from '../../Loading/LoadingHome';
 
-
-
-
 const Home = ({ darkmode, setNavScroll }) => {
 
     const [aboutData] = useAboutData();
@@ -29,6 +26,14 @@ const Home = ({ darkmode, setNavScroll }) => {
     const [galleryData] = useGalleryData();
     const [blogData] = useBlogData();
     const [memberData] = useMemberData();
+
+    const pageLocation = useLocation();
+
+
+    useEffect(() => {
+        document.title = 'oabd';
+
+    }, [pageLocation]);
 
 
 

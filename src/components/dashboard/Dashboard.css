@@ -10,11 +10,14 @@
   .sidebar {
     width: 15%;
     padding-top: 92px;
-    background-color: #f2f2f2;
     min-height: 100vh;
     position: fixed;
     left: 0;
     transition: .1s ease;
+  }
+
+  .sidebar_background{
+    background-color: #f2f2f2;
   }
 
   .sidebar-panel {

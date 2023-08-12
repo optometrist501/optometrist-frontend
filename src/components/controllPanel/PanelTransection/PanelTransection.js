@@ -5,7 +5,7 @@ import auth from '../../../firebase/firebase.init';
 import { fetchPostPaymentData } from '../../../fetchedData/fetchPaymentData';
 import { toast } from 'react-toastify';
 
-const PanelTransection = () => {
+const PanelTransection = ({ darkmode }) => {
     const [user] = useAuthState(auth);
     const currency = 'BDT';
     const [aUrl, setAUrl] = useState('');
@@ -49,48 +49,48 @@ const PanelTransection = () => {
                     <br />
                     <div className={panelTransection.form_row}>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Name :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">Name :</label>
                             <input required type="text" name="name" placeholder="Name" />
                         </div>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Phone :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">Phone :</label>
                             <input required type="text" name="phone" placeholder="Phone" />
                         </div>
                     </div>
                     <div className={panelTransection.form_row}>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Email :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">Email :</label>
                             <input required value={user?.email} type="text" name="email" placeholder="email" />
                         </div>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Postcode :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">Postcode :</label>
                             <input required type="text" name="postcode" placeholder="postcode" />
                         </div>
                     </div>
                     <div className={panelTransection.form_row}>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Country :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">Country :</label>
                             <input required type="text" name="country" placeholder="Country" />
                         </div>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">City :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">City :</label>
                             <input required type="text" name="city" placeholder="City" />
                         </div>
                     </div>
                     <div className={panelTransection.form_row}>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Amount :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">Amount :</label>
                             <input required type="text" name="amount" placeholder="Amount" />
                         </div>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Currency :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">Currency :</label>
                             <input required value={currency} type="text" name="currency" placeholder="Currency" />
                         </div>
                     </div>
 
                     <div className={panelTransection.form_row}>
                         <div className={panelTransection.form_row_div}>
-                            <label className='ml-3' htmlFor="">Address :</label>
+                            <label className={`${darkmode && panelTransection.label_color} ml-3`} htmlFor="">Address :</label>
                             <input required type="text" name="address" placeholder="Address" />
                         </div>
                     </div>

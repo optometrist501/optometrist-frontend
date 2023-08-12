@@ -5,7 +5,7 @@ import auth from '../../firebase/firebase.init';
 import useMemberData from '../../customHooks/useMemberSectionHook';
 import { fetchUpdateMemberData } from '../../fetchedData/fetchMemberData';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MyProfile = ({ darkmode }) => {
 
@@ -97,13 +97,19 @@ const MyProfile = ({ darkmode }) => {
         }
     }
 
+    const pageLocation = useLocation();
+
+    useEffect(() => {
+        document.title = `oabd-${pageLocation?.pathname?.slice(1)}/${findMember?.name}`;
+    }, [pageLocation, findMember]);
+
 
 
 
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${myProfile.main} ${darkmode && 'bg-black text-white'}`}>
 
-            <div style={{ transition: '1s ease-in-out' }} className={`${myProfile.container} ${darkmode ? 'bg-black border border-white' : 'bg-white'}`}>
+            <div style={{ transition: '1s ease-in-out' }} className={`${myProfile.container} ${darkmode ? 'bg-black' : 'bg-white'}`}>
                 <div className={myProfile.firstPart}>
                     <img src={imgHolder ? imgHolder : imgLink} alt="" />
                     <p className='text-right mr-10 text-3xl text-green-500 relative'>

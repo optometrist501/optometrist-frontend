@@ -52,7 +52,7 @@ function App() {
         <Route path='/' element={<Home darkmode={darkmode} setNavScroll={setNavScroll} ></Home>} />
         <Route path='/blogs' element={<Blogs darkmode={darkmode} ></Blogs>} />
         <Route path='/blogsDetail/:blogId' element={<BlogHomeDetail></BlogHomeDetail>} />
-        <Route path='/qrProfile/:id' element={<QrProfile></QrProfile>} />
+        <Route path='/qrProfile/:id' element={<QrProfile darkmode={darkmode} ></QrProfile>} />
         <Route path='/gallery' element={<GalleryMain darkmode={darkmode}></GalleryMain>} />
         <Route path='/events' element={<Events darkmode={darkmode}></Events>} />
         <Route path='/about' element={<About></About>} />
@@ -84,30 +84,30 @@ function App() {
         <Route path='/dashboard'
           element={
             <RequireMember>
-              <Dashboard></Dashboard>
+              <Dashboard darkmode={darkmode}></Dashboard>
             </RequireMember>}
         >
-          <Route index to='' element={<DashBlog></DashBlog>}></Route>
-          <Route path='event' element={<DashEvents></DashEvents>}></Route>
-          <Route path='gallery' element={<DashGallery></DashGallery>}></Route>
-          <Route path='publication' element={<DashPublications></DashPublications>}></Route>
-          <Route path='dashTransection' element={<DashTransection></DashTransection>}></Route>
+          <Route index to='' element={<DashBlog darkmode={darkmode}></DashBlog>}></Route>
+          <Route path='event' element={<DashEvents darkmode={darkmode}></DashEvents>}></Route>
+          <Route path='gallery' element={<DashGallery darkmode={darkmode}></DashGallery>}></Route>
+          <Route path='publication' element={<DashPublications darkmode={darkmode}></DashPublications>}></Route>
+          <Route path='dashTransection' element={<DashTransection darkmode={darkmode}></DashTransection>}></Route>
         </Route>
 
         <Route path='/panelBoard'
           element={
             <RequireAdmin>
-              <PanelBoard></PanelBoard>
+              <PanelBoard darkmode={darkmode}></PanelBoard>
             </RequireAdmin>
           }
         >
-          <Route index to='' element={<PanelBlog></PanelBlog>}></Route>
-          <Route path='event' element={<PanelEvent></PanelEvent>}></Route>
-          <Route path='gallery' element={<PanelGallery></PanelGallery>}></Route>
-          <Route path='publication' element={<PanelPublication></PanelPublication>}></Route>
-          <Route path='panelMember' element={<PanelMember></PanelMember>}></Route>
-          <Route path='panelRequest' element={<PanelRequests></PanelRequests>}></Route>
-          <Route path='panelTransection' element={<PanelTransection></PanelTransection>}></Route>
+          <Route index to='' element={<PanelBlog darkmode={darkmode}></PanelBlog>}></Route>
+          <Route path='event' element={<PanelEvent darkmode={darkmode}></PanelEvent>}></Route>
+          <Route path='gallery' element={<PanelGallery darkmode={darkmode}></PanelGallery>}></Route>
+          <Route path='publication' element={<PanelPublication darkmode={darkmode}></PanelPublication>}></Route>
+          <Route path='panelMember' element={<PanelMember darkmode={darkmode}></PanelMember>}></Route>
+          <Route path='panelRequest' element={<PanelRequests darkmode={darkmode}></PanelRequests>}></Route>
+          <Route path='panelTransection' element={<PanelTransection darkmode={darkmode}></PanelTransection>}></Route>
         </Route>
       </Routes>
 

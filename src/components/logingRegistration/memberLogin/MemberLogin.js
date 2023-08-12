@@ -5,7 +5,7 @@ import auth from '../../../firebase/firebase.init';
 import { fetchPostMemberData, fetchUpdateMemberData } from '../../../fetchedData/fetchMemberData';
 import { toast } from 'react-toastify';
 import useMemberData from '../../../customHooks/useMemberSectionHook';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MemberLogin = (darkmode) => {
     const navigate = useNavigate();
@@ -134,8 +134,16 @@ const MemberLogin = (darkmode) => {
     }
 
 
+    const pageLocation = useLocation();
+
+    useEffect(() => {
+        document.title = `oabd-${pageLocation?.pathname?.slice(1)}`;
+    }, [pageLocation]);
+
+
+
     return (
-        <div style={{ transition: '1s ease-in-out' }} className={`loginMain`}>
+        <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black loginMain' : 'bg-white loginMain'}`}>
             <div className={member.loginRegistrationContainer}>
                 <div className={member.loginRegistrationOptions}>
                     <div onClick={() => setLoginSwith(false)} className={`${!loginSwitch && `${member.backgroundForOptions}`} ${member.loginOption}`}>Login</div>
@@ -147,7 +155,7 @@ const MemberLogin = (darkmode) => {
                     <form onSubmit={handleLogin}>
                         <div className={member.login_form}>
                             <div className={member.form_group}>
-                                <label>Member_id:</label>
+                                <label className={`${darkmode && 'text-white'}`}>Member_id:</label>
                                 <input
                                     className={member.inputLoginReg}
                                     type="text"
@@ -165,7 +173,7 @@ const MemberLogin = (darkmode) => {
                                 </p>
                             </div>
                             <div className={member.form_group}>
-                                <label>Password:</label>
+                                <label className={`${darkmode && 'text-white'}`}>Password:</label>
                                 <input
                                     className={member.inputLoginReg}
                                     type="password"
@@ -207,7 +215,7 @@ const MemberLogin = (darkmode) => {
                             <div className={member.memberReg}>
                                 <div className={member.memberRegPartOne}>
                                     <div className={member.form_group}>
-                                        <label>Name:</label>
+                                        <label className={`${darkmode && 'text-white'}`}>Name:</label>
                                         <input
                                             className={member.inputLoginReg}
                                             type="text"
@@ -216,7 +224,7 @@ const MemberLogin = (darkmode) => {
                                         />
                                     </div>
                                     <div className={member.form_group}>
-                                        <label>Designation:</label>
+                                        <label className={`${darkmode && 'text-white'}`}>Designation:</label>
                                         <input
                                             className={member.inputLoginReg}
                                             type="text"
@@ -227,7 +235,7 @@ const MemberLogin = (darkmode) => {
                                 </div>
                                 <div className={member.memberRegPartTwo}>
                                     <div className={member.form_group}>
-                                        <label>Mobile:</label>
+                                        <label className={`${darkmode && 'text-white'}`}>Mobile:</label>
                                         <input
                                             className={member.inputLoginReg}
                                             type="text"
@@ -236,7 +244,7 @@ const MemberLogin = (darkmode) => {
                                         />
                                     </div>
                                     <div className={member.form_group}>
-                                        <label>Address:</label>
+                                        <label className={`${darkmode && 'text-white'}`}>Address:</label>
                                         <textarea
                                             className={member.inputLoginReg}
                                             type="text"
@@ -248,7 +256,7 @@ const MemberLogin = (darkmode) => {
                             </div>
                             <div style={{ width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <div>
-                                    <label>Upload Your Photo :</label>
+                                    <label className={`${darkmode && 'text-white'}`}>Upload Your Photo :</label>
                                     <div className={member.chooseFileDesign}>
                                         <p className='text-white font-bold'>
                                             <i class="uil uil-upload mr-2"></i>
