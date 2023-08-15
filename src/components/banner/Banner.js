@@ -9,6 +9,7 @@ import { fetchDeleteBannerData, fetchPostBannerData, fetchUpdateBannerData } fro
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
 import useMemberData from '../../customHooks/useMemberSectionHook';
+import { updloadForBannerImage } from '../../fetchedData/fetchPostImageData';
 
 const Banner = ({ darkmode }) => {
     const [memberData] = useMemberData();
@@ -17,44 +18,18 @@ const Banner = ({ darkmode }) => {
     const [sectionController, setSectionController] = useState(1);
     const [bannerDataContainer, setBannerDataContainer] = useState({});
     const [updateBannerDataContainer, setUpdateBannerDataContainer] = useState({});
-    const [imgHolder, setImgHolder] = useState('');
     const [idContainer, setIdContainer] = useState('');
     const [bannerData, refetch] = useBannerData();
     const data = bannerData?.data?.data?.data;
     const [user] = useAuthState(auth);
 
 
-    const findBannerData = data?.find(f => {
-        return f._id === idContainer
-    })
+
 
     const findAdmin = allMembers?.find(f => {
         return f?.email === user?.email;
     })
 
-    useEffect(() => {
-        if (imgHolder !== findBannerData?.img) {
-            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
-            const formData = new FormData();
-            formData.append('image', imgHolder);
-            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(result => {
-
-                    setImgHolder(result?.data?.url);
-                    setBannerDataContainer({
-                        img: result?.data?.url
-                    })
-                    setUpdateBannerDataContainer({
-                        img: result?.data?.url
-                    })
-                })
-        }
-    }, [imgHolder, findBannerData]);
 
 
     const postBannerData = async () => {
@@ -264,7 +239,7 @@ const Banner = ({ darkmode }) => {
                                         <input className={banner.chooseFile} type="file" name="" id=""
                                             onChange={(e) => {
                                                 const imgFile = e.target.files[0];
-                                                setImgHolder(imgFile)
+                                                updloadForBannerImage(imgFile, setBannerDataContainer, setUpdateBannerDataContainer)
                                             }}
                                         />
                                     </div>
@@ -297,11 +272,9 @@ const Banner = ({ darkmode }) => {
                                         <input className={banner.chooseFile} type="file" name="" id=""
                                             onChange={(e) => {
                                                 const imgFile = e.target.files[0];
-                                                setImgHolder(imgFile)
+                                                updloadForBannerImage(imgFile, setBannerDataContainer, setUpdateBannerDataContainer)
                                             }} />
                                     </div>
-
-
                                 </div>
                             </div>
                             <div className={banner.updateEventButton}>

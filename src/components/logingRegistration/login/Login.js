@@ -5,6 +5,7 @@ import auth from '../../../firebase/firebase.init';
 import Loading from '../../../Loading/Loading';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { fetchToken } from '../../../fetchedData/fetchToken';
 
 const Login = ({ darkmode }) => {
     const navigate = useNavigate();
@@ -35,8 +36,6 @@ const Login = ({ darkmode }) => {
     const [password, setPassword] = useState('');
     const [loginSwitch, setLoginSwith] = useState(false);
     const [view, setView] = useState(false);
-    console.log(view)
-
 
     const actionCodeSettings = {
         url: 'https://optometrist-a88bd.web.app/login',
@@ -62,7 +61,11 @@ const Login = ({ darkmode }) => {
 
 
     const handleSignInWithGoogle = async () => {
-        await signInWithGoogle();
+        const response = await signInWithGoogle();
+        const userEmail = response?.user?.email
+
+        await fetchToken(userEmail);
+
 
 
         navigate('/');
@@ -84,6 +87,9 @@ const Login = ({ darkmode }) => {
     useEffect(() => {
         document.title = `oabd-${pageLocation?.pathname?.slice(1)}`;
     }, [pageLocation]);
+
+
+
 
 
     if (profileLoading) {
@@ -160,7 +166,12 @@ const Login = ({ darkmode }) => {
                                 <div className="loginRegSubmitBtnContainer">
                                     <button onClick={async () => {
 
-                                        signInWithEmailAndPassword(email, password)
+                                        const response = await signInWithEmailAndPassword(email, password);
+
+                                        if (response) {
+                                            const email = response?.user?.email
+                                            await fetchToken(email)
+                                        }
                                         setPassword('');
                                     }} className='btnLoginReg' type="submit">Login</button>
                                     <br /><br />
@@ -206,9 +217,13 @@ const Login = ({ darkmode }) => {
                             </div>
                             <div className="loginRegSubmitBtn">
                                 <button onClick={async () => {
-                                    await createUserWithEmailAndPassword(email, password);
+                                    const response = await createUserWithEmailAndPassword(email, password);
                                     await updateProfile({ displayName: name });
                                     handleEmailVarification();
+                                    if (response) {
+                                        const email = response?.user?.email
+                                        await fetchToken(email);
+                                    }
                                     toast.success("Registration successfull");
                                     navigate('/login');
                                     setPassword('');
@@ -216,6 +231,7 @@ const Login = ({ darkmode }) => {
                                 }} className='btnLoginReg' type="submit">Signup</button>
                                 <br /><br />
                                 <button onClick={handleSignInWithGoogle} className='btnLoginReg' type="submit">Login with Google</button>
+
                             </div>
                         </form>
                     </div>

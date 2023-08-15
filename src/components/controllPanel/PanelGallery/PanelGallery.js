@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
 import useGalleryData from '../../../customHooks/useGallerySectionHook';
+import { uploadForPanelDash } from '../../../fetchedData/fetchPostImageData';
 
 const PanelGallery = ({ darkmode }) => {
     const [user] = useAuthState(auth);
@@ -71,28 +72,6 @@ const PanelGallery = ({ darkmode }) => {
         setUpdatePublisherName(findBlog?.name);
         setUpdateImg(findBlog?.imgLink);
     }, [findBlog])
-
-
-    useEffect(() => {
-        if (imgHolder) {
-            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
-            const formData = new FormData();
-            formData.append('image', imgHolder);
-            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(result => {
-                    setAddImg(result?.data?.url)
-                    setUpdateImg(result?.data?.url)
-                    setImgHolder(result?.data?.url)
-                })
-        }
-    }, [imgHolder, findBlog, allBlogInfo, updateAllGalleryInfo, title, publisherName, user, content, updateImg]);
-
-
 
 
     const postBlog = async () => {
@@ -315,7 +294,7 @@ const PanelGallery = ({ darkmode }) => {
                                                 <input className={panelGallery.chooseFile} type="file" name="" id=""
                                                     onChange={(e) => {
                                                         const imgFile = e.target.files[0];
-                                                        setImgHolder(imgFile)
+                                                        uploadForPanelDash(imgFile, setAddImg, setUpdateImg, setImgHolder)
                                                     }}
                                                 />
                                             </div>
@@ -381,7 +360,7 @@ const PanelGallery = ({ darkmode }) => {
                                                 <input className={panelGallery.chooseFile} type="file" name="" id=""
                                                     onChange={(e) => {
                                                         const imgFile = e.target.files[0];
-                                                        setImgHolder(imgFile)
+                                                        uploadForPanelDash(imgFile, setAddImg, setUpdateImg, setImgHolder)
                                                     }}
                                                 />
                                             </div>

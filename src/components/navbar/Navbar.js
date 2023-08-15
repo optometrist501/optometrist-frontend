@@ -107,10 +107,14 @@ const Navbar = ({ setDarkmode, darkmode, navScroll }) => {
                                             <span
                                                 onClick={async () => {
                                                     const success = await signOut();
+                                                    console.log(success);
                                                     if (success) {
                                                         alert('You are sign out');
-                                                        navigate('/login')
+                                                        localStorage.removeItem('oab-access-token')
+                                                        navigate('/login');
                                                     }
+
+
                                                 }}
                                             ><i class="uil uil-signout"></i> <a className={`${darkmode && 'hover:text-orange-500'} `} href='###'>Logout</a></span>
                                         </li>

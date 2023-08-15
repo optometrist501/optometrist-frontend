@@ -135,9 +135,6 @@ const Blogs = ({ darkmode }) => {
         setComments('');
     }
 
-
-
-
     useEffect(() => {
         async function fetchData() {
             try {
@@ -156,10 +153,6 @@ const Blogs = ({ darkmode }) => {
         setUpdateModal(0);
         setIdContainer(value)
     };
-
-
-
-
 
     // pagination
     useEffect(() => {
@@ -218,6 +211,7 @@ const Blogs = ({ darkmode }) => {
     }
 
     const pageLocation = useLocation();
+
 
 
     useEffect(() => {
@@ -337,7 +331,14 @@ const Blogs = ({ darkmode }) => {
                                                     <br />
                                                     <p className='text-3xl font-bold'>{allBlogs.title}</p>
                                                     <br />
-                                                    <p dangerouslySetInnerHTML={{ __html: allBlogs.description }}></p>
+                                                    <span dangerouslySetInnerHTML={{ __html: allBlogs.description?.slice(0, 700) }}></span>
+                                                    {
+                                                        allBlogs?.description?.length >= 700
+                                                        &&
+                                                        <span className='text-blue-500 cursor-pointer' onClick={() => navigate(`/blogsDetail/${allBlogs?._id}`)}>
+                                                            ...see more
+                                                        </span>
+                                                    }
                                                     <br />
                                                     <div className={blogs.blogLastPart}>
                                                         <div className={blogs.blogLastPartOne}>
@@ -373,25 +374,25 @@ const Blogs = ({ darkmode }) => {
                                                     </div>
                                                     <br />
                                                     <div className={blogs.sharePart}>
-                                                        {/* <FacebookShareButton url={`${REACT_APP_CLIENT_SIDE_LINK_BLOG}/${allBlogs?._id}`}>
+                                                        <FacebookShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
                                                             <span className='block ml-3'>
                                                                 <FacebookIcon round={true} size={22} />
                                                             </span>
-                                                        </FacebookShareButton> */}
+                                                        </FacebookShareButton>
 
-                                                        < WhatsappShareButton url="https://optometrist-a88bd.web.app/blogsDetail/64b94391d84b5756fa8a4901">
+                                                        < WhatsappShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
                                                             <span className='block ml-3'>
                                                                 <WhatsappIcon round={true} size={25} />
                                                             </span>
                                                         </ WhatsappShareButton>
 
-                                                        < TwitterShareButton url="https://optometrist-a88bd.web.app/blogsDetail/64b94391d84b5756fa8a4901">
+                                                        < TwitterShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
                                                             <span className='block ml-3'>
                                                                 <TwitterIcon round={true} size={25} />
                                                             </span>
                                                         </ TwitterShareButton>
 
-                                                        < LinkedinShareButton url="https://optometrist-a88bd.web.app/blogsDetail/64b94391d84b5756fa8a4901">
+                                                        < LinkedinShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
                                                             <span className='block ml-3'>
                                                                 <LinkedinIcon round={true} size={25} />
                                                             </span>
@@ -423,7 +424,14 @@ const Blogs = ({ darkmode }) => {
                                                             <br />
                                                             <p className='text-3xl font-bold'>{allBlogs.title}</p>
                                                             <br />
-                                                            <p dangerouslySetInnerHTML={{ __html: allBlogs.description }}></p>
+                                                            <span dangerouslySetInnerHTML={{ __html: allBlogs.description?.slice(0, 700) }}></span>
+                                                            {
+                                                                allBlogs?.description?.length >= 700
+                                                                &&
+                                                                <span className='text-blue-500 cursor-pointer' onClick={() => navigate(`/blogsDetail/${allBlogs?._id}`)}>
+                                                                    ...see more
+                                                                </span>
+                                                            }
                                                             <br />
                                                             <div className={blogs.blogLastPart}>
                                                                 <div className={blogs.blogLastPartOne}>
@@ -456,6 +464,32 @@ const Blogs = ({ darkmode }) => {
                                                                     <span onClick={() => handleModalSection(allBlogs?._id)} ><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
 
                                                                 </div>
+                                                            </div>
+                                                            br
+                                                            <div className={blogs.sharePart}>
+                                                                <FacebookShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
+                                                                    <span className='block ml-3'>
+                                                                        <FacebookIcon round={true} size={22} />
+                                                                    </span>
+                                                                </FacebookShareButton>
+
+                                                                < WhatsappShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
+                                                                    <span className='block ml-3'>
+                                                                        <WhatsappIcon round={true} size={25} />
+                                                                    </span>
+                                                                </ WhatsappShareButton>
+
+                                                                < TwitterShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
+                                                                    <span className='block ml-3'>
+                                                                        <TwitterIcon round={true} size={25} />
+                                                                    </span>
+                                                                </ TwitterShareButton>
+
+                                                                < LinkedinShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
+                                                                    <span className='block ml-3'>
+                                                                        <LinkedinIcon round={true} size={25} />
+                                                                    </span>
+                                                                </ LinkedinShareButton>
                                                             </div>
                                                             <br />
                                                         </div>

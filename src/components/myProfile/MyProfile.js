@@ -6,6 +6,7 @@ import useMemberData from '../../customHooks/useMemberSectionHook';
 import { fetchUpdateMemberData } from '../../fetchedData/fetchMemberData';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { updloadImage } from '../../fetchedData/fetchPostImageData';
 
 const MyProfile = ({ darkmode }) => {
 
@@ -40,26 +41,8 @@ const MyProfile = ({ darkmode }) => {
         setemail(findMember?.email)
         setpassword(findMember?.password)
         setaddress(findMember?.address)
-        setimgLink(findMember?.imgLink);
+        setimgHolder(findMember?.imgLink);
     }, [findMember]);
-
-
-    useEffect(() => {
-        if (imgHolder) {
-            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
-            const formData = new FormData();
-            formData.append('image', imgHolder);
-            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(result => {
-                    setimgHolder(result?.data?.url)
-                })
-        }
-    }, [imgHolder]);
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -70,8 +53,6 @@ const MyProfile = ({ darkmode }) => {
             address,
             imgLink: imgHolder
         }
-
-
 
         await fetchUpdateMemberData(findMember?._id, updateData, refetch);
         setimgHolder('');
@@ -117,7 +98,7 @@ const MyProfile = ({ darkmode }) => {
                         <input className='absolute top-0 left-20 opacity-0  transform scale-50' type="file" name="" id=""
                             onChange={(e) => {
                                 const imgFile = e.target.files[0];
-                                setimgHolder(imgFile)
+                                updloadImage(imgFile, setimgHolder);
                             }}
                         />
                         <i class="uil uil-plus-circle"></i>

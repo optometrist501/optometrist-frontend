@@ -9,6 +9,7 @@ import axios from 'axios';
 import useMemberData from '../../customHooks/useMemberSectionHook';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
+import { updloadImage } from '../../fetchedData/fetchPostImageData';
 
 const About = ({ darkmode }) => {
 
@@ -44,22 +45,6 @@ const About = ({ darkmode }) => {
     }, [findAboutData]);
 
 
-    useEffect(() => {
-        if (imgHolder !== findAboutData?.img) {
-            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
-            const formData = new FormData();
-            formData.append('image', imgHolder);
-            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(result => {
-                    setImgHolder(result?.data?.url);
-                })
-        }
-    }, [imgHolder, findAboutData]);
 
 
     const updateAboutSection = (theId) => {
@@ -161,8 +146,7 @@ const About = ({ darkmode }) => {
                                             </p>
                                             <input className={about.chooseFile} type="file" onChange={(e) => {
                                                 const imgFile = e.target.files[0];
-
-                                                setImgHolder(imgFile)
+                                                updloadImage(imgFile, setImgHolder)
                                             }} />
                                         </div>
                                     </div>

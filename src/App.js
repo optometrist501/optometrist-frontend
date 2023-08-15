@@ -36,6 +36,9 @@ import PaymentFail from './components/PaymentFail/PaymentFail';
 import DashTransection from './components/DashTransection/DashTransection';
 import QrProfile from './components/Qr-profile/QrProfile';
 import BlogHomeDetail from './components/blogHome/BlogHomeDetail';
+import PanelPaymentHistory from './components/controllPanel/panelboard/panelPaymentHistory/PanelPaymentHistory';
+import PanelPaymentView from './components/controllPanel/panelboard/PanelPaymentView/PanelPaymentView';
+import DashPaymentHistory from './components/DashTransection/DashPaymentHistory/DashPaymentHistory';
 
 
 
@@ -92,6 +95,7 @@ function App() {
           <Route path='gallery' element={<DashGallery darkmode={darkmode}></DashGallery>}></Route>
           <Route path='publication' element={<DashPublications darkmode={darkmode}></DashPublications>}></Route>
           <Route path='dashTransection' element={<DashTransection darkmode={darkmode}></DashTransection>}></Route>
+          <Route path='dashPaymentHistory' element={<DashPaymentHistory darkmode={darkmode}></DashPaymentHistory>}></Route>
         </Route>
 
         <Route path='/panelBoard'
@@ -108,6 +112,8 @@ function App() {
           <Route path='panelMember' element={<PanelMember darkmode={darkmode}></PanelMember>}></Route>
           <Route path='panelRequest' element={<PanelRequests darkmode={darkmode}></PanelRequests>}></Route>
           <Route path='panelTransection' element={<PanelTransection darkmode={darkmode}></PanelTransection>}></Route>
+          <Route path='panelPayHistory' element={<PanelPaymentHistory darkmode={darkmode}></PanelPaymentHistory>}></Route>
+          <Route path='panelPayView' element={<PanelPaymentView darkmode={darkmode}></PanelPaymentView>}></Route>
         </Route>
       </Routes>
 

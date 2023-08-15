@@ -6,6 +6,7 @@ import useEventData from '../../../customHooks/useEventSectionHook';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
 import JoditEditor from 'jodit-react';
+import { uploadForPanelDash } from '../../../fetchedData/fetchPostImageData';
 
 const PanelEvent = ({ darkmode }) => {
     const [user] = useAuthState(auth);
@@ -82,24 +83,7 @@ const PanelEvent = ({ darkmode }) => {
     }, [findEvent])
 
 
-    useEffect(() => {
-        if (imgHolder) {
-            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
-            const formData = new FormData();
-            formData.append('image', imgHolder);
-            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(result => {
-                    setAddImg(result?.data?.url)
-                    setUpdateImg(result?.data?.url)
-                    setImgHolder(result?.data?.url)
-                })
-        }
-    }, [imgHolder, findEvent, allEventInfo, updateAllEventsInfo, title, publisherName, user, eventDate, content, updateImg]);
+
 
 
 
@@ -229,7 +213,7 @@ const PanelEvent = ({ darkmode }) => {
                         )
                     })
                 }
-                <div className={`${open ? 'block' : 'none'}  ${panelEvent.modal}`}>
+                <div className={`${open ? 'block' : 'none'}  ${panelEvent.modal}  ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
                     <i onClick={() => setOpen(false)} class="uil uil-backspace text-2xl ml-2 cursor-pointer"></i>
 
                     <br />
@@ -362,7 +346,7 @@ const PanelEvent = ({ darkmode }) => {
                                                 <input className={panelEvent.chooseFile} type="file" name="" id=""
                                                     onChange={(e) => {
                                                         const imgFile = e.target.files[0];
-                                                        setImgHolder(imgFile)
+                                                        uploadForPanelDash(imgFile, setAddImg, setUpdateImg, setImgHolder)
                                                     }}
                                                 />
                                             </div>
@@ -474,7 +458,7 @@ const PanelEvent = ({ darkmode }) => {
                                                 <input className={panelEvent.chooseFile} type="file" name="" id=""
                                                     onChange={(e) => {
                                                         const imgFile = e.target.files[0];
-                                                        setImgHolder(imgFile)
+                                                        uploadForPanelDash(imgFile, setAddImg, setUpdateImg, setImgHolder)
                                                     }}
                                                 />
                                             </div>

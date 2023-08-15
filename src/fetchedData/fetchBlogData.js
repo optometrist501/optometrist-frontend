@@ -3,7 +3,8 @@ import axios from "axios";
 
 
 export const fetchGetBlogData = async () => {
-    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/blog`);
+    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/blog`
+    );
     const blogData = response;
     return blogData
 }

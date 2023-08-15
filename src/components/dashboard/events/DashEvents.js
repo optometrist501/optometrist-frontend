@@ -7,6 +7,7 @@ import JoditEditor from 'jodit-react';
 import auth from '../../../firebase/firebase.init';
 import { fetchDeleteEventData, fetchPostEventData, fetchUpdateEventData } from '../../../fetchedData/fetchEventData';
 import useEventData from '../../../customHooks/useEventSectionHook';
+import { uploadForPanelDash } from '../../../fetchedData/fetchPostImageData';
 
 const DashEvents = ({ darkmode }) => {
     const [user] = useAuthState(auth);
@@ -86,24 +87,6 @@ const DashEvents = ({ darkmode }) => {
     }, [findEvent])
 
 
-    useEffect(() => {
-        if (imgHolder) {
-            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
-            const formData = new FormData();
-            formData.append('image', imgHolder);
-            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(result => {
-                    setAddImg(result?.data?.url)
-                    setUpdateImg(result?.data?.url)
-                    setImgHolder(result?.data?.url)
-                })
-        }
-    }, [imgHolder, findEvent, allEventInfo, updateAllEventsInfo, title, publisherName, user, eventDate, content, updateImg]);
 
 
 
@@ -335,7 +318,7 @@ const DashEvents = ({ darkmode }) => {
                                                 <input className={dashEvent.chooseFile} type="file" name="" id=""
                                                     onChange={(e) => {
                                                         const imgFile = e.target.files[0];
-                                                        setImgHolder(imgFile)
+                                                        uploadForPanelDash(imgFile, setAddImg, setUpdateImg, setImgHolder)
                                                     }}
                                                 />
                                             </div>
@@ -447,7 +430,7 @@ const DashEvents = ({ darkmode }) => {
                                                 <input className={dashEvent.chooseFile} type="file" name="" id=""
                                                     onChange={(e) => {
                                                         const imgFile = e.target.files[0];
-                                                        setImgHolder(imgFile)
+                                                        uploadForPanelDash(imgFile, setAddImg, setUpdateImg, setImgHolder)
                                                     }}
                                                 />
                                             </div>

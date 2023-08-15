@@ -49,7 +49,28 @@ const Dashboard = ({ darkmode }) => {
                                 <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-blue-500'}> <Link to='gallery'><i class="uil uil-image text-xl"></i> GALLERY</Link> </li>
                                 <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-blue-500'}> <Link to='event'><i class="uil uil-calendar-alt text-xl"></i> EVENT</Link></li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-blue-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
-                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-blue-500'}> <Link to='dashTransection'> <i class="uil uil-transaction text-xl"></i> TRANSECTION</Link> </li>
+                                <li >
+                                    <details>
+                                        <summary>
+                                            <i class="uil uil-transaction text-xl mr-1"></i>
+                                            TRANSECTION
+                                        </summary>
+                                        <br />
+                                        <ul className="p-2">
+                                            <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-blue-500'}>
+                                                <Link to='dashTransection'>
+                                                    PAYMENT
+                                                </Link>
+                                            </li>
+                                            <li onClick={() => setHighlight(9)} className={heighlight === 9 && 'text-blue-500'}>
+                                                <Link to='dashPaymentHistory'>
+                                                    HISTORY
+                                                </Link>
+                                            </li>
+
+                                        </ul>
+                                    </details>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -70,7 +91,28 @@ const Dashboard = ({ darkmode }) => {
                                 <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-blue-500'}> <Link to='gallery'> <i class="uil uil-image text-xl"></i> GALLERY</Link> </li>
                                 <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-blue-500'}> <Link to='event'> <i class="uil uil-calendar-alt text-xl"></i> EVENT</Link> </li>
                                 <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-blue-500'}> <Link to='publication'> <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link> </li>
-                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-blue-500'}> <Link to='dashTransection'> <i class="uil uil-transaction text-xl"></i> TRANSECTION</Link> </li>
+                                <li >
+                                    <details>
+                                        <summary>
+                                            <i class="uil uil-transaction text-xl mr-1"></i>
+                                            TRANSECTION
+                                        </summary>
+                                        <br />
+                                        <ul className="p-2">
+                                            <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-blue-500'}>
+                                                <Link to='dashTransection'>
+                                                    PAYMENT
+                                                </Link>
+                                            </li>
+                                            <li onClick={() => setHighlight(9)} className={heighlight === 9 && 'text-blue-500'}>
+                                                <Link to='dashPaymentHistory'>
+                                                    HISTORY
+                                                </Link>
+                                            </li>
+
+                                        </ul>
+                                    </details>
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -9,7 +9,7 @@ import Loading from '../Loading/Loading';
 const RequireMember = ({ children }) => {
     const [user, loading] = useAuthState(auth);
     const location = useLocation();
-    console.log(user?.email);
+
 
     const { data: getMemberData } = useQuery("getMemberData", () => fetchGetMemberData());
 
@@ -24,7 +24,7 @@ const RequireMember = ({ children }) => {
         return f.email === user?.email;
     });
 
-    console.log(findMember?.isSignOut);
+
 
     if (!user?.email) {
         return <Navigate to='/login' state={{ from: location }} replace />

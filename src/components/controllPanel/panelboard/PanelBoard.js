@@ -134,7 +134,33 @@ const PanelBoard = ({ darkmode }) => {
                                     </Link>
                                 </li>
 
-                                <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='panelTransection'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
+                                <li >
+                                    <details>
+                                        <summary>
+                                            <i class="uil uil-transaction text-xl mr-1"></i>
+                                            TRANSECTION
+                                        </summary>
+                                        <br />
+                                        <ul className="p-2">
+                                            <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'}>
+                                                <Link to='panelTransection'>
+                                                    PAYMENT
+                                                </Link>
+                                            </li>
+                                            <li onClick={() => setHighlight(9)} className={heighlight === 9 && 'text-orange-500'}>
+                                                <Link to='panelPayHistory'>
+                                                    HISTORY
+                                                </Link>
+                                            </li>
+                                            <li onClick={() => setHighlight(10)} className={heighlight === 10 && 'text-orange-500'}>
+                                                <Link to='panelPayView'>
+                                                    VIEW ALL
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -207,7 +233,32 @@ const PanelBoard = ({ darkmode }) => {
                                     </Link>
                                 </li>
 
-                                <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'} > <Link to='panelTransection'>  <i class="uil uil-transaction text-xl"></i> TRANSACTION</Link></li>
+                                <li >
+                                    <details>
+                                        <summary>
+                                            <i class="uil uil-transaction text-xl mr-1"></i>
+                                            TRANSECTION
+                                        </summary>
+                                        <br />
+                                        <ul className="p-2">
+                                            <li onClick={() => setHighlight(8)} className={heighlight === 8 && 'text-orange-500'}>
+                                                <Link to='panelTransection'>
+                                                    PAYMENT
+                                                </Link>
+                                            </li>
+                                            <li onClick={() => setHighlight(9)} className={heighlight === 9 && 'text-orange-500'}>
+                                                <Link to='panelPayHistory'>
+                                                    HISTORY
+                                                </Link>
+                                            </li>
+                                            <li onClick={() => setHighlight(10)} className={heighlight === 10 && 'text-orange-500'}>
+                                                <Link to='panelPayView'>
+                                                    VIEW ALL
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
                             </ul>
                         </div>
                     </div>

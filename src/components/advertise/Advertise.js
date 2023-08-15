@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
 import useMemberData from '../../customHooks/useMemberSectionHook';
+import { updloadImage } from '../../fetchedData/fetchPostImageData';
 
 const Advertise = ({ darkmode }) => {
     const [updateModal, setUpdateModal] = useState(100);
@@ -39,26 +40,6 @@ const Advertise = ({ darkmode }) => {
         setImgHolder(findAdvertiseData?.img);
 
     }, [findAdvertiseData]);
-
-    useEffect(() => {
-        if (imgHolder !== findAdvertiseData?.img) {
-            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
-            const formData = new FormData();
-            formData.append('image', imgHolder);
-            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(result => {
-
-                    setImgHolder(result?.data?.url);
-                })
-        }
-    }, [imgHolder, findAdvertiseData]);
-
-
 
 
     const updateAdvertiseData = () => {
@@ -144,7 +125,7 @@ const Advertise = ({ darkmode }) => {
                                         <input className={advertisement.chooseFile} type="file" name="" id=""
                                             onChange={(e) => {
                                                 const imgFile = e.target.files[0];
-                                                setImgHolder(imgFile)
+                                                updloadImage(imgFile, setImgHolder)
                                             }} />
                                     </div>
                                 </div>
@@ -153,14 +134,11 @@ const Advertise = ({ darkmode }) => {
                         <br />
                         <div style={{ position: 'relative' }} className={advertisement.updateButton}>
                             <button onClick={updateAdvertiseData} className='btn btn-primary'>update</button>
-                            < ToastContainer style={{ position: 'absolute', top: '0' }} />
                         </div>
                         <br />
                     </div>
                 </div>
             </div>
-
-
         </div>
     );
 };

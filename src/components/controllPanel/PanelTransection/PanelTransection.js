@@ -3,17 +3,15 @@ import panelTransection from './PanelTransection.module.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
 import { fetchPostPaymentData } from '../../../fetchedData/fetchPaymentData';
-import { toast } from 'react-toastify';
 
 const PanelTransection = ({ darkmode }) => {
     const [user] = useAuthState(auth);
     const currency = 'BDT';
     const [aUrl, setAUrl] = useState('');
 
+
     const handlePayment = async (e) => {
-
         e.preventDefault();
-
         const cus_name = e.target.name.value;
         const cus_phone = e.target.phone.value;
         const cus_email = user?.email;

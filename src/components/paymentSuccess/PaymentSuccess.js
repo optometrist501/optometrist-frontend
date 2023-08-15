@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import paymentSuccess from './PaymentSuccess.module.css';
 import { Link, useLocation } from 'react-router-dom';
+import { fetchGetPaymentDataForId } from '../../fetchedData/fetchPaymentData';
 
 const PaymentSuccess = () => {
-    const [order, setOrder] = useState({});
+    // const [order, setOrder] = useState({});
+    const [data, setData] = useState([]);
+    console.log(data?.data?.result);
     const location = useLocation();
 
 
@@ -12,12 +15,20 @@ const PaymentSuccess = () => {
     const transectionId = query.get("transectionId");
 
 
-
     useEffect(() => {
-        fetch(`https://optometrist-server-46oo.onrender.com/api/v1/payment/${transectionId}`).then(res => res.json()).then(res => setOrder(res));
-    }, [transectionId])
+        const getPaymentData = async () => {
+            try {
+                await fetchGetPaymentDataForId().then(res => setData(res))
+            } catch (error) {
 
+            }
+        }
+        getPaymentData();
+    });
 
+    const order = data?.data?.result?.find(f => {
+        return f?.tran_id === transectionId
+    })
 
     return (
         <div className={paymentSuccess.main}>

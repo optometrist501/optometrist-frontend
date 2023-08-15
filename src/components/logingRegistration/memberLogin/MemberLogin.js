@@ -6,8 +6,9 @@ import { fetchPostMemberData, fetchUpdateMemberData } from '../../../fetchedData
 import { toast } from 'react-toastify';
 import useMemberData from '../../../customHooks/useMemberSectionHook';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { updloadImage } from '../../../fetchedData/fetchPostImageData';
 
-const MemberLogin = (darkmode) => {
+const MemberLogin = ({ darkmode }) => {
     const navigate = useNavigate();
     const [user] = useAuthState(auth);
     const [memberData, refetch] = useMemberData();
@@ -25,23 +26,7 @@ const MemberLogin = (darkmode) => {
 
 
 
-    useEffect(() => {
-        if (imgHolder) {
-            const imgStorageKey = `${process.env.REACT_APP_IMG_STORAGE_KEY}`;
-            const formData = new FormData();
-            formData.append('image', imgHolder);
-            const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-            fetch(url, {
-                method: 'POST',
-                body: formData
-            })
-                .then(res => res.json())
-                .then(result => {
 
-                    setImgHolder(result?.data?.url);
-                })
-        }
-    }, [imgHolder]);
 
     const imageLinkWord = process.env.REACT_APP_IMG_LINK_SLICED;
     const imgHolderModifiedWord = imgHolder.slice(0, 17);
@@ -143,11 +128,11 @@ const MemberLogin = (darkmode) => {
 
 
     return (
-        <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black loginMain' : 'bg-white loginMain'}`}>
+        <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black ' : 'bg-white '} loginMain`}>
             <div className={member.loginRegistrationContainer}>
                 <div className={member.loginRegistrationOptions}>
-                    <div onClick={() => setLoginSwith(false)} className={`${!loginSwitch && `${member.backgroundForOptions}`} ${member.loginOption}`}>Login</div>
-                    <div onClick={() => setLoginSwith(true)} className={` ${loginSwitch && `${member.backgroundForOptions}`} ${member.registrationOption}`}>Registration</div>
+                    <div onClick={() => setLoginSwith(false)} className={`${!loginSwitch && `${member.backgroundForOptions}`} ${darkmode && 'text-white'} ${member.loginOption} `}>Login</div>
+                    <div onClick={() => setLoginSwith(true)} className={` ${loginSwitch && `${member.backgroundForOptions}`} ${darkmode && 'text-white'} ${member.registrationOption}`}>Registration</div>
                 </div>
                 <br />
                 {
@@ -265,7 +250,7 @@ const MemberLogin = (darkmode) => {
                                         <input className={member.chooseFile} type="file" onChange={(e) => {
                                             const imgFile = e.target.files[0];
 
-                                            setImgHolder(imgFile);
+                                            updloadImage(imgFile, setImgHolder);
                                         }}
                                             required
                                         />
