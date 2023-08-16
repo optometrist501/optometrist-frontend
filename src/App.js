@@ -40,6 +40,7 @@ import PanelPaymentHistory from './components/controllPanel/panelboard/panelPaym
 import PanelPaymentView from './components/controllPanel/panelboard/PanelPaymentView/PanelPaymentView';
 import DashPaymentHistory from './components/DashTransection/DashPaymentHistory/DashPaymentHistory';
 import Contactus from './components/contactus/Contactus';
+import AboutDetails from './components/aboutDetails/AboutDetails';
 
 
 
@@ -60,6 +61,7 @@ function App() {
         <Route path='/gallery' element={<GalleryMain darkmode={darkmode}></GalleryMain>} />
         <Route path='/events' element={<Events darkmode={darkmode}></Events>} />
         <Route path='/about' element={<About></About>} />
+        <Route path='/aboutDetail' element={<AboutDetails darkmode={darkmode}></AboutDetails>} />
         <Route path='/publication' element={<Publication></Publication>} />
         <Route path='/works' element={<OurWorks darkmode={darkmode}></OurWorks>} />
         <Route path='/partners' element={<OurPartners darkmode={darkmode}></OurPartners>} />

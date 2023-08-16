@@ -1,0 +1,42 @@
+.main{
+    width: 100%;
+    min-height: 100vh;
+    max-height: auto;
+}
+
+.imgPart {
+    width: 100%;
+    position: relative;
+}
+
+.imgPart img{
+    width: 100%;
+    height: 80vh;
+}
+
+.detailPart{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.leftPart{
+    width: 80%;
+    border-right: 1px solid lightgray
+}
+
+.rightPart{
+    width: 20%;
+}
+
+.allBlogTitles{
+    padding: 10px;
+}
+
+.editButton{
+    position: absolute;
+    top: 140px;
+    right: 0;
+}

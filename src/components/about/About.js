@@ -10,6 +10,7 @@ import useMemberData from '../../customHooks/useMemberSectionHook';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
 import { updloadImage } from '../../fetchedData/fetchPostImageData';
+import { Link } from 'react-router-dom';
 
 const About = ({ darkmode }) => {
 
@@ -87,6 +88,7 @@ const About = ({ darkmode }) => {
                                     <h1 className={`text-5xl font-bold ${about.gradient_text} `}>OPTOMETRIST</h1>
                                     <p className="py-6" dangerouslySetInnerHTML={{ __html: data?.description }}>
                                     </p>
+                                    <button className='btn btn-primary'><Link to='/aboutDetail'>Detail</Link></button>
                                 </div>
 
                             </div>
