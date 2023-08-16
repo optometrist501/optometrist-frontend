@@ -85,6 +85,10 @@
       width: 80%;
       margin: auto;
     }
+
+    .blog-modal-container{
+      height: 300px;
+    }
   }
   
   @media (max-width: 480px) {
@@ -104,6 +108,9 @@
     .blog-modal-main{
       width: 80%;
       margin: auto;
+    }
+    .blog-modal-container{
+      height: 200px;
     }
   }
   

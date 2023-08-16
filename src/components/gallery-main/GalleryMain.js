@@ -20,6 +20,7 @@ const GalleryMain = ({ darkmode }) => {
     const [search, setSearch] = useState('');
     const [galleryBySearchData, setGalleryBySearchData] = useState([]);
     const [roundedDataLength, setRoundedDataLength] = useState();
+    const [imgModalData, setImgModalData] = useState()
 
 
     const handleModalSection = (value) => {
@@ -42,17 +43,30 @@ const GalleryMain = ({ darkmode }) => {
 
 
 
-    const imgModalData = findApprovedImgData?.slice((number - 10), number);
 
+    // const imgModalData = findApprovedImgData?.slice((number - 10), number);
+
+    useEffect(() => {
+        if (search === '') {
+            setImgModalData(findApprovedImgData?.slice((number - 10), number))
+        } else {
+            setImgModalData(findApprovedImgDataBySearch?.slice((number - 10), number))
+        }
+    }, [findApprovedImgData, findApprovedImgDataBySearch, number, search])
 
     // pagination
     useEffect(() => {
         if (search === '') {
-            setRoundedDataLength(Math.ceil(findApprovedImgData?.length / 10))
+            setRoundedDataLength(Math.ceil(findApprovedImgData?.length / 10));
+
         } else {
             setRoundedDataLength(Math.ceil(findApprovedImgDataBySearch?.length / 10))
+
         }
     }, [findApprovedImgData?.length, findApprovedImgDataBySearch?.length, search])
+
+
+
     const totalDataLength = roundedDataLength * 10
 
     const arrayOfObjects = [];

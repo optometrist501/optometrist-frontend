@@ -39,6 +39,7 @@ import BlogHomeDetail from './components/blogHome/BlogHomeDetail';
 import PanelPaymentHistory from './components/controllPanel/panelboard/panelPaymentHistory/PanelPaymentHistory';
 import PanelPaymentView from './components/controllPanel/panelboard/PanelPaymentView/PanelPaymentView';
 import DashPaymentHistory from './components/DashTransection/DashPaymentHistory/DashPaymentHistory';
+import Contactus from './components/contactus/Contactus';
 
 
 
@@ -63,6 +64,7 @@ function App() {
         <Route path='/works' element={<OurWorks darkmode={darkmode}></OurWorks>} />
         <Route path='/partners' element={<OurPartners darkmode={darkmode}></OurPartners>} />
         <Route path='/members' element={<MemberCart darkmode={darkmode}></MemberCart>} />
+        <Route path='/contact' element={<Contactus darkmode={darkmode}></Contactus>} />
         <Route path='/payment/success'
           element={
             <RequireProfile>

@@ -1,5 +1,6 @@
 import React from 'react';
 import infobar from './Infobar.module.css';
+import { Link } from 'react-router-dom';
 
 const Infobar = () => {
     return (
@@ -11,7 +12,7 @@ const Infobar = () => {
 
                 </div>
                 <div className={infobar.infobarInfoTwo}>
-                    <span><span>Contact Us</span></span>
+                    <span><span><Link to='/contact'>Contact Us</Link></span></span>
                 </div>
             </div>
         </div>
