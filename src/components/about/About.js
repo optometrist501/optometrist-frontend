@@ -86,9 +86,13 @@ const About = ({ darkmode }) => {
                                 < img style={{ maxHeight: '450px' }} src={data?.img} className="lg:w-2/6 sm:6/6 rounded-lg shadow-2xl" alt='' />
                                 <div data-aos='zoom-in'>
                                     <h1 className={`text-5xl font-bold ${about.gradient_text} `}>OPTOMETRIST</h1>
-                                    <p className="py-6" dangerouslySetInnerHTML={{ __html: data?.description }}>
+                                    <p className="py-6" dangerouslySetInnerHTML={{ __html: data?.description?.slice(0, 700) }}>
                                     </p>
-                                    <button className='btn btn-primary'><Link to='/aboutDetail'>Detail</Link></button>
+                                    <br />
+                                    {
+                                        data?.description?.length > 700 &&
+                                        <button className='btn btn-primary'><Link to='/aboutDetail'>Detail</Link></button>
+                                    }
                                 </div>
 
                             </div>
