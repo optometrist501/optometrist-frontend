@@ -161,6 +161,18 @@ const PanelBoard = ({ darkmode }) => {
                                     </details>
                                 </li>
 
+                                <li onClick={() => setHighlight(11)} className={`${heighlight === 11 && 'text-orange-500'} `} >
+
+                                    <Link style={{ width: '125px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to=''>
+                                        <div>
+                                            <i class="uil uil-user-exclamation text-xl"></i> THEME
+                                        </div>
+                                        {findPendings?.length > 0 &&
+                                            <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
+                                        }
+                                    </Link>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -258,6 +270,18 @@ const PanelBoard = ({ darkmode }) => {
                                             </li>
                                         </ul>
                                     </details>
+                                </li>
+
+                                <li onClick={() => setHighlight(11)} className={`${heighlight === 11 && 'text-orange-500'} `} >
+
+                                    <Link style={{ width: '125px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to=''>
+                                        <div>
+                                            <i class="uil uil-user-exclamation text-xl"></i> THEME
+                                        </div>
+                                        {findPendings?.length > 0 &&
+                                            <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
+                                        }
+                                    </Link>
                                 </li>
                             </ul>
                         </div>

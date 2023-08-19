@@ -78,6 +78,7 @@ font-size: 12px;
 }
 
 .event_input{
+  background-color: white;
   outline: none;
   margin-left: 5px;
   width: 85%;

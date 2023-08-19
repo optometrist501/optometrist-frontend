@@ -45,7 +45,7 @@ const BlogHome = ({ darkmode }) => {
 
 
     return (
-        <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black text-white' : 'bg-base-200'} pt-5 pb-5`} >
+        <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black text-white' : 'bg-white'} pt-5 pb-5`} >
             <p className='text-5xl font-bold text-center mb-7'>BLOGS</p>
             <div className="blog-modal-part">
 
