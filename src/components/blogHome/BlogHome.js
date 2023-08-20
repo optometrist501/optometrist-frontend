@@ -43,14 +43,13 @@ const BlogHome = ({ darkmode }) => {
         navigate(`/blogsDetail/${idValue}`)
     }
 
-
     return (
         <div style={{ transition: '1s ease-in-out' }} className={`${darkmode ? 'bg-black text-white' : 'bg-white'} pt-5 pb-5`} >
             <p className='text-5xl font-bold text-center mb-7'>BLOGS</p>
             <div className="blog-modal-part">
 
                 <div data-aos='fade-up' duration='300' className='blog-modal-main '>
-                    <div className="blog-modal">
+                    <div className={`${!darkmode && 'blogBackground'} blog-modal`}>
 
                         <div style={{ width: `${imgData?.length * 100}%` }} className="blog-modal-container">
                             {

@@ -1,9 +1,12 @@
-
- 
   .blog-modal-part{
     position: relative;
   }
 
+  .blogBackground{
+    background-image: url("../../images/page\ 7.png");
+    background-size: cover; 
+    background-position: center;
+  }
 
  .blog-modal-main{
     width: 100%;

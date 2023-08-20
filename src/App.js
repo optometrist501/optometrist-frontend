@@ -52,7 +52,7 @@ function App() {
   return (
     <div className="App">
       <Navbar darkmode={darkmode} setDarkmode={setDarkmode} navScroll={navScroll} ></Navbar>
-      <ToastContainer style={{ marginTop: '100px' }} />
+      <ToastContainer style={{ marginTop: '120px' }} />
       <Routes>
         <Route path='/' element={<Home darkmode={darkmode} setNavScroll={setNavScroll} ></Home>} />
         <Route path='/blogs' element={<Blogs darkmode={darkmode} ></Blogs>} />

@@ -46,7 +46,8 @@ const Gallery = ({ darkmode }) => {
         }
     }
     return (
-        <div >
+        <div className={!darkmode && 'galleryBackground'} >
+            <br />
             <p style={{ transition: '1s ease-in-out' }} className={`text-5xl font-bold text-center mt-9 mb-9 ${darkmode && 'text-white'}`}>GALLERY </p>
 
             <div className="gallery">

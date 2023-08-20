@@ -7,6 +7,12 @@
     margin: 0 auto;
     position: relative;
   }
+
+  .galleryBackground{
+    background-image: url("../../images/adevetise.png");
+    background-size: cover; 
+    background-position: center;
+  }
   
   .image {
     flex: 0 0 33.33%;

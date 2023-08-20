@@ -1,11 +1,42 @@
 import React from 'react';
 import './Footer.css';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer className="footer p-14 h-52 text-base-content backgroundImageSet">
+        <footer className="footer p-5 h-52 text-base-content backgroundImageSet">
 
             <div className='w-full '>
+                <div className="options">
+                    <ul className='flex justify-between'>
+                        <li>
+                            <Link to='blogs'>Blogs</Link>
+                        </li>
+                        <li>
+                            <Link to='publication'>Publications</Link>
+                        </li>
+                        <li>
+                            <Link to='gallery'>Gallery</Link>
+                        </li>
+                        <li>
+                            <Link to='events'>Events</Link>
+                        </li>
+                    </ul>
+                </div>
+                <div className="option-two">
+                    <ul className='flex justify-between'>
+                        <li>
+                            <Link to='member'>Member</Link>
+                        </li>
+                        <li>
+                            <Link to='works'>our works</Link>
+                        </li>
+                        <li>
+                            <Link to='partners'>our partners</Link>
+                        </li>
+                    </ul>
+                </div>
+                <br />
                 <p className="footer-title mx-auto">Social</p>
                 <div className='mx-auto' >
                     <div className="grid grid-flow-col gap-4">

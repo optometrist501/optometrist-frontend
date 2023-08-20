@@ -74,7 +74,9 @@ const OurWorks = ({ darkmode }) => {
                                 <p onClick={() => {
                                     setUpdateModal(0)
                                     setIdContainer(worksInfo?._id)
-                                }} className={works.editButton}>u</p>
+                                }} className={works.editButton}>
+                                    <i className="uil uil-edit text-white mr-5 cursor-pointer"></i>
+                                </p>
                             }
                             <img src={worksInfo?.imgOne} alt="" />
                         </div>

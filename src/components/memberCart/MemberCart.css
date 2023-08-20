@@ -3,6 +3,13 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+
+  
+  .memberCartBackground{
+    background-image: url("../../images/member.png");
+    background-size: cover; 
+    background-position: center;
+  }
   
   .product {
     width: 350px;

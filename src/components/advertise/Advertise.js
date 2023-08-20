@@ -69,7 +69,7 @@ const Advertise = ({ darkmode }) => {
     }, [idContainer, switchUpdate, refetch, updateContent])
 
     return (
-        <div className={advertisement.advertiseMain}>
+        <div className={`${advertisement.advertiseMain}`}>
             <div className={advertisement.avertivseContainer}>
                 {
                     advertise?.map(add => {
@@ -91,7 +91,7 @@ const Advertise = ({ darkmode }) => {
                 }
             </div>
 
-            <div style={{ transform: `translateX(${updateModal}%)`, transition: 'transform 2s' }} className={`${advertisement.updateModal} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
+            <div style={{ transform: `translateX(${updateModal}%)`, transition: 'transform 2s' }} className={`${advertisement.updateModal} ${darkmode && 'bg-black text-white'}`}>
                 <div style={{ transition: '1s ease-in-out' }} className={`${advertisement.updateModalContainer} ${darkmode ? 'bg-black' : 'bg-white'}`}>
                     <br />
                     <br />

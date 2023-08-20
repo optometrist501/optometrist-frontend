@@ -5,3 +5,18 @@
     border-top: 1px solid lightgray;
     opacity: 0.7;
 }
+
+.options{
+    width: 350px;
+    margin: auto;
+}
+
+.option-two{
+    width: 250px;
+    margin: auto;
+}
+
+
+.options ul li{
+    margin-right: 30px;
+}

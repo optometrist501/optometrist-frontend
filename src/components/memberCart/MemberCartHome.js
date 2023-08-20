@@ -11,7 +11,7 @@ const MemberCartHome = ({ darkmode }) => {
     })
 
     return (
-        <div className={`${darkmode && 'bg-black'} `}>
+        <div className={`${darkmode ? 'bg-black' : 'memberCartBackground'} `}>
             <br />
             <div style={{ transition: '1s ease-in-out' }} className={`pt-5 pb-5`}>
                 <br />
@@ -19,7 +19,7 @@ const MemberCartHome = ({ darkmode }) => {
                 <p style={{ transition: '1s ease-in-out' }} className={`text-5xl font-bold text-center mb-7 ${darkmode && 'text-white'}`}>MEMBERS</p>
                 <div className={`cart ${darkmode && 'bg-black text-white'}`}>
                     {
-                        approvedMembers?.map(member => {
+                        approvedMembers?.slice(0, 3)?.map(member => {
                             return (
                                 <div className={`product ${darkmode && 'border-2 border-white'}`}>
                                     <div className="memberImgContainer">
