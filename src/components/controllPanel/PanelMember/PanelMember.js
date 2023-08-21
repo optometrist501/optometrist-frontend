@@ -30,7 +30,7 @@ const PanelMember = ({ darkmode }) => {
     });
 
     const findMainAdmin = filterAdmins?.find(f => {
-        return f.email === 'akilinjamam@gmail.com';
+        return f.email === process.env.REACT_APP_MAIN_ADMIN;
     })
 
     const handleOption = (value, number) => {

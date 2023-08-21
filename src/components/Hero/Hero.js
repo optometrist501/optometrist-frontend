@@ -1,19 +1,19 @@
 import React from 'react';
 import hero from './Hero.module.css';
-import heroImg from '../../images/hero.jpg';
+import heroImg from '../../images/helo-opto.png';
 import Typewriter from 'typewriter-effect';
 
 const Hero = () => {
     return (
 
         <div className={`${hero.main} hero min-h-screen`} style={{ backgroundImage: `url(${heroImg})` }}>
-            <div class="hero-overlay bg-opacity-60"></div>
-            <div class="hero-content text-center text-neutral-content">
-                <div class="max-w-md">
-                    <h1 class="mb-5 text-5xl font-bold">OPTOMETRIST</h1>
-                    <p> <Typewriter
+            <div className="hero-overlay bg-opacity-40"></div>
+            <div sty className={`hero-content  text-neutral-content ${hero.heroContainer}`}>
+                <div className={`max-w-md `}>
+                    {/* <h1 className="mb-5 text-5xl font-bold">OPTOMETRIST</h1> */}
+                    <p className='text-5xl font-bold'> <Typewriter
                         options={{
-                            strings: ["Protecting your Eyesight", " Protecting your Vision"],
+                            strings: ["Batter vision", " For A Better Life"],
                             autoStart: true,
                             delay: 75,
                             loop: true
