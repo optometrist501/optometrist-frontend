@@ -17,6 +17,7 @@ import useGalleryData from '../../customHooks/useGallerySectionHook';
 import useBlogData from '../../customHooks/useBlogSectionHook';
 import useMemberData from '../../customHooks/useMemberSectionHook';
 import LoadingHome from '../../Loading/LoadingHome';
+import useHeroData from '../../customHooks/useHeroSectionHook';
 
 const Home = ({ darkmode, setNavScroll }) => {
 
@@ -26,6 +27,7 @@ const Home = ({ darkmode, setNavScroll }) => {
     const [galleryData] = useGalleryData();
     const [blogData] = useBlogData();
     const [memberData] = useMemberData();
+    const [heroData] = useHeroData();
 
     const pageLocation = useLocation();
 
@@ -49,7 +51,7 @@ const Home = ({ darkmode, setNavScroll }) => {
 
     }, [setNavScroll]);
 
-    if (aboutData?.data?.statusCode !== 200 || advertiseData?.data?.statusCode !== 200 || bannerData?.data?.statusCode !== 200 || galleryData?.data?.statusCode !== 200 || blogData?.data?.statusCode !== 200 || memberData?.data?.statusCode !== 200) {
+    if (aboutData?.data?.statusCode !== 200 || advertiseData?.data?.statusCode !== 200 || bannerData?.data?.statusCode !== 200 || galleryData?.data?.statusCode !== 200 || blogData?.data?.statusCode !== 200 || memberData?.data?.statusCode !== 200 || heroData?.data?.statusCode !== 200) {
         return <LoadingHome></LoadingHome>
     }
 

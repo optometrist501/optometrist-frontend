@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase/firebase.init';
-import { fetchPostPaymentData } from '../../fetchedData/fetchPaymentData';
+import { fetchGetPaymentData, fetchPostPaymentData } from '../../fetchedData/fetchPaymentData';
 import dashTransection from './DashTransection.module.css';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const DashTransection = ({ darkmode }) => {
     const [user] = useAuthState(auth);
     const currency = 'BDT';
     const [aUrl, setAUrl] = useState('');
+    const [errorHolder, setErrorHolder] = useState('');
+    const navigate = useNavigate();
 
     const handlePayment = async (e) => {
 
@@ -39,6 +44,19 @@ const DashTransection = ({ darkmode }) => {
         await fetchPostPaymentData(paymentData);
 
     }
+
+    useEffect(() => {
+        const getPayment = async () => {
+            await fetchGetPaymentData('', setErrorHolder)
+        }
+        getPayment();
+
+        if (errorHolder) {
+            navigate('/login');
+            toast("please login again");
+        }
+
+    }, [errorHolder, navigate]);
     return (
         <div className={dashTransection.main}>
             <div className={dashTransection.container}>

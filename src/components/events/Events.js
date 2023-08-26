@@ -135,9 +135,7 @@ const Events = ({ darkmode }) => {
                                 <i class="uil uil-calendar-alt text-xl"></i>
                                 <span> EVENTS</span>
                             </span>
-                            <span>
-                                <i class="uil uil-angle-double-left text-2xl"></i>
-                            </span>
+
                         </div>
 
                         {

@@ -8,6 +8,7 @@ import useBlogData from '../../../customHooks/useBlogSectionHook';
 import useGalleryData from '../../../customHooks/useGallerySectionHook';
 import useEventData from '../../../customHooks/useEventSectionHook';
 import Loading from '../../../Loading/Loading';
+import usePublicationHook from '../../../customHooks/usePublicationHook';
 
 const PanelBoard = ({ darkmode }) => {
 
@@ -22,10 +23,12 @@ const PanelBoard = ({ darkmode }) => {
     const [blogData] = useBlogData();
     const [galleryData] = useGalleryData();
     const [eventData] = useEventData();
+    const [publicationData] = usePublicationHook();
     const allBlogs = blogData?.data?.data?.data;
     const allMembers = memberData?.data?.data?.data;
     const allGallery = galleryData?.data?.data?.data;
     const allEventData = eventData?.data?.data?.data;
+    const allPublicationData = publicationData?.data?.data?.data;
 
 
     const findPendings = allMembers?.filter(f => {
@@ -41,6 +44,10 @@ const PanelBoard = ({ darkmode }) => {
     })
 
     const findPendingEvents = allEventData?.filter(f => {
+        return f?.approval === false
+    })
+
+    const findPendingPublications = allPublicationData?.filter(f => {
         return f?.approval === false
     })
 
@@ -81,7 +88,7 @@ const PanelBoard = ({ darkmode }) => {
                                 <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} >
                                     <Link style={{ width: '90px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to=''>
                                         <div>
-                                            <i class="uil uil-file-edit-alt text-xl"></i>  BLOG
+                                            <i className="uil uil-file-edit-alt text-xl"></i>  BLOG
                                         </div>
 
                                         {findPendingBlogs?.length > 0 &&
@@ -95,7 +102,7 @@ const PanelBoard = ({ darkmode }) => {
                                 <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}>
                                     <Link style={{ width: '115px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='gallery'>
                                         <div>
-                                            <i class="uil uil-file-edit-alt text-xl"></i>  GALLERY
+                                            <i className="uil uil-file-edit-alt text-xl"></i>  GALLERY
                                         </div>
 
                                         {findPendingGallery?.length > 0 &&
@@ -109,7 +116,7 @@ const PanelBoard = ({ darkmode }) => {
                                 <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}>
                                     <Link style={{ width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='event'>
                                         <div>
-                                            <i class="uil uil-file-edit-alt text-xl"></i>  EVENT
+                                            <i className="uil uil-file-edit-alt text-xl"></i>  EVENT
                                         </div>
 
                                         {findPendingEvents?.length > 0 &&
@@ -120,13 +127,25 @@ const PanelBoard = ({ darkmode }) => {
                                         }
                                     </Link>
                                 </li>
-                                <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
-                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
+                                <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} >
+                                    <Link title='Publication' style={{ width: '70px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='publication'>
+                                        <div>
+                                            <i className="uil uil-newspaper text-xl"></i> PB
+                                        </div>
+                                        {findPendingPublications?.length > 0 &&
+                                            <div
+                                                style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>
+                                                {findPendingPublications?.length}
+                                            </div>
+                                        }
+                                    </Link>
+                                </li>
+                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i className="uil uil-user text-xl"></i> MEMBERS</Link></li>
                                 <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} `} >
 
                                     <Link style={{ width: '125px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='panelRequest'>
                                         <div>
-                                            <i class="uil uil-user-exclamation text-xl"></i> REQUESTS
+                                            <i className="uil uil-user-exclamation text-xl"></i> REQUESTS
                                         </div>
                                         {findPendings?.length > 0 &&
                                             <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
@@ -137,7 +156,7 @@ const PanelBoard = ({ darkmode }) => {
                                 <li >
                                     <details>
                                         <summary>
-                                            <i class="uil uil-transaction text-xl mr-1"></i>
+                                            <i className="uil uil-transaction text-xl mr-1"></i>
                                             TRANSECTION
                                         </summary>
                                         <br />
@@ -165,7 +184,7 @@ const PanelBoard = ({ darkmode }) => {
 
                                     <Link style={{ width: '125px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to=''>
                                         <div>
-                                            <i class="uil uil-user-exclamation text-xl"></i> THEME
+                                            <i className="uil uil-image-resize-landscape text-xl"></i> THEME
                                         </div>
                                         {findPendings?.length > 0 &&
                                             <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
@@ -180,7 +199,7 @@ const PanelBoard = ({ darkmode }) => {
                 <div onMouseLeave={() => setPositionSlide(50)} style={{ position: 'fixed', left: `${-positionSlide}%`, transition: '.5s ease', zIndex: '5' }} className="hiddenSidebar-panel">
                     <div className="sidebarContainerHidden">
                         <div onClick={() => setPositionSlide(50)} style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '10px', paddingTop: '12px' }}>
-                            <i class="uil uil-times cursor-pointer mr-2 "></i>
+                            <i className="uil uil-times cursor-pointer mr-2 "></i>
                         </div>
                         <p title={user?.displayName} style={{ fontSize: '12px' }} className='text-center font-bold mt-3 uppercase'>{user?.displayName?.length > 23 ? user?.displayName?.slice(0, 23) + '...' : user?.displayName}
                         </p>
@@ -192,7 +211,7 @@ const PanelBoard = ({ darkmode }) => {
                                 <li onClick={() => setHighlight(1)} className={heighlight === 1 && 'text-orange-500'} >
                                     <Link style={{ width: '90px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to=''>
                                         <div>
-                                            <i class="uil uil-file-edit-alt text-xl"></i>  BLOG
+                                            <i className="uil uil-file-edit-alt text-xl"></i>  BLOG
                                         </div>
 
                                         {findPendingBlogs?.length > 0 &&
@@ -206,7 +225,7 @@ const PanelBoard = ({ darkmode }) => {
                                 <li onClick={() => setHighlight(2)} className={heighlight === 2 && 'text-orange-500'}>
                                     <Link style={{ width: '115px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='gallery'>
                                         <div>
-                                            <i class="uil uil-file-edit-alt text-xl"></i>  GALLERY
+                                            <i className="uil uil-file-edit-alt text-xl"></i>  GALLERY
                                         </div>
 
                                         {findPendingGallery?.length > 0 &&
@@ -220,7 +239,7 @@ const PanelBoard = ({ darkmode }) => {
                                 <li onClick={() => setHighlight(3)} className={heighlight === 3 && 'text-orange-500'}>
                                     <Link style={{ width: '100px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='event'>
                                         <div>
-                                            <i class="uil uil-file-edit-alt text-xl"></i>  EVENT
+                                            <i className="uil uil-file-edit-alt text-xl"></i>  EVENT
                                         </div>
 
                                         {findPendingEvents?.length > 0 &&
@@ -231,13 +250,25 @@ const PanelBoard = ({ darkmode }) => {
                                         }
                                     </Link>
                                 </li>
-                                <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} > <Link to='publication'>  <i class="uil uil-newspaper text-xl"></i> PUBLICATIONS</Link></li>
-                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i class="uil uil-user text-xl"></i> MEMBERS</Link></li>
+                                <li onClick={() => setHighlight(4)} className={heighlight === 4 && 'text-orange-500'} >
+                                    <Link title='Publication' style={{ width: '70px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='publication'>
+                                        <div>
+                                            <i className="uil uil-newspaper text-xl"></i> PB
+                                        </div>
+                                        {findPendingPublications?.length > 0 &&
+                                            <div
+                                                style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>
+                                                {findPendingPublications?.length}
+                                            </div>
+                                        }
+                                    </Link>
+                                </li>
+                                <li onClick={() => setHighlight(5)} className={heighlight === 5 && 'text-orange-500'} > <Link to='panelMember'>  <i className="uil uil-user text-xl"></i> MEMBERS</Link></li>
                                 <li onClick={() => setHighlight(6)} className={`${heighlight === 6 && 'text-orange-500'} `} >
 
                                     <Link style={{ width: '125px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to='panelRequest'>
                                         <div>
-                                            <i class="uil uil-user-exclamation text-xl"></i> REQUESTS
+                                            <i className="uil uil-user-exclamation text-xl"></i> REQUESTS
                                         </div>
                                         {findPendings?.length > 0 &&
                                             <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
@@ -248,7 +279,7 @@ const PanelBoard = ({ darkmode }) => {
                                 <li >
                                     <details>
                                         <summary>
-                                            <i class="uil uil-transaction text-xl mr-1"></i>
+                                            <i className="uil uil-transaction text-xl mr-1"></i>
                                             TRANSECTION
                                         </summary>
                                         <br />
@@ -276,7 +307,8 @@ const PanelBoard = ({ darkmode }) => {
 
                                     <Link style={{ width: '125px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} to=''>
                                         <div>
-                                            <i class="uil uil-user-exclamation text-xl"></i> THEME
+                                            <i className="uil uil-image-resize-landscape text-xl"></i>
+                                            THEME
                                         </div>
                                         {findPendings?.length > 0 &&
                                             <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
@@ -291,7 +323,7 @@ const PanelBoard = ({ darkmode }) => {
 
                     <div className="main-content-container">
                         <div className="firstBar">
-                            <p onClick={() => setPositionSlide(0)} className='dashboardBargerIcon'>  <i class="uil uil-bars cursor-pointer"></i></p>
+                            <p onClick={() => setPositionSlide(0)} className='dashboardBargerIcon'>  <i className="uil uil-bars cursor-pointer"></i></p>
                         </div>
                         <div className={`${darkmode ? 'bg-black' : 'bg-white'} main-content-detailpart`}>
                             <div className='dashboard-title-container'>

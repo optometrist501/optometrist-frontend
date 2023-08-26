@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import panelTransection from './PanelTransection.module.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase/firebase.init';
-import { fetchPostPaymentData } from '../../../fetchedData/fetchPaymentData';
+import { fetchGetPaymentData, fetchPostPaymentData } from '../../../fetchedData/fetchPaymentData';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const PanelTransection = ({ darkmode }) => {
     const [user] = useAuthState(auth);
     const currency = 'BDT';
     const [aUrl, setAUrl] = useState('');
-
+    const [errorHolder, setErrorHolder] = useState('');
+    const navigate = useNavigate();
 
     const handlePayment = async (e) => {
         e.preventDefault();
@@ -38,6 +41,19 @@ const PanelTransection = ({ darkmode }) => {
         await fetchPostPaymentData(paymentData);
 
     }
+
+    useEffect(() => {
+        const getPayment = async () => {
+            await fetchGetPaymentData('', setErrorHolder)
+        }
+        getPayment();
+
+        if (errorHolder) {
+            navigate('/login');
+            toast("please login again");
+        }
+
+    }, [errorHolder, navigate]);
     return (
         <div className={panelTransection.main}>
             <div className={panelTransection.container}>

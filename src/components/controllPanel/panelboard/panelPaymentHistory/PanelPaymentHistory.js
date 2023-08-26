@@ -37,8 +37,8 @@ const PanelPaymentHistory = ({ darkmode }) => {
     })
 
     useEffect(() => {
-        const getPayment = async (paymentId) => {
-            await fetchGetPaymentData(paymentId, setErrorHolder)
+        const getPayment = async (emailForPayment) => {
+            await fetchGetPaymentData(emailForPayment, setErrorHolder)
                 .then(res => setMyHistory(res))
         }
         getPayment(user?.email);
@@ -49,11 +49,6 @@ const PanelPaymentHistory = ({ darkmode }) => {
         }
 
     }, [user?.email, errorHolder, navigate]);
-
-
-    const deletePost = async () => {
-
-    }
 
     return (
         <div className={paymentHistory.main}>
@@ -85,10 +80,8 @@ const PanelPaymentHistory = ({ darkmode }) => {
                                             </div>
                                             <div className={paymentHistory.partTwo}>
                                                 <div className={paymentHistory.icons}>
-                                                    <p>{history?.isPaid && <span className='text-green-600 italic text-sm'>Paid</span>}</p>
+                                                    <p>{history?.isPaid ? <span className='text-green-600 italic text-sm'>Paid</span> : <span className='text-red-500 italic text-sm'>Failed</span>}</p>
                                                     <p title='view' onClick={() => handleModal(1, history?._id)} ><i class="uil uil-eye text-blue-600 cursor-pointer"></i></p>
-
-                                                    <p title='delete' onClick={() => deletePost(history?._id)}><i class="uil uil-trash-alt text-red-600 cursor-pointer"></i></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,7 +114,7 @@ const PanelPaymentHistory = ({ darkmode }) => {
                                             <p className='font-bold text-sm text-blue-500 mb-2'>City: {findHistory?.cus_city}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>postcode: {findHistory?.cus_postcode}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>country: {findHistory?.cus_country}</p>
-                                            <p className='font-bold text-sm text-blue-500 mb-2'>Status: {findHistory?.isPaid && <span>Paid</span>}</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>Status: {findHistory?.isPaid ? <span>Paid</span> : <span>Failed</span>}</p>
                                         </div>
 
                                     </div>

@@ -58,6 +58,7 @@ const Navbar = ({ setDarkmode, darkmode, navScroll }) => {
 
                             <ul style={{ zIndex: 25 }} tabIndex="0" className={`menu menu-sm dropdown-content mt-3 z-[1] p-2  rounded-box w-52 ${darkmode ? 'bg-blue-950 text-white border-2 border-white' : 'shadow bg-base-100'}`}>
                                 <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/'>Home</Link></li>
+                                <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/'>Committee</Link></li>
                                 <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/blogs'>Blogs</Link></li>
                                 <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/publication'>Publications</Link></li>
                                 <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/gallery'>Gallery</Link></li>
@@ -133,6 +134,7 @@ const Navbar = ({ setDarkmode, darkmode, navScroll }) => {
                         <ul className={`menu menu-horizontal px-2 font-medium text-white  ${darkmode && 'text-white '}`}>
 
                             <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/'>Home</Link></li>
+                            <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/'>Committee</Link></li>
                             <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/blogs'>Blogs</Link></li>
                             <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/publication'>Publications</Link></li>
                             <li><Link className={`${darkmode && 'hover:text-orange-500'} `} to='/gallery'>Gallery</Link></li>

@@ -237,9 +237,7 @@ const Blogs = ({ darkmode }) => {
                                 <i class="uil uil-file-edit-alt text-xl"></i>
                                 <span> Blogs</span>
                             </span>
-                            <span>
-                                <i class="uil uil-angle-double-left text-2xl"></i>
-                            </span>
+
                         </div>
                         {
                             search === ''

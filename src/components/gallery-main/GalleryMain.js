@@ -181,9 +181,7 @@ const GalleryMain = ({ darkmode }) => {
                                 <i class="uil uil-image text-xl"></i>
                                 <span> GALLERY</span>
                             </span>
-                            <span>
-                                <i class="uil uil-angle-double-left text-2xl"></i>
-                            </span>
+
                         </div>
 
                         <div className={galleryMain.galleryFirstPartDetail}>

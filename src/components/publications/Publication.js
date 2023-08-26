@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import events from './Publication.module.css';
+import Publications from './Publication.module.css';
+import usePublicationHook from '../../customHooks/usePublicationHook';
+import { fetchGetPublicationBySearchData } from '../../fetchedData/fetchPublicationData';
 
 const Publication = () => {
     const [imgData, setImgData] = useState([]);
@@ -9,10 +11,33 @@ const Publication = () => {
     const [number, setNumber] = useState(10);
     const [buttonNumber, setButtonNumber] = useState(10);
     const [modifiedButtonNumber, setModifiedButtonNumber] = useState();
+    const [publicationData, refetch] = usePublicationHook();
+    const [publicationDataBySearch, setPublicationBySearchData] = useState([])
+    const [search, setSearch] = useState('')
+    const [roundedDataLength, setRoundedDataLength] = useState('');
 
+    const allPublicationData = publicationData?.data?.data?.data;
+
+
+    const findApprovedPublications = allPublicationData?.filter(f => {
+        return f.approval === true;
+    });
+
+    const findApprovedPublicationsBySearch = publicationDataBySearch?.filter(f => {
+        return f.approval === true;
+    })
 
     // pagination
-    const roundedDataLength = Math.ceil(imgData?.length / 10);
+    useEffect(() => {
+        if (search === '') {
+            setRoundedDataLength(Math.ceil(findApprovedPublications?.length / 10))
+        } else {
+            setRoundedDataLength(Math.ceil(findApprovedPublicationsBySearch?.length / 10))
+        }
+    }, [findApprovedPublications?.length, findApprovedPublicationsBySearch?.length, search])
+
+
+
     const totalDataLength = roundedDataLength * 10
 
     const arrayOfObjects = [];
@@ -61,58 +86,135 @@ const Publication = () => {
     })
 
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await fetchGetPublicationBySearchData(search);
+                setPublicationBySearchData(response?.data?.data?.data)
+            } catch (error) {
+
+            }
+        }
+        fetchData()
+
+    }, [search])
+
+
     return (
-        <div className={events.eventsMain}>
-            <div className={events.eventsMainContainer}>
-                <div onMouseLeave={() => setFlipDrawer(-50)} style={{ left: `${flipDrawer}%`, transition: '1s ease-in-out' }} className={events.eventsFirstPart}>
-                    <div className={events.eventsFirstPartContainer}>
-
-
+        <div className={Publications.eventsMain}>
+            <div className={Publications.eventsMainContainer}>
+                <div onMouseLeave={() => setFlipDrawer(-50)} style={{ left: `${flipDrawer}%`, transition: '1s ease-in-out' }} className={Publications.eventsFirstPart}>
+                    <div className={Publications.eventsFirstPartContainer}>
                         <div
-                            className={events.events_Main_Title}>
+                            className={Publications.events_Main_Title}>
                             <span>
                                 <i class="uil uil-newspaper text-xl"></i>
                                 <span> PUBLICATIONS</span>
                             </span>
-                            <span>
-                                <i class="uil uil-angle-double-left text-2xl"></i>
-                            </span>
                         </div>
-                        <div className={events.eventsFirstPartDetail}>
-                            {
-                                imgData?.slice((number - 10), number).map(imgData => {
-                                    return (
-                                        <p title={imgData?.title} className={events.title}>{imgData?.title?.length > 30 ? imgData?.title?.slice(0, 29) + '...' : imgData?.title}</p>
-                                    )
-                                })
-                            }
-                        </div>
+                        {
+                            search === ''
+                                ?
+                                <div className={Publications.eventsFirstPartDetail}>
+                                    {
+                                        findApprovedPublications?.slice((number - 10), number)?.reverse()?.map(publicationData => {
+                                            return (
+                                                <p className='cursor-pointer'>
+                                                    {
+
+                                                        <p title={publicationData?.title} className={Publications.title}>{publicationData?.title?.length > 30 ? publicationData?.title?.slice(0, 29) + '...' : publicationData?.title}</p>
+                                                    }
+                                                </p>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                :
+
+                                <div className={Publications.eventsFirstPartDetail}>
+                                    {
+                                        findApprovedPublicationsBySearch?.length > 0 &&
+                                        <div>
+                                            {
+                                                findApprovedPublicationsBySearch?.slice((number - 10), number)?.map(publicationData => {
+                                                    return (
+                                                        <p className='cursor-pointer'>
+                                                            {
+
+                                                                <p title={publicationData?.title} className={Publications.title}>{publicationData?.title?.length > 30 ? publicationData?.title?.slice(0, 29) + '...' : publicationData?.title}</p>
+                                                            }
+                                                        </p>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    }
+                                    {findApprovedPublicationsBySearch?.length === 0 &&
+                                        <p className='text-red-600 ml-3'>Found nothing from search result</p>
+                                    }
+                                </div>
+
+                        }
+
 
                     </div>
                 </div>
-                <div className={events.eventsSecondPart}>
-                    <div className={events.eventsSecondPartContainer}>
+                <div className={Publications.eventsSecondPart}>
+                    <div className={Publications.eventsSecondPartContainer}>
 
-                        <div className={events.searchBar}>
-                            <span className={events.bargerRes}> <i onClick={flipDrawer === 0 ? () => setFlipDrawer(50) : () => setFlipDrawer(0)} className=" uil uil-bars ml-2"></i></span>
-                            <div className={events.searchBarContainer}>
+                        <div className={Publications.searchBar}>
+                            <span className={Publications.bargerRes}> <i onClick={flipDrawer === 0 ? () => setFlipDrawer(50) : () => setFlipDrawer(0)} className=" uil uil-bars ml-2"></i></span>
+                            <div className={Publications.searchBarContainer}>
                                 <div>
                                     <i className="uil uil-search text-xl "></i>
-                                    <input className={events.gallery_input} placeholder='search' type="text" />
+                                    <input className={Publications.gallery_input} placeholder='search' type="text"
+                                        onChange={(e) => setSearch(e.target.value)}
+                                    />
                                 </div>
                                 <i class="uil uil-times text-xl cursor-pointer"></i>
                             </div>
 
-                            <div className={events.totalImg}>
-                                <span>TOTAL PB: {imgData?.length}</span>
+                            <div className={Publications.totalImg}>
+                                <span>TOTAL PB: {search === '' ? findApprovedPublications?.length : findApprovedPublicationsBySearch?.length}</span>
                                 <span>  |  </span>
                                 <span>PAGE: {number.toString().slice(0, (number.toString().length - 1))}</span>
                             </div>
                         </div>
-                        <div className={events.events}>
+                        {
+                            search === ''
+                                ?
+                                <div className={Publications.publications}>
 
-                        </div>
-                        <div className={events.pagination} >
+                                    {
+                                        findApprovedPublications?.slice(number - 10, number)?.reverse()?.map((publicationData, index) => {
+                                            return (
+                                                <p className='mb-5 text-blue-500 cursor-pointer'>{index + 1} {publicationData?.title}</p>
+                                            )
+                                        })
+                                    }
+
+                                </div>
+                                :
+                                <div className={Publications.publications}>
+
+                                    <div>
+                                        {
+                                            findApprovedPublicationsBySearch?.slice(number - 10, number)?.reverse()?.map((publicationData, index) => {
+                                                return (
+                                                    <p className='mb-5 text-blue-500 cursor-pointer'>{index + 1} {publicationData?.title}</p>
+                                                )
+                                            })
+                                        }
+                                        {
+                                            findApprovedPublicationsBySearch?.length === 0 &&
+                                            <div style={{ width: '98%', height: '400px', boxShadow: ' 0 0 10px rgba(0, 0, 0, 0.2)', margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                <p className='text-red-600'>Found nothing from search result</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                        }
+                        <div className={Publications.pagination} >
 
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <button onClick={() => handlePageButton('decrease')}> <p style={{ fontSize: '25px', marginRight: '25px' }}> <i className='uil uil-angle-left-b'></i></p> </button>
@@ -130,6 +232,9 @@ const Publication = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className={Publications.fakeNavBackground}>
+
             </div>
         </div>
     );

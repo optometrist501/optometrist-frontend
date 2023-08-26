@@ -111,6 +111,11 @@ font-size: 12px;
     align-items: center;
     justify-content: space-around;
   }
+
+  .publications{
+    margin-top: 100px;
+    padding: 20px;
+  }
   
  
 
@@ -128,6 +133,15 @@ font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.fakeNavBackground{
+  width: 100%;
+  height: 124px;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  background: linear-gradient(to right, rgb(253, 147, 60), rgb(67, 20, 238),  rgb(127, 213, 253));
 }
  
   @media (max-width: 768px) {
