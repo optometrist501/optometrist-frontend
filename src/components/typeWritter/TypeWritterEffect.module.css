@@ -3,6 +3,7 @@
     align-items: center;
     height: 20vh;
     width: 100%;
+    position: relative;
 }
 
 .typeWriterMain{
@@ -44,6 +45,46 @@
 }
 
 
+.updateBtn{
+    position: absolute;
+    bottom: 10px;
+    left: 50px;
+}
+.modal{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.block{
+    display: block;
+}
+
+.none{
+    display: none;
+}
+
+.modalContainer{
+    width: 50%;
+    height: 280px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+   
+}
+
+
+.modalDetail{
+    display: flex;
+}
+.detailOne, .detailTwo{
+    width: 50%;
+}
+
+
 @media screen and (max-width: 480px) {
 
     .typeWriter{
@@ -76,5 +117,27 @@
         border-left: none;
         width: 100%;
     }
+
+    .modalContainer{
+        margin-top: 100px;
+        width: 95%;
+        height: auto;
+    }
+
+    .modalDetail{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .detailOne, .detailTwo{
+        width: 100%;
+    }
     
+    
+}
+
+@media screen and (max-width: 768px) {
+   .modalContainer{
+    width: 95%;
+   }
 }

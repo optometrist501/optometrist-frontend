@@ -18,6 +18,9 @@ const Hero = () => {
     const allHeroData = heroData?.data?.data?.data;
     const [imgHolder, setImgHolder] = useState('');
     const [memberData] = useMemberData();
+    const [email, setEmail] = useState('');
+    const [mobile, setMobile] = useState('');
+
 
     const findAdmin = memberData?.data?.data?.data?.find(f => {
         return f?.email === user?.email
@@ -28,6 +31,8 @@ const Hero = () => {
     useEffect(() => {
         setTitleOne(allHeroData?.[0].titleOne)
         setTitleTwo(allHeroData?.[0].titleTwo)
+        setEmail(allHeroData?.[0].infoEmail)
+        setMobile(allHeroData?.[0].infoNumber)
     }, [allHeroData])
 
 
@@ -37,11 +42,12 @@ const Hero = () => {
         const updatedData = {
             titleOne: titleOne,
             titleTwo: titleTwo,
-            imgLink: heroImg
+            imgLink: heroImg,
+            infoEmail: email,
+            infoNumber: mobile
         }
 
         await fetchUpdateHeroData(updatedData, allHeroData?.[0]._id, refetch).then(res => {
-            console.log(res?.data?.statusCode)
             if (res?.data?.statusCode === 200) {
                 toast.success('successfully updated');
                 setOpen(false);
@@ -80,45 +86,65 @@ const Hero = () => {
                         <i onClick={() => setOpen(false)} className="uil uil-times cursor-pointer text-gray-400"></i>
                         <hr className='mt-2' />
                         <br />
-                        <label className='text-sm font-bold text-gray-400' htmlFor="">change title one :</label>
-                        <input className='border border-gray-400' type="text"
-                            value={titleOne}
-                            onChange={(e) => setTitleOne(e.target.value)}
-                        />
-                        <br />
-                        <br />
-                        <label className='text-sm font-bold  text-gray-400' htmlFor="">change title two :</label>
-                        <input className='border border-gray-400' type="text"
-                            value={titleTwo}
-                            onChange={(e) => setTitleTwo(e.target.value)}
-                        />
-                        <br />
-                        <br />
-                        <div style={{ width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div className={hero.popupDetail}>
                             <div>
-                                <label className='text-sm font-bold  text-gray-400'>change image :</label>
-                                <div className={hero.chooseFileDesign}>
-                                    <p className='text-white font-bold'>
-                                        <i class="uil uil-upload mr-2"></i>
-                                        <span>Choose File</span>
-                                    </p>
-                                    <input className={hero.chooseFile} type="file" onChange={(e) => {
-                                        const imgFile = e.target.files[0];
+                                <label className='text-sm font-bold text-gray-400' htmlFor="">change title one :</label>
+                                <input className='border border-gray-400' type="text"
+                                    value={titleOne}
+                                    onChange={(e) => setTitleOne(e.target.value)}
+                                />
+                                <br />
+                                <br />
+                                <label className='text-sm font-bold  text-gray-400' htmlFor="">change title two :</label>
+                                <input className='border border-gray-400' type="text"
+                                    value={titleTwo}
+                                    onChange={(e) => setTitleTwo(e.target.value)}
+                                />
+                                <br />
+                                <br />
+                                <div style={{ width: '300px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <div>
+                                        <label className='text-sm font-bold  text-gray-400'>change image :</label>
+                                        <div className={hero.chooseFileDesign}>
+                                            <p className='text-white font-bold'>
+                                                <i class="uil uil-upload mr-2"></i>
+                                                <span>Choose File</span>
+                                            </p>
+                                            <input className={hero.chooseFile} type="file" onChange={(e) => {
+                                                const imgFile = e.target.files[0];
 
-                                        updloadImage(imgFile, setImgHolder);
-                                    }}
-                                        required
-                                    />
+                                                updloadImage(imgFile, setImgHolder);
+                                            }}
+                                                required
+                                            />
+                                        </div>
+
+                                    </div>
+
+
+                                    {
+                                        imgHolder && <span className='text-green-600 text-sm italic mt-5'>Image added</span>
+                                    }
+                                    <div>
+
+                                    </div>
                                 </div>
-
                             </div>
-
-
-                            {
-                                imgHolder && <span className='text-green-600 text-sm italic mt-5'>Image added</span>
-                            }
                             <div>
-
+                                <label className='text-sm font-bold  text-gray-400' htmlFor="">change email:</label>
+                                <input type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <br />
+                                <br />
+                                <label className='text-sm font-bold  text-gray-400' htmlFor="">change number:</label>
+                                <input type="number"
+                                    value={mobile}
+                                    onChange={(e) => setMobile(e.target.value)}
+                                />
+                                <br />
+                                <br />
                             </div>
                         </div>
                         <br />

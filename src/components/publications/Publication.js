@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState } from 'react';
 import Publications from './Publication.module.css';
 import usePublicationHook from '../../customHooks/usePublicationHook';
@@ -188,7 +189,14 @@ const Publication = () => {
                                     {
                                         findApprovedPublications?.slice(number - 10, number)?.reverse()?.map((publicationData, index) => {
                                             return (
-                                                <p className='mb-5 text-blue-500 cursor-pointer'>{index + 1} {publicationData?.title}</p>
+                                                <p>
+                                                    <a
+                                                        href={`${publicationData?.link}`} className='mb-5 text-blue-500 cursor-pointer'
+                                                        target='_blank'
+                                                    >
+                                                        {index + 1} {publicationData?.title}
+                                                    </a>
+                                                </p>
                                             )
                                         })
                                     }

@@ -41,6 +41,8 @@ import PanelPaymentView from './components/controllPanel/panelboard/PanelPayment
 import DashPaymentHistory from './components/DashTransection/DashPaymentHistory/DashPaymentHistory';
 import Contactus from './components/contactus/Contactus';
 import AboutDetails from './components/aboutDetails/AboutDetails';
+import Committee from './components/committee/Committee';
+import Founder from './components/founder/Founder';
 
 
 
@@ -67,6 +69,8 @@ function App() {
         <Route path='/partners' element={<OurPartners darkmode={darkmode}></OurPartners>} />
         <Route path='/members' element={<MemberCart darkmode={darkmode}></MemberCart>} />
         <Route path='/contact' element={<Contactus darkmode={darkmode}></Contactus>} />
+        <Route path='/committee' element={<Committee darkmode={darkmode}></Committee>} />
+        <Route path='/founder' element={<Founder darkmode={darkmode}></Founder>} />
         <Route path='/payment/success'
           element={
             <RequireProfile>
@@ -132,7 +136,7 @@ function App() {
 export default App;
 
 
-// github email: optometrist501@gmail.compact
+// github email: optometrist501@gmail.com
 // password: qMAux5QvPDFt@e5
 
 /* 

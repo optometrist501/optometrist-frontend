@@ -27,6 +27,10 @@
   padding: 10px;
 }
 
+.popupDetail{
+  display: flex;
+}
+
 .block{
   display: block;
 }
@@ -72,8 +76,16 @@
       }
 
       .containerPopup{
+        margin-top: 150px;
         width: 90%;
+        height: auto;
       }
+      .popupDetail{
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      
       
 }
 
@@ -88,5 +100,11 @@
 
       .containerPopup{
         width: 90%;
+        height: auto;
+      }
+
+      .popupDetail{
+        display: flex;
+        flex-wrap: wrap;
       }
 }

@@ -69,9 +69,7 @@ const PanelPublication = ({ darkmode }) => {
         setUpdateLink(findBlog?.link)
     }, [findBlog])
 
-
     const postBlog = async () => {
-
         allPublicationInfo.title = title
         allPublicationInfo.name = publisherName
         allPublicationInfo.email = user?.email
@@ -84,17 +82,19 @@ const PanelPublication = ({ darkmode }) => {
 
         })
 
-
-
         if (
             allPublicationInfo.title !== '' && allPublicationInfo.name !== '' && allPublicationInfo.link !== ''
         ) {
-            await fetchPostPublicationData(allPublicationInfo, refetch);
-            toast.success('Publication added successfully');
+            if (link?.slice(0, 8) === 'https://') {
+                await fetchPostPublicationData(allPublicationInfo, refetch);
+                toast.success('Publication added successfully');
 
-            setTitle('');
-            setPublisherName('');
-            setLink('');
+                setTitle('');
+                setPublisherName('');
+                setLink('');
+            } else {
+                toast.error('link is not correct');
+            }
 
         } else {
             toast.error('fillup all fields');
@@ -106,8 +106,12 @@ const PanelPublication = ({ darkmode }) => {
         updateAllPublicationInfo.name = updatePublisherName;
         updateAllPublicationInfo.link = updateLink
 
-        await fetchUpdatePublicationData(findId, updateAllPublicationInfo, refetch);
-        toast.dark('updated successfully');
+        if (updateLink.slice(0, 8) === 'https://') {
+            await fetchUpdatePublicationData(findId, updateAllPublicationInfo, refetch);
+            toast.dark('updated successfully');
+        } else {
+            toast.error('link is not correct')
+        }
 
     }
 
@@ -240,7 +244,6 @@ const PanelPublication = ({ darkmode }) => {
                                 </div>
                             </div>
                         }
-
                         {
                             viewOption === 2 &&
                             <div className={`${panelPublication.updatePart}`}>
@@ -267,7 +270,7 @@ const PanelPublication = ({ darkmode }) => {
                                             <label htmlFor="">Link</label>
                                             <input type="text"
                                                 value={updateLink}
-                                                onChange={(e) => setUpdatePublisherName(e.target.value)}
+                                                onChange={(e) => setUpdateLink(e.target.value)}
                                             />
                                         </div>
 

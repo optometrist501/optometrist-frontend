@@ -21,7 +21,6 @@ const DashPublications = ({ darkmode }) => {
     const [link, setLink] = useState('');
     const [allPublicationInfo] = useState({});
     const [updateAllPublicationInfo] = useState({});
-    const [updateApproval] = useState({});
 
     const [updateTitle, setUpdateTitle] = useState('');
     const [updatePublisherName, setUpdatePublisherName] = useState('');
@@ -62,6 +61,10 @@ const DashPublications = ({ darkmode }) => {
     const findPendings = allBlogs?.filter(f => {
         return f.approval === false;
     });
+
+    const filteredByUserEmail = allBlogs?.filter(f => {
+        return f?.email === user?.email
+    })
 
     useEffect(() => {
         setUpdateTitle(findBlog?.title);
@@ -140,7 +143,7 @@ const DashPublications = ({ darkmode }) => {
                 </div>
                 <br />
                 {
-                    allBlogs?.slice()?.reverse()?.map((publication, index) => {
+                    filteredByUserEmail?.slice()?.reverse()?.map((publication, index) => {
                         return (
                             <div key={publication?._id} className={`${open ? 'none' : 'block'}`}>
                                 {
@@ -217,7 +220,6 @@ const DashPublications = ({ darkmode }) => {
                                 </div>
                             </div>
                         }
-
                         {
                             viewOption === 2 &&
                             <div className={`${dashPublication.updatePart}`}>
@@ -244,7 +246,7 @@ const DashPublications = ({ darkmode }) => {
                                             <label htmlFor="">Link</label>
                                             <input type="text"
                                                 value={updateLink}
-                                                onChange={(e) => setUpdatePublisherName(e.target.value)}
+                                                onChange={(e) => setUpdateLink(e.target.value)}
                                             />
                                         </div>
 
