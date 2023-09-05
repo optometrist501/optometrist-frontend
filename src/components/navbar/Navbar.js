@@ -68,13 +68,13 @@ const Navbar = ({ setDarkmode, darkmode, navScroll }) => {
                                         <ul className='bg-blue-500'>
                                             <li>
                                                 <Link
-                                                    className={`${darkmode && 'hover:text-orange-500'} `} to='/'>
+                                                    className={`${darkmode && 'hover:text-orange-500'} `} to='/committee'>
                                                     Committee
                                                 </Link>
                                             </li>
                                             <li>
                                                 <Link
-                                                    className={`${darkmode && 'hover:text-orange-500'} `} to='/'>
+                                                    className={`${darkmode && 'hover:text-orange-500'} `} to='/founder'>
                                                     Founder
                                                 </Link>
                                             </li>

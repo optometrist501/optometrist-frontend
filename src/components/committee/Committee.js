@@ -179,14 +179,14 @@ const Committee = ({ darkmode }) => {
                                         }
                                     </div>
                                     {
-                                        findAdmin?.email === user?.email
+                                        findAdmin?.email
                                         &&
                                         <div onClick={() => openModal(committeeData?._id)} className={committee.edition}>
                                             <i class="uil uil-pen text-gray-400 cursor-pointer"></i>
                                         </div>
                                     }
                                     {
-                                        (allCommitteeData?.length > 1 && findAdmin?.email === user?.email)
+                                        (allCommitteeData?.length > 1 && findAdmin?.email)
                                         &&
                                         <div className={committee.delete}>
                                             <i onClick={() => deleteCommittee(committeeData?._id)} className="uil uil-trash-alt text-gray-400 cursor-pointer"></i>
