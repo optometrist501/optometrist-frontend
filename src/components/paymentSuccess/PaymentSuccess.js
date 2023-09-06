@@ -40,6 +40,7 @@ const PaymentSuccess = () => {
                 <div className={paymentSuccess.detail}>
                     <p className='font-bold text-sm mb-3'>Payment-Status : {order?.isPaid === true && <span className='text-green-600 italic'>PAID</span>}</p>
                     <p className='font-bold text-sm mb-3'>Transection Id : {order?.tran_id}</p>
+                    <p className='font-bold text-sm mb-3'>Transection Id : {order?.total_amount}</p>
                     <p className='font-bold text-sm mb-3'>Name : {order?.cus_name}</p>
                     <p className='font-bold text-sm mb-3'>Email : {order?.cus_email}</p>
                     <p className='font-bold text-sm mb-3'>Address : {order?.cus_add1}</p>
