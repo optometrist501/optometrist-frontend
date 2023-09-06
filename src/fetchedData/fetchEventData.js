@@ -1,20 +1,20 @@
 import axios from "axios";
 
 export const fetchGetEventData = async () => {
-    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/event`);
+    const response = await axios.get(`https://optometrist-server.vercel.app/api/v1/event`);
     const eventData = response;
     return eventData
 }
 
 export const fetchGetEventBySearchData = async (searchTerm) => {
-    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/event?searchTerm=${searchTerm}`);
+    const response = await axios.get(`https://optometrist-server.vercel.app/api/v1/event?searchTerm=${searchTerm}`);
     const eventData = response;
     return eventData
 }
 
 export const fetchPostEventData = async (eventDataContainer, refetch) => {
     try {
-        const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/event/create-event`, eventDataContainer);
+        const response = await axios.post(`https://optometrist-server.vercel.app/api/v1/event/create-event`, eventDataContainer);
         const eventData = response;
         refetch();
 
@@ -26,7 +26,7 @@ export const fetchPostEventData = async (eventDataContainer, refetch) => {
 
 export const fetchUpdateEventData = async (idContainer, updateeventDataContainer, refetch) => {
     try {
-        const response = await axios.patch(`https://optometrist-server-46oo.onrender.com/api/v1/event/${idContainer}`, updateeventDataContainer);
+        const response = await axios.patch(`https://optometrist-server.vercel.app/api/v1/event/${idContainer}`, updateeventDataContainer);
         const eventData = response;
 
         refetch();
@@ -38,7 +38,7 @@ export const fetchUpdateEventData = async (idContainer, updateeventDataContainer
 
 export const fetchDeleteEventData = async (theId, refetch) => {
     try {
-        const response = await axios.delete(`https://optometrist-server-46oo.onrender.com/api/v1/event/${theId}`);
+        const response = await axios.delete(`https://optometrist-server.vercel.app/api/v1/event/${theId}`);
         const eventData = response;
 
         refetch()

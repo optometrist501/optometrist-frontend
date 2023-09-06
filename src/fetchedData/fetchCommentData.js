@@ -1,14 +1,14 @@
 import axios from "axios";
 
 export const fetchGetCommentData = async () => {
-    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/comment`);
+    const response = await axios.get(`https://optometrist-server.vercel.app/api/v1/comment`);
     const commentData = response;
     return commentData
 }
 
 export const fetchPostCommentData = async (commentDataContainer, refetch) => {
     try {
-        const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/comment/create-comment`, commentDataContainer);
+        const response = await axios.post(`https://optometrist-server.vercel.app/api/v1/comment/create-comment`, commentDataContainer);
         const commentData = response;
         refetch();
 
@@ -20,7 +20,7 @@ export const fetchPostCommentData = async (commentDataContainer, refetch) => {
 
 export const fetchUpdateCommentData = async (idContainer, updatecommentDataContainer, refetch) => {
     try {
-        const response = await axios.patch(`https://optometrist-server-46oo.onrender.com/api/v1/comment/${idContainer}`, updatecommentDataContainer);
+        const response = await axios.patch(`https://optometrist-server.vercel.app/api/v1/comment/${idContainer}`, updatecommentDataContainer);
         const commentData = response;
 
         refetch();
@@ -31,7 +31,7 @@ export const fetchUpdateCommentData = async (idContainer, updatecommentDataConta
 }
 export const fetchDeleteCommentData = async (idForDelete, refetch) => {
     try {
-        const response = await axios.delete(`https://optometrist-server-46oo.onrender.com/api/v1/comment/${idForDelete}`);
+        const response = await axios.delete(`https://optometrist-server.vercel.app/api/v1/comment/${idForDelete}`);
         const commentData = response;
 
         refetch()
@@ -43,7 +43,7 @@ export const fetchDeleteCommentData = async (idForDelete, refetch) => {
 
 export const fetchBulkDeleteCommentData = async (idsComment, refetch) => {
     try {
-        const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/comment/bulk-delete`, { idsComment });
+        const response = await axios.post(`https://optometrist-server.vercel.app/api/v1/comment/bulk-delete`, { idsComment });
         const commentData = response;
 
         refetch()

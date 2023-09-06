@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchPostPaymentData = async (paymentDataContainer) => {
     try {
-        const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/payment/create-payment`, paymentDataContainer);
+        const response = await axios.post(`https://optometrist-server.vercel.app/api/v1/payment/create-payment`, paymentDataContainer);
         const paymentData = response?.data?.url;
         window.location.replace(response?.data?.url)
         return paymentData;
@@ -13,7 +13,7 @@ export const fetchPostPaymentData = async (paymentDataContainer) => {
 
 export const fetchGetPaymentDataForId = async () => {
     try {
-        const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/payment`, {
+        const response = await axios.get(`https://optometrist-server.vercel.app/api/v1/payment`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('oab-access-token')}`
             }
@@ -26,7 +26,7 @@ export const fetchGetPaymentDataForId = async () => {
 
 export const fetchGetPaymentData = async (cus_email, setErrorHolder) => {
     try {
-        const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/payment?cus_email=${cus_email}`, {
+        const response = await axios.get(`https://optometrist-server.vercel.app/api/v1/payment?cus_email=${cus_email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('oab-access-token')}`
             }

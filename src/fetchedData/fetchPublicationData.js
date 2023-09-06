@@ -3,21 +3,21 @@ import axios from "axios";
 
 
 export const fetchGetPublicationData = async () => {
-    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/publication`
+    const response = await axios.get(`https://optometrist-server.vercel.app/api/v1/publication`
     );
     const publicationData = response;
     return publicationData
 }
 
 export const fetchGetPublicationBySearchData = async (searchValue) => {
-    const response = await axios.get(`https://optometrist-server-46oo.onrender.com/api/v1/publication?searchTerm=${searchValue}`);
+    const response = await axios.get(`https://optometrist-server.vercel.app/api/v1/publication?searchTerm=${searchValue}`);
     const publicationData = response;
     return publicationData
 }
 
 export const fetchPostPublicationData = async (PublicationDataContainer, refetch) => {
     try {
-        const response = await axios.post(`https://optometrist-server-46oo.onrender.com/api/v1/publication/create-publication`, PublicationDataContainer);
+        const response = await axios.post(`https://optometrist-server.vercel.app/api/v1/publication/create-publication`, PublicationDataContainer);
         const publicationData = response;
         refetch();
 
@@ -30,7 +30,7 @@ export const fetchPostPublicationData = async (PublicationDataContainer, refetch
 
 export const fetchUpdatePublicationData = async (idContainer, updatePublicationDataContainer, refetch) => {
     try {
-        const response = await axios.patch(`https://optometrist-server-46oo.onrender.com/api/v1/publication/${idContainer}`, updatePublicationDataContainer);
+        const response = await axios.patch(`https://optometrist-server.vercel.app/api/v1/publication/${idContainer}`, updatePublicationDataContainer);
         const publicationData = response;
 
         refetch();
@@ -41,7 +41,7 @@ export const fetchUpdatePublicationData = async (idContainer, updatePublicationD
 }
 export const fetchDeletePublicationData = async (theId, refetch) => {
     try {
-        const response = await axios.delete(`https://optometrist-server-46oo.onrender.com/api/v1/publication/${theId}`);
+        const response = await axios.delete(`https://optometrist-server.vercel.app/api/v1/publication/${theId}`);
         const publicationData = response;
 
         refetch()
