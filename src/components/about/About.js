@@ -82,9 +82,9 @@ const About = ({ darkmode }) => {
                 {
                     allAboutData?.map(data => {
                         return (
-                            <div data-aos='fade-left' duration='300' className="hero-content flex-col lg:flex-row-reverse">
+                            <div className="hero-content flex-col lg:flex-row-reverse">
                                 < img style={{ maxHeight: '450px' }} src={data?.img} className="lg:w-2/6 sm:6/6 rounded-lg shadow-2xl" alt='' />
-                                <div data-aos='zoom-in'>
+                                <div>
                                     <h1 className={`text-5xl font-bold ${about.gradient_text} `}>OPTOMETRIST</h1>
                                     <p className="py-6" dangerouslySetInnerHTML={{ __html: data?.description?.slice(0, 700) }}>
                                     </p>

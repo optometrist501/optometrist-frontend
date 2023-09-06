@@ -77,7 +77,7 @@ const Advertise = ({ darkmode }) => {
                             <div className={advertisement.advertiseImg}>
                                 <div className={advertisement.module_border_wrap}>
                                     <div className={advertisement.module}>
-                                        <img className='h-80 w-full' data-aos='zoom-in' duration='500' src={add.img} alt="" />
+                                        <img className='h-80 w-full' src={add.img} alt="" />
                                     </div>
                                 </div>
 

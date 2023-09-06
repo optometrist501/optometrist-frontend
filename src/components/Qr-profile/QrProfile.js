@@ -23,7 +23,7 @@ const QrProfile = ({ darkmode }) => {
     const location = useLocation();
 
 
-    const mainQrProfileLink = `https://optometrist-a88bd.web.app${location?.pathname}`;
+    const mainQrProfileLink = `https://oabd.org${location?.pathname}`;
 
 
 
