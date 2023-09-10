@@ -11,10 +11,13 @@ const PanelPaymentHistory = ({ darkmode }) => {
     const navigate = useNavigate();
     const [user] = useAuthState(auth)
     const [viewOption, setViewOption] = useState(1);
+    const [viewOptionOffline, setViewOptionOffline] = useState(1);
     const [open, setOpen] = useState(false);
+
     const [findId, setFindId] = useState('');
     const [myHistory, setMyHistory] = useState([]);
     const [errorHolder, setErrorHolder] = useState('');
+
     console.log(errorHolder);
 
     const allMyHistory = myHistory?.data?.result;
@@ -91,6 +94,7 @@ const PanelPaymentHistory = ({ darkmode }) => {
                         )
                     })
                 }
+
                 <div className={`${open ? 'block' : 'none'}  ${paymentHistory.modal}    ${darkmode ? 'bg-black text-white' : 'bg-white'} `}>
                     <i onClick={() => setOpen(false)} class="uil uil-backspace text-2xl ml-2 cursor-pointer"></i>
 
@@ -115,6 +119,9 @@ const PanelPaymentHistory = ({ darkmode }) => {
                                             <p className='font-bold text-sm text-blue-500 mb-2'>postcode: {findHistory?.cus_postcode}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>country: {findHistory?.cus_country}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>Status: {findHistory?.isPaid ? <span>Paid</span> : <span>Failed</span>}</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>
+                                                payment method: online
+                                            </p>
                                         </div>
 
                                     </div>
@@ -127,6 +134,7 @@ const PanelPaymentHistory = ({ darkmode }) => {
                     </div>
 
                 </div>
+
             </div>
 
         </div>

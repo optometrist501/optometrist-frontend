@@ -186,9 +186,7 @@ const PanelBoard = ({ darkmode }) => {
                                         <div>
                                             <i className="uil uil-image-resize-landscape text-xl"></i> THEME
                                         </div>
-                                        {findPendings?.length > 0 &&
-                                            <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
-                                        }
+
                                     </Link>
                                 </li>
 
@@ -310,9 +308,7 @@ const PanelBoard = ({ darkmode }) => {
                                             <i className="uil uil-image-resize-landscape text-xl"></i>
                                             THEME
                                         </div>
-                                        {findPendings?.length > 0 &&
-                                            <div style={{ width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', backgroundColor: 'red', borderRadius: '50%', padding: '3px 5px', fontSize: '12px', marginLeft: '3px' }}>{findPendings?.length}</div>
-                                        }
+
                                     </Link>
                                 </li>
                             </ul>
