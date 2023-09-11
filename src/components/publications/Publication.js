@@ -5,8 +5,6 @@ import usePublicationHook from '../../customHooks/usePublicationHook';
 import { fetchGetPublicationBySearchData } from '../../fetchedData/fetchPublicationData';
 
 const Publication = () => {
-    const [imgData, setImgData] = useState([]);
-
     const [flipDrawer, setFlipDrawer] = useState(-50);
 
     const [number, setNumber] = useState(10);
@@ -20,7 +18,7 @@ const Publication = () => {
     const allPublicationData = publicationData?.data?.data?.data;
 
 
-    const findApprovedPublications = allPublicationData?.filter(f => {
+    const findApprovedPublications = allPublicationData?.slice()?.reverse()?.filter(f => {
         return f.approval === true;
     });
 
@@ -81,10 +79,7 @@ const Publication = () => {
         }
     }
 
-    useEffect(() => {
-        const url = 'gallery.json';
-        fetch(url).then(res => res.json()).then(res => setImgData(res))
-    })
+
 
 
     useEffect(() => {
@@ -118,7 +113,7 @@ const Publication = () => {
                                 ?
                                 <div className={Publications.eventsFirstPartDetail}>
                                     {
-                                        findApprovedPublications?.slice((number - 10), number)?.reverse()?.map(publicationData => {
+                                        findApprovedPublications?.slice((number - 10), number)?.map(publicationData => {
                                             return (
                                                 <p className='cursor-pointer'>
                                                     {
@@ -131,7 +126,6 @@ const Publication = () => {
                                     }
                                 </div>
                                 :
-
                                 <div className={Publications.eventsFirstPartDetail}>
                                     {
                                         findApprovedPublicationsBySearch?.length > 0 &&
@@ -187,7 +181,7 @@ const Publication = () => {
                                 <div className={Publications.publications}>
 
                                     {
-                                        findApprovedPublications?.slice(number - 10, number)?.reverse()?.map((publicationData, index) => {
+                                        findApprovedPublications?.slice(number - 10, number)?.map((publicationData, index) => {
                                             return (
                                                 <p>
                                                     <a

@@ -46,7 +46,7 @@ const Blogs = ({ darkmode }) => {
     const allComments = commentData?.data?.data?.data;
 
 
-    const findApprovedBlogs = allBlogs?.filter(f => {
+    const findApprovedBlogs = allBlogs?.slice()?.reverse()?.filter(f => {
         return f.approval === true;
     });
 
@@ -244,7 +244,7 @@ const Blogs = ({ darkmode }) => {
                                 ?
                                 <div className={blogs.blogsFirstPartDetail}>
                                     {
-                                        findApprovedBlogs?.slice((number - 10), number)?.reverse()?.map(blogData => {
+                                        findApprovedBlogs?.slice((number - 10), number)?.map(blogData => {
                                             return (
                                                 <p onClick={() => getSingleBlogFromTitle(blogData?._id)} className='cursor-pointer'>
                                                     {
@@ -314,7 +314,7 @@ const Blogs = ({ darkmode }) => {
                             search === '' ?
                                 <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogs} ${darkmode && 'bg-black text-white'}`}>
                                     {
-                                        findApprovedBlogs?.slice(number - 10, number)?.reverse()?.map(allBlogs => {
+                                        findApprovedBlogs?.slice(number - 10, number)?.map(allBlogs => {
                                             return (
                                                 <div className={blogs.blogsContainer}>
                                                     <br />

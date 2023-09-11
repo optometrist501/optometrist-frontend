@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import events from './Events.module.css';
-import JoditEditor from 'jodit-react';
 import useEventData from '../../customHooks/useEventSectionHook';
 import { fetchGetEventBySearchData } from '../../fetchedData/fetchEventData';
 import Loading from '../../Loading/Loading';
@@ -143,7 +142,7 @@ const Events = ({ darkmode }) => {
                                 ?
                                 <div className={events.eventsFirstPartDetail}>
                                     {
-                                        findApprovedEventData?.slice((number - 10), number)?.reverse()?.map(eventData => {
+                                        findApprovedEventData?.slice((number - 10), number)?.map(eventData => {
                                             return (
                                                 <p style={{ cursor: 'pointer' }} onClick={() => getSingleEventFromTitle(eventData?._id)} title={eventData?.title} className={events.title}>{eventData?.title?.length > 30 ? eventData?.title?.slice(0, 29) + '...' : eventData?.title}</p>
                                             )
@@ -197,7 +196,7 @@ const Events = ({ darkmode }) => {
                                 ?
                                 <div style={{ transition: '1s ease-in-out' }} className={`${events.events} ${darkmode && 'bg-black text-white'}`}>
                                     {
-                                        findApprovedEventData?.slice(number - 10, number)?.reverse()?.map(allEvents => {
+                                        findApprovedEventData?.slice(number - 10, number)?.map(allEvents => {
                                             return (
                                                 <div className={events.eventCart}>
                                                     <div className={events.eventImagePart}>

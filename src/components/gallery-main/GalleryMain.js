@@ -29,7 +29,7 @@ const GalleryMain = ({ darkmode }) => {
 
     }
 
-    const findApprovedImgData = imgData?.filter(f => {
+    const findApprovedImgData = imgData?.slice()?.reverse()?.filter(f => {
         return f.approval === true;
     })
 
@@ -189,7 +189,7 @@ const GalleryMain = ({ darkmode }) => {
                                 search === '' ?
                                     <div>
                                         {
-                                            findApprovedImgData?.slice((number - 10), number)?.reverse()?.map(imgData => {
+                                            findApprovedImgData?.slice((number - 10), number)?.map(imgData => {
                                                 return (
                                                     <p onClick={() => getSingleBlogFromTitle(imgData?._id)} title={imgData?.title} className={galleryMain.title}>{imgData?.title?.length > 30 ? imgData?.title?.slice(0, 29) + '...' : imgData?.title}</p>
                                                 )
@@ -245,7 +245,7 @@ const GalleryMain = ({ darkmode }) => {
                                 ?
                                 <div style={{ transition: '1s ease-in-out' }} className={`${galleryMain.gallery} ${darkmode && 'bg-black'}`}>
                                     {
-                                        findApprovedImgData?.slice((number - 10), number)?.reverse()?.map((allImg, index) => {
+                                        findApprovedImgData?.slice((number - 10), number)?.map((allImg, index) => {
                                             return (
                                                 <div data-aos="zoom-in" duration="1200" className={galleryMain.image}>
                                                     {
@@ -357,7 +357,7 @@ const GalleryMain = ({ darkmode }) => {
                             <i onClick={() => setVisible(false)} className="uil uil-times-circle"></i>
                             <div style={{ width: `${imgModalData?.length * 100}%` }} className="gallery-modal-container">
                                 {
-                                    imgModalData?.slice()?.reverse()?.map((imgModal) => {
+                                    imgModalData?.slice()?.map((imgModal) => {
                                         return (
                                             <div style={{ transform: `translateX(${count * -100}%)`, transition: 'transform 1s' }} className="image-modal">
 
