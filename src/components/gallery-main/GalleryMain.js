@@ -361,7 +361,7 @@ const GalleryMain = ({ darkmode }) => {
                                         return (
                                             <div style={{ transform: `translateX(${count * -100}%)`, transition: 'transform 1s' }} className="image-modal">
 
-                                                <img style={{ width: '100%', height: 'auto' }} className='maine-img' src={imgModal?.imgLink} alt="" />
+                                                <img className='maine-img' src={imgModal?.imgLink} alt="" />
                                                 <div >
                                                     <p style={{ position: 'absolute', top: '20px', left: '25px', color: 'white', backgroundColor: 'rgba(0, 0, 0, 0.5)', width: '95%', padding: '5px', borderRadius: '5px' }}>{imgModal.title}</p>
                                                 </div>

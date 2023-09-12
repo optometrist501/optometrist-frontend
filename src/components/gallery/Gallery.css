@@ -132,13 +132,20 @@
     cursor: pointer;
 }
 
-  
+.maine-img{
+  width: 100%;
+  height: 90vh;
+}
 
   
   
   @media (max-width: 768px) {
     .image {
       flex: 0 0 50%;
+    }
+    .maine-img{
+      width: 100%;
+      height: 50vh;
     }
 
     .gallerySlideController{
@@ -169,6 +176,11 @@
 
     .gallery-modal{
       width: 100%;
+    }
+
+    .maine-img{
+      width: 100%;
+      height: 50vh;
     }
   }
   
