@@ -319,7 +319,13 @@ const Blogs = ({ darkmode }) => {
                                                 <div className={blogs.blogsContainer}>
                                                     <br />
                                                     <p className='text-sm text-gray-500 italic'> <i class="uil uil-user-square"></i> {allBlogs.name}</p>
-                                                    <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i> {allBlogs.release_date}</p>
+                                                    <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i>
+                                                        <span>
+                                                            {allBlogs?.release_date?.slice(8, 10)}-
+                                                            {allBlogs?.release_date?.slice(5, 7)}-
+                                                            {allBlogs.release_date?.slice(0, 4)}
+                                                        </span>
+                                                    </p>
                                                     <br />
                                                     <hr />
                                                     <br />
@@ -412,7 +418,13 @@ const Blogs = ({ darkmode }) => {
                                                         <div>
                                                             <br />
                                                             <p className='text-sm text-gray-500 italic'> <i class="uil uil-user-square"></i> {allBlogs.name}</p>
-                                                            <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i> {allBlogs.release_date}</p>
+                                                            <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i>
+                                                                <span>
+                                                                    {allBlogs?.release_date?.slice(8, 10)}-
+                                                                    {allBlogs?.release_date?.slice(5, 7)}-
+                                                                    {allBlogs.release_date?.slice(0, 4)}
+                                                                </span>
+                                                            </p>
                                                             <br />
                                                             <hr />
                                                             <br />
@@ -463,7 +475,7 @@ const Blogs = ({ darkmode }) => {
 
                                                                 </div>
                                                             </div>
-                                                            br
+                                                            <br />
                                                             <div className={blogs.sharePart}>
                                                                 <FacebookShareButton url={`${process.env.REACT_APP_LINK_BLOG}/${allBlogs?._id}`}>
                                                                     <span className='block ml-3'>

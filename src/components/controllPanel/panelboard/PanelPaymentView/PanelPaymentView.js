@@ -113,7 +113,7 @@ const PanelPaymentView = ({ darkmode }) => {
                                                     <span>{index + 1}. </span>
                                                     <span className='ml-5'>{history?.total_amount}</span>
 
-                                                    <span className='ml-5'>{history?.createdAt?.slice(0, 10)}</span>
+                                                    <span className='ml-5'>{history?.createdAt?.slice(8, 10)}-{history?.createdAt?.slice(5, 7)}-{history?.createdAt?.slice(0, 4)}</span>
 
                                                     <span className='ml-5'>{history?.cus_name}</span>
                                                 </div>
@@ -143,7 +143,7 @@ const PanelPaymentView = ({ darkmode }) => {
                                                     <span>{index + 1}. </span>
                                                     <span className='ml-5'>{history?.total_amount}</span>
 
-                                                    <span className='ml-5'>{history?.createdAt?.slice(0, 10)}</span>
+                                                    <span className='ml-5'>{history?.createdAt?.slice(8, 10)}-{history?.createdAt?.slice(5, 7)}-{history?.createdAt?.slice(0, 4)}</span>
 
                                                     <span className='ml-5'>{history?.cus_name}</span>
                                                 </div>
@@ -188,6 +188,16 @@ const PanelPaymentView = ({ darkmode }) => {
                                             <p className='font-bold text-sm text-blue-500 mb-2'>postcode: {findHistory?.cus_postcode}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>country: {findHistory?.cus_country}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>Status: {findHistory?.isPaid ? <span>Paid</span> : <span>Failed</span>}</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>Payment Method: online</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>
+                                                <span>
+                                                    payment-date:
+                                                    {findHistory?.createdAt?.slice(8, 10)}-
+                                                    {findHistory?.createdAt?.slice(5, 7)}-
+                                                    {findHistory?.createdAt?.slice(0, 4)}
+                                                </span>
+                                            </p>
+                                            <button className='btn btn-primary print:hidden' onClick={() => window.print()} >print</button>
                                         </div>
 
                                     </div>
@@ -225,15 +235,22 @@ const PanelPaymentView = ({ darkmode }) => {
                                             <p className='font-bold text-sm text-blue-500 mb-2'>postcode: {findOfflinePaymentHistory?.cus_postcode}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>country: {findOfflinePaymentHistory?.cus_country}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>Status: paid</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>Payment Method: offline</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>
+                                                <span>
+                                                    payment date:
+                                                    {findOfflinePaymentHistory?.createdAt?.slice(8, 10)}-
+                                                    {findOfflinePaymentHistory?.createdAt?.slice(5, 7)}-
+                                                    {findOfflinePaymentHistory?.createdAt?.slice(0, 4)}
+                                                </span>
+                                            </p>
+                                            <button className='btn btn-primary print:hidden' onClick={() => window.print()} >print</button>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
                         }
-
-
-
                     </div>
 
                 </div>

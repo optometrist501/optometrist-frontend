@@ -261,7 +261,13 @@ const PanelBlog = ({ darkmode }) => {
                                     <div className={panelBlog.blogsContainer}>
                                         <br />
                                         <p className='text-sm text-gray-500 italic'> <i class="uil uil-user-square"></i> {findBlog?.name}</p>
-                                        <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i> {findBlog?.release_date}</p>
+                                        <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i>
+                                            <span>
+                                                {findBlog?.release_date?.slice(8, 10)}-
+                                                {findBlog?.release_date?.slice(5, 7)}-
+                                                {findBlog?.release_date?.slice(0, 4)}
+                                            </span>
+                                        </p>
                                         <br />
                                         <hr />
                                         <br />

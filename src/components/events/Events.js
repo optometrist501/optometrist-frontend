@@ -23,7 +23,7 @@ const Events = ({ darkmode }) => {
     const [eventBySearchData, setEventBySearchData] = useState([]);
     const [roundedDataLength, setRoundedDataLength] = useState();
 
-    const findApprovedEventData = allEvents?.filter(f => {
+    const findApprovedEventData = allEvents?.slice()?.reverse()?.filter(f => {
         return f.approval === true;
     })
 
@@ -212,8 +212,20 @@ const Events = ({ darkmode }) => {
                                                             <hr />
                                                             <div className={events.eventsLastPart}>
                                                                 <div className={events.eventsLastPartOne}>
-                                                                    <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date : {allEvents.eventDate}</p>
-                                                                    <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : {allEvents.deadline}</p>
+                                                                    <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date :
+                                                                        <span>
+                                                                            {allEvents.eventDate?.slice(8, 10)}-
+                                                                            {allEvents.eventDate?.slice(5, 7)}-
+                                                                            {allEvents.eventDate?.slice(0, 4)}
+                                                                        </span>
+                                                                    </p>
+                                                                    <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline :
+                                                                        <span>
+                                                                            {allEvents.deadline?.slice(8, 10)}-
+                                                                            {allEvents.deadline?.slice(5, 7)}-
+                                                                            {allEvents.deadline?.slice(0, 4)}
+                                                                        </span>
+                                                                    </p>
                                                                 </div>
                                                                 <div className={events.eventsLastPartTwo}>
                                                                     <span title='view' onClick={() => handleModalSection(allEvents?._id)}><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
@@ -245,8 +257,20 @@ const Events = ({ darkmode }) => {
                                                             <hr />
                                                             <div className={events.eventsLastPart}>
                                                                 <div className={events.eventsLastPartOne}>
-                                                                    <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date : {allEvents.eventDate}</p>
-                                                                    <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : {allEvents.deadline}</p>
+                                                                    <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date :
+                                                                        <span>
+                                                                            {allEvents.eventDate?.slice(8, 10)}-
+                                                                            {allEvents.eventDate?.slice(5, 7)}-
+                                                                            {allEvents.eventDate?.slice(0, 4)}
+                                                                        </span>
+                                                                    </p>
+                                                                    <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline :
+                                                                        <span>
+                                                                            {allEvents.deadline?.slice(8, 10)}-
+                                                                            {allEvents.deadline?.slice(5, 7)}-
+                                                                            {allEvents.deadline?.slice(0, 4)}
+                                                                        </span>
+                                                                    </p>
                                                                 </div>
                                                                 <div className={events.eventsLastPartTwo}>
                                                                     <span title='view' onClick={() => handleModalSection(allEvents?._id)}><i className="uil uil-eye mr-2 cursor-pointer"></i></span>
@@ -306,8 +330,21 @@ const Events = ({ darkmode }) => {
                                     </div>
                                     <br />
                                     <div className={events?.modalOthers}>
-                                        <p className='text-sm mt-2 text-gray-500'> <i class="uil uil-clock-nine"></i> Event Date : {findDetailEvents?.eventDate}</p>
-                                        <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : {findDetailEvents?.deadline}</p>
+                                        <p className='text-sm mt-2 text-gray-500'>
+                                            <i class="uil uil-clock-nine"></i> Event Date :
+                                            <span>
+                                                {findDetailEvents?.eventDate?.slice(8, 10)}-
+                                                {findDetailEvents?.eventDate?.slice(5, 7)}-
+                                                {findDetailEvents?.eventDate?.slice(0, 4)}
+                                            </span>
+                                        </p>
+                                        <p className='text-sm text-gray-500'> <i className="uil uil-lock-alt"></i> Deadline : <span>
+                                            {findDetailEvents?.deadline?.slice(8, 10)}-
+                                            {findDetailEvents?.deadline?.slice(5, 7)}-
+                                            {findDetailEvents?.deadline?.slice(0, 4)}
+                                        </span>
+
+                                        </p>
                                     </div>
                                 </div>
                             </div>

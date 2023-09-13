@@ -77,8 +77,11 @@ const PanelPaymentHistory = ({ darkmode }) => {
                                                 <div className={paymentHistory.partOneDetail}>
                                                     <span>{index + 1}. </span>
                                                     <span className='ml-5'>{history?.total_amount}</span>
-
-                                                    <span className='ml-5'>{history?.createdAt?.slice(0, 10)}</span>
+                                                    <span className='ml-5'>
+                                                        {history?.createdAt?.slice(8, 10)}-
+                                                        {history?.createdAt?.slice(5, 7)}-
+                                                        {history?.createdAt?.slice(0, 4)}
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div className={paymentHistory.partTwo}>
@@ -122,6 +125,16 @@ const PanelPaymentHistory = ({ darkmode }) => {
                                             <p className='font-bold text-sm text-blue-500 mb-2'>
                                                 payment method: online
                                             </p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>
+                                                payment-date :
+
+                                                <span>
+                                                    {findHistory?.createdAt?.slice(8, 10)}-
+                                                    {findHistory?.createdAt?.slice(5, 7)}-
+                                                    {findHistory?.createdAt?.slice(0, 4)}
+                                                </span>
+                                            </p>
+                                            <button className='btn btn-primary print:hidden' onClick={() => window.print()} >print</button>
                                         </div>
 
                                     </div>

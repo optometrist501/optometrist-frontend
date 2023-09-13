@@ -246,8 +246,20 @@ const PanelEvent = ({ darkmode }) => {
                                     <div className={panelEvent.eventsContainer}>
                                         <br />
                                         <p className='text-sm text-gray-500 italic'> <i class="uil uil-user-square"></i> {findEvent?.name}</p>
-                                        <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i> {findEvent?.eventDate}</p>
-                                        <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i> {findEvent?.deadline}</p>
+                                        <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i>
+                                            <span>
+                                                {findEvent?.eventDate?.slice(8, 10)}-
+                                                {findEvent?.eventDate?.slice(5, 7)}-
+                                                {findEvent?.eventDate?.slice(0, 4)}
+                                            </span>
+                                        </p>
+                                        <p className='text-sm text-gray-500 italic'> <i class="uil uil-clock-three"></i>
+                                            <span>
+                                                {findEvent?.deadline?.slice(8, 10)}-
+                                                {findEvent?.deadline?.slice(5, 7)}-
+                                                {findEvent?.deadline?.slice(0, 4)}
+                                            </span>
+                                        </p>
                                         <br />
                                         <hr />
                                         <br />

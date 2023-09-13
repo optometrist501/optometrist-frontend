@@ -120,7 +120,6 @@ const DashPaymentHistory = ({ darkmode }) => {
                                                     <p>{history?.isPaid ? <span className='text-green-600 italic text-sm'>Paid</span> : <span className='text-red-500 italic text-sm'>Failed</span>}</p>
                                                     <p title='view' onClick={() => handleModal(1, history?._id)} ><i class="uil uil-eye text-blue-600 cursor-pointer"></i></p>
 
-
                                                 </div>
                                             </div>
                                         </div>
@@ -184,6 +183,16 @@ const DashPaymentHistory = ({ darkmode }) => {
                                             <p className='font-bold text-sm text-blue-500 mb-2'>postcode: {findHistory?.cus_postcode}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>country: {findHistory?.cus_country}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>Status: {findHistory?.isPaid ? <span>Paid</span> : <span>Failed</span>}</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>Payment Method: online</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>
+                                                payment-date:
+                                                <span>
+                                                    {findHistory?.createdAt?.slice(8, 10)}-
+                                                    {findHistory?.createdAt?.slice(5, 7)}-
+                                                    {findHistory?.createdAt?.slice(0, 4)}
+                                                </span>
+                                            </p>
+                                            <button className='btn btn-primary print:hidden' onClick={() => window.print()} >print</button>
                                         </div>
 
                                     </div>
@@ -219,6 +228,16 @@ const DashPaymentHistory = ({ darkmode }) => {
                                             <p className='font-bold text-sm text-blue-500 mb-2'>postcode: {findOfflinePaymentHistory?.cus_postcode}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>country: {findOfflinePaymentHistory?.cus_country}</p>
                                             <p className='font-bold text-sm text-blue-500 mb-2'>Status: paid</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>Payment Method: offline</p>
+                                            <p className='font-bold text-sm text-blue-500 mb-2'>
+                                                payment-date:
+                                                <span>
+                                                    {findOfflinePaymentHistory?.createdAt?.slice(8, 10)}-
+                                                    {findOfflinePaymentHistory?.createdAt?.slice(5, 7)}-
+                                                    {findOfflinePaymentHistory?.createdAt?.slice(0, 4)}
+                                                </span>
+                                            </p>
+                                            <button className='btn btn-primary print:hidden' onClick={() => window.print()} >print</button>
                                         </div>
 
                                     </div>

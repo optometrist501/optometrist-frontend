@@ -57,7 +57,13 @@ const BlogHome = ({ darkmode }) => {
                                     return (
                                         <div key={blogs.id} style={{ transform: `translateX(${count * -100}%)`, transition: 'transform 1s' }} className="allBlogs">
                                             <p className='text-gray-500 text-sm italic'><i class="uil uil-user-square"></i> {blogs.name}</p>
-                                            <p className='text-gray-500 text-sm italic'><i className="uil uil-clock-three"></i> {blogs.release_date}</p>
+                                            <p className='text-gray-500 text-sm italic'><i className="uil uil-clock-three"></i>
+                                                <span>
+                                                    {blogs?.release_date?.slice(8, 10)}-
+                                                    {blogs?.release_date?.slice(5, 7)}-
+                                                    {blogs?.release_date?.slice(0, 4)}
+                                                </span>
+                                            </p>
                                             <br />
                                             <  hr />
                                             <br />
