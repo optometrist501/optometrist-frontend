@@ -118,7 +118,7 @@ const MyProfile = ({ darkmode }) => {
                         <br />
                         <hr />
                         <br />
-                        <p>Id: {findMember?.member_id}</p>
+                        <p>Reg No: {findMember?.member_id}</p>
                         <p>Type: {findMember?.isAdmin ? <span>Admin</span> : <span>Member</span>}</p>
                         <br />
                         <br />
