@@ -88,7 +88,7 @@ const MyProfile = ({ darkmode }) => {
 
 
     return (
-        <div style={{ transition: '1s ease-in-out' }} className={`${myProfile.main} ${darkmode && 'bg-black text-white'}`}>
+        <div style={{ transition: '1s ease-in-out' }} className={`${myProfile.main} ${darkmode ? 'bg-black text-white' : 'bg-white'}`}>
 
             <div style={{ transition: '1s ease-in-out' }} className={`${myProfile.container} ${darkmode ? 'bg-black' : 'bg-white'}`}>
                 <div className={myProfile.firstPart}>

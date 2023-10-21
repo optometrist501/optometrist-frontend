@@ -123,7 +123,7 @@ const Events = ({ darkmode }) => {
         return <Loading></Loading>
     }
     return (
-        <div className={events.eventsMain}>
+        <div className={`${events.eventsMain} ${darkmode ? 'bg-black' : 'bg-white'}`}>
             <div className={events.eventsMainContainer}>
                 <div onMouseLeave={() => setFlipDrawer(-50)} style={{ left: `${flipDrawer}%`, transition: '1s ease-in-out' }} className={events.eventsFirstPart}>
                     <div className={events.eventsFirstPartContainer}>
@@ -167,7 +167,7 @@ const Events = ({ darkmode }) => {
                     </div>
                 </div>
                 <div className={events.eventsSecondPart}>
-                    <div className={events.eventsSecondPartContainer}>
+                    <div className={`${events.eventsSecondPartContainer} ${darkmode ? 'bg-black' : 'bg-white'}`}>
 
                         <div className={events.searchBar}>
                             <span className={events.bargerRes}> <i onClick={flipDrawer === 0 ? () => setFlipDrawer(50) : () => setFlipDrawer(0)} className=" uil uil-bars ml-2"></i></span>

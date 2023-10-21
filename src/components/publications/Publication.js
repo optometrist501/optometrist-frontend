@@ -4,7 +4,7 @@ import Publications from './Publication.module.css';
 import usePublicationHook from '../../customHooks/usePublicationHook';
 import { fetchGetPublicationBySearchData } from '../../fetchedData/fetchPublicationData';
 
-const Publication = () => {
+const Publication = ({ darkmode }) => {
     const [flipDrawer, setFlipDrawer] = useState(-50);
 
     const [number, setNumber] = useState(10);
@@ -97,7 +97,7 @@ const Publication = () => {
 
 
     return (
-        <div className={Publications.eventsMain}>
+        <div className={`${Publications.eventsMain} ${darkmode ? 'bg-black' : 'bg-white'}`}>
             <div className={Publications.eventsMainContainer}>
                 <div onMouseLeave={() => setFlipDrawer(-50)} style={{ left: `${flipDrawer}%`, transition: '1s ease-in-out' }} className={Publications.eventsFirstPart}>
                     <div className={Publications.eventsFirstPartContainer}>
@@ -155,14 +155,14 @@ const Publication = () => {
                     </div>
                 </div>
                 <div className={Publications.eventsSecondPart}>
-                    <div className={Publications.eventsSecondPartContainer}>
+                    <div className={`${Publications.eventsSecondPartContainer}  ${darkmode ? 'bg-black' : 'bg-white'}`}>
 
                         <div className={Publications.searchBar}>
                             <span className={Publications.bargerRes}> <i onClick={flipDrawer === 0 ? () => setFlipDrawer(50) : () => setFlipDrawer(0)} className=" uil uil-bars ml-2"></i></span>
                             <div className={Publications.searchBarContainer}>
                                 <div>
                                     <i className="uil uil-search text-xl "></i>
-                                    <input className={Publications.gallery_input} placeholder='search' type="text"
+                                    <input className={`${Publications.gallery_input} bg-white`} placeholder='search' type="text"
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
                                 </div>

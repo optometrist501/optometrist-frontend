@@ -170,7 +170,7 @@ const GalleryMain = ({ darkmode }) => {
 
 
     return (
-        <div className={galleryMain.galleryMain}>
+        <div className={`${galleryMain.galleryMain} ${darkmode ? 'bg-black' : 'bg-white'}`}>
             <div className={galleryMain.galleryMainContainer}>
                 <div onMouseLeave={() => setFlipDrawer(-50)} style={{ left: `${flipDrawer}%`, transition: '1s ease-in-out' }} className={galleryMain.galleryFirstPart}>
                     <div className={galleryMain.galleryFirstPartContainer}>
@@ -216,7 +216,7 @@ const GalleryMain = ({ darkmode }) => {
                     </div>
                 </div>
                 <div className={galleryMain.gallerySecondPart}>
-                    <div className={galleryMain.gallerySecondPartContainer}>
+                    <div className={`${galleryMain.gallerySecondPartContainer} ${darkmode ? 'bg-black' : 'bg-white'}`}>
 
                         <div className={galleryMain.searchBar}>
                             <span className={galleryMain.bargerRes}> <i onClick={flipDrawer === 0 ? () => setFlipDrawer(50) : () => setFlipDrawer(0)} className=" uil uil-bars ml-2"></i></span>

@@ -97,7 +97,7 @@ const Login = ({ darkmode }) => {
     }
 
     return (
-        <div style={{ transition: '1s ease-in-out' }} className={` ${darkmode && 'bg-black text-white'} loginMain`}>
+        <div style={{ transition: '1s ease-in-out' }} className={` ${darkmode ? 'bg-black text-white' : 'bg-white'} loginMain`}>
             <div className="loginRegistrationContainer">
                 <div className="loginRegistrationOptions">
                     <div onClick={() => setLoginSwith(false)} className={`${!loginSwitch && 'backgroundForOptions'} loginOption`}>Login</div>
@@ -111,7 +111,7 @@ const Login = ({ darkmode }) => {
                             <div className="form-group">
                                 <label>Email:</label>
                                 <input
-                                    className='inputLoginReg'
+                                    className='inputLoginReg bg-white'
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -121,7 +121,7 @@ const Login = ({ darkmode }) => {
                             <div className="form-group">
                                 <label>Password:</label>
                                 <input
-                                    className='inputLoginReg'
+                                    className='inputLoginReg bg-white'
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
@@ -188,7 +188,7 @@ const Login = ({ darkmode }) => {
                             <div className="form-group">
                                 <label>name:</label>
                                 <input
-                                    className='inputLoginReg'
+                                    className='inputLoginReg bg-white'
                                     type="text"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
@@ -198,7 +198,7 @@ const Login = ({ darkmode }) => {
                             <div className="form-group">
                                 <label>Email:</label>
                                 <input
-                                    className='inputLoginReg'
+                                    className='inputLoginReg bg-white'
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -208,7 +208,7 @@ const Login = ({ darkmode }) => {
                             <div className="form-group">
                                 <label>Password:</label>
                                 <input
-                                    className='inputLoginReg'
+                                    className='inputLoginReg bg-white'
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}

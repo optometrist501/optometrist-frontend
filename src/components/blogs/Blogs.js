@@ -286,7 +286,7 @@ const Blogs = ({ darkmode }) => {
                     </div>
                 </div>
                 <div className={blogs.blogsSecondPart}>
-                    <div className={blogs.blogsSecondPartContainer}>
+                    <div className={`${blogs.blogsSecondPartContainer} ${darkmode ? 'bg-black' : 'bg-white'}`}>
 
                         <div className={blogs.searchBar}>
                             <span className={blogs.bargerRes}> <i onClick={flipDrawer === 0 ? () => setFlipDrawer(50) : () => setFlipDrawer(0)} className=" uil uil-bars ml-2"></i></span>
@@ -294,7 +294,7 @@ const Blogs = ({ darkmode }) => {
                                 <div>
                                     <i className="uil uil-search text-xl "></i>
                                     <input
-                                        className={blogs.blogs_input}
+                                        className={`${blogs.blogs_input} bg-white`}
                                         placeholder='search'
                                         type="text"
                                         onChange={(e) => setSearch(e.target.value)}
@@ -312,7 +312,7 @@ const Blogs = ({ darkmode }) => {
                         </div>
                         {
                             search === '' ?
-                                <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogs} ${darkmode && 'bg-black text-white'}`}>
+                                <div style={{ transition: '1s ease-in-out' }} className={`${blogs.blogs}`}>
                                     {
                                         findApprovedBlogs?.slice(number - 10, number)?.map(allBlogs => {
                                             return (

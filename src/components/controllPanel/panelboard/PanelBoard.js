@@ -315,7 +315,7 @@ const PanelBoard = ({ darkmode }) => {
                         </div>
                     </div>
                 </div>
-                <div className="main-content">
+                <div className={`main-content ${darkmode ? 'bg-black' : 'bg-white'}`}>
 
                     <div className="main-content-container">
                         <div className="firstBar">
