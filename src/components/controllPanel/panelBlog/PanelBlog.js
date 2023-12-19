@@ -456,6 +456,7 @@ const PanelBlog = ({ darkmode }) => {
                                                 <input className={panelBlog.chooseFile} type="file" name="" id=""
                                                     onChange={(e) => {
                                                         const imgFile = e.target.files[0];
+                                                        console.log(imgFile);
                                                         uploadForPanelDash(imgFile, setAddImg, setUpdateImg, setImgHolder)
                                                     }}
                                                 />

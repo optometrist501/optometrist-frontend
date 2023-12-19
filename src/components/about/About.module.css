@@ -24,7 +24,7 @@
 }
 
 .gradient_text {
-  background-image: linear-gradient(to right, #ff00cc, #3333ff); /* Replace the colors with your desired gradient */
+  background-image: linear-gradient(to right, #ff00cc, #3333ff);
   background-clip: text;
   -webkit-background-clip: text; /* For Safari/Chrome */
   color: transparent;
