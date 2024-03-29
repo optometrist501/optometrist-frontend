@@ -22,14 +22,8 @@ const MemberLogin = ({ darkmode }) => {
         return f.email === user?.email;
     });
 
-
-
-
-
-
-
     const imageLinkWord = process.env.REACT_APP_IMG_LINK_SLICED;
-    const imgHolderModifiedWord = imgHolder.slice(0, 17);
+    const imgHolderModifiedWord = imgHolder?.slice(0, 27);
 
 
     const handleSubmit = async (e) => {
@@ -49,6 +43,8 @@ const MemberLogin = ({ darkmode }) => {
             email: user?.email,
         };
 
+
+        console.log(bodyData)
 
         if (user?.email !== findEmail?.email) {
 
@@ -269,7 +265,6 @@ const MemberLogin = ({ darkmode }) => {
                             <br />
                             <div className={member.loginRegSubmitBtn}>
                                 <button onClick={() => {
-
                                 }} className={member.btnLoginReg} type="submit">SUBMIT</button>
                             </div>
                         </form>

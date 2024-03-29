@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 const PanelRequests = () => {
     const [memberData, refetch] = useMemberData();
     const allMembers = memberData?.data?.data?.data;
-
+    console.log(allMembers)
     const pendingMembers = allMembers?.filter(f => {
         return f?.approval === false
     });

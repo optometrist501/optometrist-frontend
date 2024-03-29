@@ -7,6 +7,8 @@ const useMemberData = () => {
     const [memberData, setMemberData] = useState([]);
     const { data: getMemberData, refetch } = useQuery("getMemberData", () => fetchGetMemberData());
 
+    console.log(memberData?.data?.data?.data)
+
     useEffect(() => {
         setMemberData(getMemberData)
     }, [getMemberData])
